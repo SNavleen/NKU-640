@@ -4,6 +4,17 @@ Welcome to the NKU 640 course site!
 
 ## Homework Assignments
 
+### Homework 3: High-Level Programming Languages
+
+Building Todo Apps in JavaScript, TypeScript, and React to demonstrate the evolution and benefits of high-level programming languages.
+
+**Documentation:**
+
+- [Overview](homework3/README.md) - Homework overview and key topics
+- [Presentation](homework3/presentation.md) - Presentation slides
+
+---
+
 ### Homework 4: TODO REST API
 
 A secure REST API for managing TODO lists and tasks with JWT authentication.
@@ -42,7 +53,11 @@ Software quality practices and presentations covering Weeks 1-4.
 
 **Presentations:**
 
-- [Final Presentation](homework5/presentation.md) - Finial Presentation for CSC 640
+- [Final Presentation](homework5/presentation.md) - Final Presentation for CSC 640
+- [Week 1](homework5/week1.md) - Week 1 presentation
+- [Week 2](homework5/week2.md) - Week 2 presentation
+- [Week 3](homework5/week3.md) - Week 3 presentation
+- [Week 4](homework5/week4.md) - Week 4 presentation
 
 ---
 

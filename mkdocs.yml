@@ -1,6 +1,9 @@
 site_name: NKU 640
 nav:
   - Home: index.md
+  - High-Level Languages:
+      - Overview: homework3/README.md
+      - Presentation: homework3/presentation.md
   - TODO-API:
       - Overview: homework4/README.md
       - Plan: homework4/HW4_plan_stage1.md
@@ -12,6 +15,10 @@ nav:
   - Quality Software:
       - Overview: homework5/README.md
       - Final Presentation: homework5/presentation.md
+      - Week 1: homework5/week1.md
+      - Week 2: homework5/week2.md
+      - Week 3: homework5/week3.md
+      - Week 4: homework5/week4.md
 theme:
   name: material
 extra_css:
