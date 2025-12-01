@@ -1,5 +1,4 @@
 site_name: NKU 640
-site_url: https://snavleen.github.io/NKU-640/
 nav:
   - Home: index.md
   - High-Level Languages:
