@@ -1,5 +1,5 @@
 title = "NKU 640 Documentation"
-baseURL = "/hugo/"
+baseURL = "https://snavleen.github.io/NKU-640/hugo/"
 languageCode = "en"
 
 [params]
