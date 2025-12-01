@@ -2,6 +2,8 @@
 
 Welcome to the NKU 640 course site!
 
+**Also available in [Hugo format](/hugo/)**
+
 ## Homework Assignments
 
 ### Homework 3: High-Level Programming Languages
