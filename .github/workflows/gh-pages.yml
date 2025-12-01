@@ -35,6 +35,7 @@ jobs:
           hugo --minify
       - name: Move Hugo site to MkDocs site
         run: |
+          rm -rf site/hugo
           mv hugo-docs-site/public site/hugo
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
