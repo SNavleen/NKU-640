@@ -1,4 +1,4 @@
-name: Deploy MkDocs and Hugo to GitHub Pages
+name: Deploy Hugo to GitHub Pages
 
 on:
   push:
@@ -14,16 +14,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
-      - name: Install MkDocs dependencies
-        run: |
-          pip install mkdocs mkdocs-material
-      - name: Build MkDocs
-        run: |
-          mkdocs build
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
@@ -33,12 +23,8 @@ jobs:
         run: |
           cd hugo-docs-site
           hugo --minify
-      - name: Move Hugo site to MkDocs site
-        run: |
-          rm -rf site/hugo
-          mv hugo-docs-site/public site/hugo
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          publish_dir: ./site
+          publish_dir: ./hugo-docs-site/public
           publish_branch: gh-pages
