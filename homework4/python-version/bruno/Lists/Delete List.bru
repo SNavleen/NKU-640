@@ -1,0 +1,28 @@
+meta {
+  name: Delete List
+  type: http
+  seq: 10
+}
+
+delete {
+  url: {{apiUrl}}/lists/{{listId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  ## Delete List
+  
+  Delete a TODO list and all its tasks.
+  
+  **Authentication:** Required (JWT token)
+  
+  **URL Parameters:**
+  - `listId`: UUID of the list to delete
+  
+  **Response:** 204 No Content
+}

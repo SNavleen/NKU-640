@@ -1,0 +1,39 @@
+meta {
+  name: Login
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{apiUrl}}/auth/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "testuser",
+    "password": "password123"
+  }
+}
+
+script:post-response {
+  let data = res.body;
+  bru.setEnvVar("token", data.token);
+}
+
+docs {
+  ## User Login
+
+  Authenticate user and get JWT token.
+
+  **Authentication:** Not required
+
+  **Request Body:**
+  - `username`: User's username
+  - `password`: User's password
+
+  **Response:**
+  - `user`: User profile information
+  - `token`: JWT access token (automatically saved to environment)
+}

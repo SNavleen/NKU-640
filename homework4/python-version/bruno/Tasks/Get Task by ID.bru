@@ -1,0 +1,28 @@
+meta {
+  name: Get Task by ID
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{apiUrl}}/tasks/{{taskId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  ## Get Task by ID
+
+  Retrieve a specific task by its ID.
+
+  **Authentication:** Required (JWT token)
+
+  **URL Parameters:**
+  - `taskId`: UUID of the task
+
+  **Response:** Task object with all details
+}

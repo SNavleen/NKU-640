@@ -1,0 +1,45 @@
+meta {
+  name: Update Task
+  type: http
+  seq: 14
+}
+
+patch {
+  url: {{apiUrl}}/tasks/{{taskId}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Updated Task Title",
+    "description": "Updated task description",
+    "completed": true,
+    "priority": "high",
+    "categories": ["work", "important"]
+  }
+}
+
+docs {
+  ## Update Task
+
+  Update an existing task.
+
+  **Authentication:** Required (JWT token)
+
+  **URL Parameters:**
+  - `taskId`: UUID of the task to update
+
+  **Request Body:** (all fields optional)
+  - `title`: New task title
+  - `description`: New task description
+  - `completed`: Boolean completion status
+  - `priority`: low/medium/high
+  - `categories`: Array of category strings
+
+  **Response:** Updated task object
+}

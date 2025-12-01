@@ -1,0 +1,30 @@
+meta {
+  name: Get Profile
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{apiUrl}}/users/profile
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  ## Get User Profile
+
+  Get current user's profile information.
+
+  **Authentication:** Required (JWT token)
+
+  **Response:**
+  - `id`: User ID
+  - `username`: Username
+  - `email`: Email address
+  - `created_at`: Account creation timestamp
+  - `updated_at`: Last update timestamp
+}

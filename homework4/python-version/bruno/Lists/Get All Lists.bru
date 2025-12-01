@@ -1,0 +1,31 @@
+meta {
+  name: Get All Lists
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{apiUrl}}/lists
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+script:post-response {
+  if (res.body && res.body.length > 0) {
+    bru.setEnvVar("listId", res.body[0].id);
+  }
+}
+
+docs {
+  ## Get All Lists
+
+  Retrieve all TODO lists for the authenticated user.
+
+  **Authentication:** Required (JWT token)
+
+  **Response:** Array of list objects with id, title, description, etc.
+}

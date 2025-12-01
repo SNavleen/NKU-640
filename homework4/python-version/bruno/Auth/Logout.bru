@@ -1,0 +1,29 @@
+meta {
+  name: Logout
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{apiUrl}}/auth/logout
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+script:post-response {
+  bru.setEnvVar("token", "");
+}
+
+docs {
+  ## User Logout
+
+  Logout user by blacklisting the JWT token.
+
+  **Authentication:** Required (JWT token)
+
+  **Response:** 204 No Content (token is invalidated)
+}

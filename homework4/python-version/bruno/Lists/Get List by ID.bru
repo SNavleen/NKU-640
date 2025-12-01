@@ -1,0 +1,28 @@
+meta {
+  name: Get List by ID
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{apiUrl}}/lists/{{listId}}
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+docs {
+  ## Get List by ID
+
+  Retrieve a specific TODO list by its ID.
+
+  **Authentication:** Required (JWT token)
+
+  **URL Parameters:**
+  - `listId`: UUID of the list
+
+  **Response:** List object with all details
+}

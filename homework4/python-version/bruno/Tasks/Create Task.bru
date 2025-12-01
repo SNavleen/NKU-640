@@ -1,0 +1,48 @@
+meta {
+  name: Create Task
+  type: http
+  seq: 12
+}
+
+post {
+  url: {{apiUrl}}/lists/{{listId}}/tasks
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Sample Task",
+    "description": "This is a sample task for testing",
+    "priority": "medium",
+    "categories": ["work", "urgent"]
+  }
+}
+
+script:post-response {
+  let data = res.body;
+  bru.setEnvVar("taskId", data.id);
+}
+
+docs {
+  ## Create Task
+
+  Create a new task in a TODO list.
+
+  **Authentication:** Required (JWT token)
+
+  **URL Parameters:**
+  - `listId`: UUID of the list
+
+  **Request Body:**
+  - `title`: Task title (required)
+  - `description`: Task description (optional)
+  - `priority`: low/medium/high (optional)
+  - `categories`: Array of category strings (optional)
+
+  **Response:** Created task object
+}

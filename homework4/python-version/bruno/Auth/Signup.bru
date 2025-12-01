@@ -1,0 +1,41 @@
+meta {
+  name: Signup
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{apiUrl}}/auth/signup
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "testuser",
+    "email": "test@example.com",
+    "password": "password123"
+  }
+}
+
+script:post-response {
+  let data = res.body;
+  bru.setEnvVar("token", data.token);
+}
+
+docs {
+  ## User Signup
+
+  Create a new user account.
+
+  **Authentication:** Not required
+
+  **Request Body:**
+  - `username`: Unique username (3-50 characters)
+  - `email`: Valid email address
+  - `password`: Password (minimum 8 characters)
+
+  **Response:**
+  - `user`: User profile information
+  - `token`: JWT access token (automatically saved to environment)
+}

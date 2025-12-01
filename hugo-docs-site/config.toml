@@ -1,0 +1,39 @@
+title = "NKU 640 Documentation"
+baseURL = "http://example.com/"
+languageCode = "en"
+theme = "material"
+
+[params]
+  description = "Documentation for NKU 640 course projects"
+  author = "Your Name"
+  favicon = "favicon.ico"
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    name = "Homework 4"
+    url = "/homework4/"
+    weight = 2
+
+[output]
+  [output.html]
+    minify = true
+
+[build]
+  writeStats = true
+  renderToDisk = false
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.table]
+        align = true
+      [markup.goldmark.extensions.strikethrough]
+        enabled = true
+
+[params.custom_css]
+  css = ["css/custom.css"]

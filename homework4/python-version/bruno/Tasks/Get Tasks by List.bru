@@ -1,0 +1,34 @@
+meta {
+  name: Get Tasks by List
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{apiUrl}}/lists/{{listId}}/tasks
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+script:post-response {
+  if (res.body && res.body.length > 0) {
+    bru.setEnvVar("taskId", res.body[0].id);
+  }
+}
+
+docs {
+  ## Get Tasks by List
+
+  Retrieve all tasks for a specific TODO list.
+
+  **Authentication:** Required (JWT token)
+
+  **URL Parameters:**
+  - `listId`: UUID of the list
+
+  **Response:** Array of task objects
+}

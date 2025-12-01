@@ -1,0 +1,41 @@
+meta {
+  name: Create List
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{apiUrl}}/lists
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "My TODO List",
+    "description": "A sample TODO list for testing"
+  }
+}
+
+script:post-response {
+  let data = res.body;
+  bru.setEnvVar("listId", data.id);
+}
+
+docs {
+  ## Create List
+
+  Create a new TODO list.
+
+  **Authentication:** Required (JWT token)
+
+  **Request Body:**
+  - `title`: List title (required)
+  - `description`: List description (optional)
+
+  **Response:** Created list object
+}

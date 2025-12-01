@@ -1,0 +1,39 @@
+meta {
+  name: Update List
+  type: http
+  seq: 9
+}
+
+patch {
+  url: {{apiUrl}}/lists/{{listId}}
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Updated TODO List",
+    "description": "Updated description for the TODO list"
+  }
+}
+
+docs {
+  ## Update List
+
+  Update an existing TODO list.
+
+  **Authentication:** Required (JWT token)
+
+  **URL Parameters:**
+  - `listId`: UUID of the list to update
+
+  **Request Body:** (all fields optional)
+  - `title`: New list title
+  - `description`: New list description
+
+  **Response:** Updated list object
+}
