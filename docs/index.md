@@ -22,7 +22,8 @@ A secure REST API for managing TODO lists and tasks with JWT authentication.
 **Documentation:**
 
 - [Project Overview](homework4/README.md) - Main homework overview
-- [Implementation Plan](homework4/HW4_plan_stage1.md) - Development plan and milestones
+- [Implementation Plan (PHP)](homework4/HW4_plan_stage1.md) - Development plan and milestones for PHP version
+- [Implementation Plan (PYTHON)](homework4/HW4_plan_stage2.md) - Development plan and milestones for Python version
 
 **PHP Implementation:**
 
@@ -31,15 +32,23 @@ A secure REST API for managing TODO lists and tasks with JWT authentication.
 - [Tutorial Slides](homework4/php-version/tutorial.md) - Comprehensive tutorial presentation (Marp slides)
 <!-- - [Implementation Summary](homework4/php-version/IMPLEMENTATION_SUMMARY.md) - Technical implementation details -->
 
+**Python Implementation:**
+
+- [README](homework4/python-version/README.md) - Quick start, setup, and testing guide
+- [API Reference](homework4/python-version/API.md) - Complete API specification with all endpoints
+- [Tutorial Slides](homework4/python-version/tutorial.md) - Comprehensive tutorial presentation (Marp slides)
+<!-- - [Implementation Summary](homework4/python-version/IMPLEMENTATION_SUMMARY.md) - Technical implementation details -->
+
 **Features:**
 
 - 14 REST endpoints (Authentication, Lists, Tasks)
-- JWT authentication with bcrypt password hashing
+- JWT authentication with Argon2 password hashing (Python) / bcrypt (PHP)
 - Token blacklisting for secure logout
-- SQL injection prevention (prepared statements)
-- XSS protection (HTML escaping)
-- 39 unit tests
+- SQL injection prevention (prepared statements / SQLAlchemy)
+- XSS protection (HTML escaping / Pydantic validation)
+- Comprehensive unit tests (39 PHP tests, Python pytest suite)
 - Bruno API collection for testing
+- Docker containerization for both implementations
 
 ---
 

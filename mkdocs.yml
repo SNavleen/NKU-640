@@ -6,12 +6,18 @@ nav:
       - Presentation: homework3/presentation.md
   - TODO-API:
       - Overview: homework4/README.md
-      - Plan: homework4/HW4_plan_stage1.md
+      - Plan PHP version: homework4/HW4_plan_stage1.md
+      - Plan Python Version: homework4/HW4_plan_stage2.md
       - PHP Implementation:
           - README: homework4/php-version/README.md
           - API Reference: homework4/php-version/API.md
           - Tutorial Slides: homework4/php-version/tutorial.md
           # - Implementation Summary: homework4/php-version/IMPLEMENTATION_SUMMARY.md
+      - Python Implementation:
+          - README: homework4/python-version/README.md
+          - API Reference: homework4/python-version/API.md
+          - Tutorial Slides: homework4/python-version/tutorial.md
+          # - Implementation Summary: homework4/python-version/IMPLEMENTATION_SUMMARY.md
   - Quality Software:
       - Overview: homework5/README.md
       - Final Presentation: homework5/presentation.md
