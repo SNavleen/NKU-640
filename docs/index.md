@@ -2,8 +2,6 @@
 
 Welcome to the NKU 640 course site!
 
-**Also available in [Hugo format](/hugo/)**
-
 ## Homework Assignments
 
 ### Homework 3: High-Level Programming Languages
@@ -74,8 +72,6 @@ Software quality practices and presentations covering Weeks 1-4.
 
 ## Quick Links
 
-- [View on GitHub](https://github.com/navi/NKU-640)
-- [MkDocs Documentation](https://www.mkdocs.org/)
-- [Hugo Documentation](/hugo/)
+- [View on GitHub](https://github.com/SNavleen/NKU-640)
 
 <footer style="text-align:center; color:#4B286D; font-size:1rem; margin-top:2rem;">&copy; 2025 NKU 640</footer>

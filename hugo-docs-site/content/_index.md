@@ -2,6 +2,8 @@
 
 Welcome to the NKU 640 course site!
 
+**Also available in [MkDocs format](https://snavleen.github.io/NKU-640/)**
+
 ## Homework Assignments
 
 ### Homework 3: High-Level Programming Languages
