@@ -25,6 +25,8 @@ nav:
       - Week 2: homework5/week2.md
       - Week 3: homework5/week3.md
       - Week 4: homework5/week4.md
+      - Week 5: homework5/week5.md
+      - Week 6: homework5/week6.md
 theme:
   name: material
 extra_css:

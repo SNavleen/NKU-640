@@ -1,6 +1,6 @@
 # Quality Software
 
-This folder contains the homework5 presentation materials covering software engineering concepts from Weeks 1-4 and Homework 3.
+This folder contains the homework5 presentation materials covering software engineering concepts from Weeks 1-6 and Homework 3.
 
 ## Full Presentation
 
@@ -13,3 +13,5 @@ This folder contains the homework5 presentation materials covering software engi
 - [Week 2: Software Process Overview](week2.md) - Waterfall, Agile, Scrum, DevOps
 - [Week 3: Python, OOP, and UML Fundamentals](week3.md) - OOP pillars, UML diagrams, requirements
 - [Week 4: Advanced OOP, Design Principles, and Patterns](week4.md) - APIEC, SOLID, design patterns
+- [Week 5: High-Level Programming with JavaScript](week5.md) - JavaScript fundamentals, async programming, DOM manipulation, ecosystem
+- [Week 6: TypeScript & React](week6.md) - Type safety, interfaces, React components, Virtual DOM

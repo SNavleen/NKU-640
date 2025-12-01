@@ -54,7 +54,7 @@ A secure REST API for managing TODO lists and tasks with JWT authentication.
 
 ### Homework 5: Quality Software
 
-Software quality practices and presentations covering Weeks 1-4.
+Software quality practices and presentations covering Weeks 1-6.
 
 **Documentation:**
 
@@ -63,10 +63,12 @@ Software quality practices and presentations covering Weeks 1-4.
 **Presentations:**
 
 - [Final Presentation](homework5/presentation.md) - Final Presentation for CSC 640
-- [Week 1](homework5/week1.md) - Week 1 presentation
-- [Week 2](homework5/week2.md) - Week 2 presentation
-- [Week 3](homework5/week3.md) - Week 3 presentation
-- [Week 4](homework5/week4.md) - Week 4 presentation
+- [Week 1](homework5/week1.md) - Course Introduction & Tools Overview
+- [Week 2](homework5/week2.md) - Software Process Overview
+- [Week 3](homework5/week3.md) - Python, OOP, and UML Fundamentals
+- [Week 4](homework5/week4.md) - Advanced OOP, Design Principles, and Patterns
+- [Week 5](homework5/week5.md) - High-Level Programming with JavaScript
+- [Week 6](homework5/week6.md) - TypeScript & React
 
 ---
 

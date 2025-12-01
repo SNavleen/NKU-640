@@ -1,0 +1,14 @@
+Deployment Date: Mon Dec  1 12:05:04 EST 2025
+Instance ID: i-02b48e6b94f75207c
+Public IP: 13.223.206.209
+Region: us-east-1
+Key File: todo-api-key.pem
+
+SSH Command:
+ssh -i todo-api-key.pem ubuntu@13.223.206.209
+
+API URL:
+http://13.223.206.209:8000
+
+Cleanup Command:
+bash scripts/cleanup-aws.sh

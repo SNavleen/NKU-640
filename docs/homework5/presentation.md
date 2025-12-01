@@ -699,12 +699,625 @@ All three apps implement identical functionality:
 
 <!-- _class: lead -->
 <!-- _paginate: skip -->
+# Week 5: High-Level Programming with JavaScript
+
+---
+
+## The Journey from Low-Level to High-Level
+
+**The Problem with Low-Level Languages:**
+- C requires 500+ lines for a simple web server
+- Manual memory management prone to errors
+- Complex string handling and buffer management
+- Takes weeks to build basic functionality
+
+**High-Level Languages Solve This:**
+- JavaScript: 20 lines for the same web server
+- Automatic memory management (garbage collection)
+- Built-in data structures and APIs
+- Hours instead of weeks for development
+
+**Key Insight:** High-level languages manage complexity so developers can focus on business logic, not implementation details.
+
+---
+
+## What is JavaScript?
+
+**JavaScript** is a high-level, interpreted programming language that runs in browsers and on servers (Node.js). Created in 1995 by Brendan Eich at Netscape, it has become the lingua franca of the web.
+
+**Key Characteristics:**
+- **Interpreted:** No compilation step required
+- **Dynamic typing:** Variables can hold any type
+- **First-class functions:** Functions are values that can be passed around
+- **Prototype-based:** Object inheritance through prototypes
+- **Event-driven:** Designed for asynchronous operations
+- **Multi-paradigm:** Supports procedural, object-oriented, and functional programming
+
+---
+
+## JavaScript's Role in Web Development
+
+**The Web Technology Stack:**
+- **HTML:** Structure and content
+- **CSS:** Styling and layout
+- **JavaScript:** Behavior and interactivity
+
+**JavaScript's Unique Position:**
+- Only language that runs natively in all browsers
+- Both client-side (browser) and server-side (Node.js)
+- Powers interactive web applications
+- Enables Single Page Applications (SPAs)
+
+**Market Reality (2025):**
+- 98% of websites use JavaScript
+- #1 most used programming language (GitHub)
+- Node.js powers millions of servers worldwide
+
+---
+
+## JavaScript Basics: Variables and Types
+
+**Dynamic Typing:**
+```javascript
+let message = "Hello";        // String
+let count = 42;               // Number
+let isActive = true;          // Boolean
+let items = [1, 2, 3];        // Array
+let user = {name: "Sarah"};   // Object
+let nothing = null;           // Null
+let notDefined;               // Undefined
+```
+
+**Variable Declarations:**
+- `var` - Function-scoped (old style, avoid)
+- `let` - Block-scoped, can be reassigned
+- `const` - Block-scoped, cannot be reassigned
+
+**Type Coercion:**
+```javascript
+"5" + 3      // "53" (string concatenation)
+"5" - 3      // 2 (numeric subtraction)
+Boolean("")  // false
+Boolean("hello") // true
+```
+
+---
+
+## Functions in JavaScript
+
+**Function Declarations:**
+```javascript
+function greet(name) {
+    return "Hello, " + name;
+}
+
+// Arrow function (ES6+)
+const greet = (name) => "Hello, " + name;
+
+// Function as value
+const sayHello = greet;
+sayHello("World");  // "Hello, World"
+```
+
+**Higher-Order Functions:**
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+// Map: transform each element
+const doubled = numbers.map(n => n * 2);  // [2, 4, 6, 8, 10]
+
+// Filter: keep elements that match
+const evens = numbers.filter(n => n % 2 === 0);  // [2, 4]
+
+// Reduce: accumulate into single value
+const sum = numbers.reduce((acc, n) => acc + n, 0);  // 15
+```
+
+---
+
+## Objects and Arrays
+
+**Objects (Key-Value Pairs):**
+```javascript
+const person = {
+    name: "Sarah",
+    age: 25,
+    skills: ["JavaScript", "Python"],
+
+    // Method
+    introduce() {
+        return `Hi, I'm ${this.name}`;
+    }
+};
+
+// Access properties
+console.log(person.name);        // "Sarah"
+console.log(person["age"]);      // 25
+console.log(person.introduce()); // "Hi, I'm Sarah"
+```
+
+**Destructuring:**
+```javascript
+const {name, age} = person;  // Extract properties
+const [first, second] = [1, 2, 3];  // Extract array elements
+```
+
+---
+
+## Asynchronous JavaScript: Callbacks
+
+**The Problem:**
+JavaScript is single-threaded, but operations like network requests take time. We need to handle operations that complete later without blocking execution.
+
+**Callback Pattern:**
+```javascript
+function fetchData(url, callback) {
+    // Simulate network request
+    setTimeout(() => {
+        const data = {id: 1, name: "Sarah"};
+        callback(data);
+    }, 1000);
+}
+
+// Usage
+fetchData("/api/user", (user) => {
+    console.log(user.name);  // "Sarah" (after 1 second)
+});
+
+console.log("Request sent");  // Prints immediately
+```
+
+---
+
+## Asynchronous JavaScript: Promises
+
+**Promises solve callback hell:**
+```javascript
+function fetchData(url) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (url) {
+                resolve({id: 1, name: "Sarah"});
+            } else {
+                reject(new Error("Invalid URL"));
+            }
+        }, 1000);
+    });
+}
+
+// Chaining promises
+fetchData("/api/user")
+    .then(user => fetchPosts(user.id))
+    .then(posts => fetchComments(posts[0].id))
+    .then(comments => console.log(comments))
+    .catch(error => console.error(error));
+```
+
+---
+
+## DOM Manipulation
+
+**The Document Object Model (DOM):**
+JavaScript's primary use in browsers is manipulating the DOM - the tree structure representing HTML.
+
+**Common DOM Operations:**
+```javascript
+// Select elements
+const button = document.getElementById("myButton");
+const items = document.querySelectorAll(".item");
+
+// Modify content
+button.textContent = "Click Me";
+button.innerHTML = "<strong>Click</strong> Me";
+
+// Modify attributes
+button.setAttribute("disabled", true);
+button.classList.add("active");
+
+// Create and add elements
+const newDiv = document.createElement("div");
+newDiv.textContent = "Hello";
+document.body.appendChild(newDiv);
+```
+
+---
+
+## JavaScript Ecosystem
+
+**Package Management:**
+- **npm** (Node Package Manager): 2+ million packages
+- `package.json` - Project dependencies and scripts
+- Install packages: `npm install express`
+
+**Popular Libraries/Frameworks:**
+- **React, Vue, Angular** - UI frameworks
+- **Express** - Web server framework
+- **Lodash** - Utility functions
+- **Axios** - HTTP client
+- **Jest** - Testing framework
+
+**Build Tools:**
+- **Webpack, Vite** - Module bundlers
+- **Babel** - JavaScript transpiler
+- **ESLint** - Code linter
+
+---
+
+## The Impact of JavaScript on Development
+
+**Productivity Gains:**
+- **100x faster development** compared to C for web tasks
+- Hours instead of weeks for basic functionality
+- Rich ecosystem reduces "reinventing the wheel"
+
+**Challenges JavaScript Introduces:**
+- **No type safety** - bugs caught at runtime, not compile time
+- **Loose equality** - unexpected type coercion
+- **Callback hell** - complex async code (solved by promises/async-await)
+- **Growing codebases** - harder to maintain at scale
+
+**This leads us to Week 6:** TypeScript addresses JavaScript's type safety issues while preserving its productivity benefits.
+
+---
+
+<!-- _class: lead -->
+<!-- _paginate: skip -->
+# Week 6: TypeScript & React
+
+---
+
+## From JavaScript to TypeScript: The Type Safety Evolution
+
+**JavaScript's Growing Pains:**
+- Fast development but runtime errors
+- No compile-time type checking
+- Refactoring is risky in large codebases
+- Hard to maintain 5000+ line projects
+- 90% of production bugs are type-related
+
+**TypeScript's Solution:**
+- Superset of JavaScript (all JS is valid TS)
+- Static type checking at compile time
+- Catches errors before code runs
+- Better IDE support (autocomplete, refactoring)
+- **90% fewer bugs** in production
+
+**Key Insight:** TypeScript adds the safety of statically-typed languages while keeping JavaScript's productivity.
+
+---
+
+## What is TypeScript?
+
+**TypeScript** is a strongly-typed programming language developed by Microsoft (2012) that builds on JavaScript by adding static type definitions.
+
+**Key Characteristics:**
+- **Transpiles to JavaScript:** TypeScript code compiles to plain JavaScript
+- **Gradual typing:** Can adopt types incrementally
+- **Type inference:** Types often inferred automatically
+- **Modern features:** Includes latest ECMAScript features
+- **Tooling support:** Excellent IDE integration
+
+**Market Reality (2025):**
+- Used by 78% of professional JavaScript developers
+- Powers major projects: VSCode, Slack, Airbnb
+- Default choice for new large-scale projects
+
+---
+
+## TypeScript Basics: Type Annotations
+
+**Basic Types:**
+```typescript
+let username: string = "Sarah";
+let age: number = 25;
+let isActive: boolean = true;
+let values: number[] = [1, 2, 3];
+let tuple: [string, number] = ["Sarah", 25];
+
+// Type inference (TypeScript guesses the type)
+let message = "Hello";  // inferred as string
+```
+
+**Compare to JavaScript:**
+```javascript
+// JavaScript - no type safety
+let age = 25;
+age = "twenty-five";  // No error, but likely a bug
+
+// TypeScript - compile error
+let age: number = 25;
+age = "twenty-five";  // ERROR: Type 'string' not assignable to 'number'
+```
+
+---
+
+## Interfaces: Defining Object Shapes
+
+**Interface definition:**
+```typescript
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    age?: number;          // Optional property
+    readonly created: Date; // Cannot be modified
+}
+
+function createUser(data: User): void {
+    console.log(`Creating user: ${data.name}`);
+}
+
+const newUser: User = {
+    id: 1,
+    name: "Sarah",
+    email: "sarah@example.com",
+    created: new Date()
+};
+```
+
+---
+
+## Generics: Reusable Type-Safe Code
+
+**Generic functions:**
+```typescript
+function identity<T>(value: T): T {
+    return value;
+}
+
+const num = identity<number>(42);     // Returns number
+const str = identity<string>("hello"); // Returns string
+
+// Array utilities
+function first<T>(arr: T[]): T | undefined {
+    return arr[0];
+}
+
+const firstNum = first([1, 2, 3]);      // number | undefined
+const firstStr = first(["a", "b", "c"]); // string | undefined
+```
+
+---
+
+## Introduction to React
+
+**What is React?**
+React is a JavaScript library for building user interfaces, created by Facebook (2013). It focuses on building reusable UI components with declarative syntax.
+
+**Core Concepts:**
+- **Components:** Reusable UI pieces
+- **JSX:** HTML-like syntax in JavaScript
+- **State:** Component data that changes
+- **Props:** Data passed to components
+- **Virtual DOM:** Efficient rendering
+
+**Why React?**
+- **Component-based:** Build complex UIs from simple pieces
+- **Declarative:** Describe what UI should look like, React handles updates
+- **Fast:** Virtual DOM minimizes expensive DOM operations
+- **Popular:** Largest ecosystem, most job opportunities
+
+---
+
+## React Components
+
+**Functional Components:**
+```typescript
+import React from 'react';
+
+interface GreetingProps {
+    name: string;
+    age?: number;
+}
+
+function Greeting({name, age}: GreetingProps) {
+    return (
+        <div>
+            <h1>Hello, {name}!</h1>
+            {age && <p>Age: {age}</p>}
+        </div>
+    );
+}
+
+// Usage
+<Greeting name="Sarah" age={25} />
+```
+
+---
+
+## React State with useState
+
+**State management:**
+```typescript
+import React, {useState} from 'react';
+
+function Counter() {
+    const [count, setCount] = useState<number>(0);
+
+    return (
+        <div>
+            <p>Count: {count}</p>
+            <button onClick={() => setCount(count + 1)}>
+                Increment
+            </button>
+        </div>
+    );
+}
+```
+
+**State rules:**
+- Never modify state directly: `count++` ❌
+- Always use setter: `setCount(count + 1)` ✅
+- State updates are asynchronous
+- State changes trigger re-renders
+
+---
+
+## React Effects with useEffect
+
+**Side effects:**
+```typescript
+import React, {useState, useEffect} from 'react';
+
+function UserProfile({userId}: {userId: number}) {
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        // Runs after component mounts and when userId changes
+        fetch(`/api/users/${userId}`)
+            .then(res => res.json())
+            .then(data => {
+                setUser(data);
+                setLoading(false);
+            });
+    }, [userId]);  // Dependency array
+
+    if (loading) return <div>Loading...</div>;
+    if (!user) return <div>User not found</div>;
+
+    return <div>{user.name}</div>;
+}
+```
+
+---
+
+## The Virtual DOM
+
+**How React Optimizes Performance:**
+
+**Traditional DOM Updates:**
+1. User action triggers change
+2. Directly manipulate DOM (expensive)
+3. Browser reflows/repaints entire page
+
+**React's Virtual DOM:**
+1. User action triggers state change
+2. React creates new virtual DOM tree (fast, in memory)
+3. React diffs old and new virtual trees
+4. React updates only changed parts of real DOM
+
+**Benefits:**
+- Batch multiple updates efficiently
+- Minimize expensive DOM operations
+- Automatic optimization
+
+---
+
+## Declarative vs Imperative UI
+
+**Imperative (jQuery style):**
+```javascript
+// Tell the browser HOW to do it
+const button = document.getElementById("myButton");
+button.addEventListener("click", () => {
+    const counter = document.getElementById("counter");
+    const count = parseInt(counter.textContent);
+    counter.textContent = count + 1;
+    if (count + 1 >= 10) {
+        button.disabled = true;
+    }
+});
+```
+
+**Declarative (React style):**
+```typescript
+// Tell React WHAT you want
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        <div>
+            <p id="counter">{count}</p>
+            <button
+                onClick={() => setCount(count + 1)}
+                disabled={count >= 10}
+            >
+                Increment
+            </button>
+        </div>
+    );
+}
+```
+
+---
+
+## The Three Pillars of Modern Web Development
+
+**1. High-Level Language (JavaScript)**
+- Productivity: 100x faster than C
+- Rich ecosystem and tooling
+- But: No type safety
+
+**2. Type System (TypeScript)**
+- Static type checking
+- 90% fewer bugs
+- Better IDE support
+- But: Still needs better UI management
+
+**3. Framework (React)**
+- Component-based architecture
+- Declarative UI
+- Virtual DOM performance
+- 3x faster development
+
+**Together:** Maximum productivity with safety and maintainability.
+
+---
+
+## From Week 5 to Week 6: The Evolution
+
+**Week 5 (JavaScript):**
+- Solved complexity problem from C
+- Fast development, flexible
+- But: Type errors, hard to maintain
+
+**Week 6 (TypeScript + React):**
+- TypeScript: Added type safety to JavaScript
+- React: Solved UI state management
+- Result: Fast, safe, maintainable
+
+**The Journey:**
+1. C (500 lines, 1 week) → JavaScript (20 lines, 2 hours)
+2. JavaScript (5000 lines, many bugs) → TypeScript (5000 lines, 90% fewer bugs)
+3. Manual DOM (complex state) → React (declarative, simple)
+
+Each layer solved the previous layer's limitations while preserving its benefits.
+
+---
+
+## Key Takeaways: TypeScript & React
+
+**TypeScript:**
+- Static typing prevents runtime errors
+- Gradual adoption - use as much or as little as needed
+- Essential for large codebases
+- Better tooling and refactoring support
+
+**React:**
+- Component-based architecture promotes reusability
+- Declarative syntax simplifies complex UIs
+- Virtual DOM provides automatic optimization
+- Large ecosystem and community
+
+**Together:**
+- TypeScript + React = professional web development standard
+- Type-safe components catch bugs early
+- Productive and maintainable at scale
+- Foundation for modern web applications
+
+---
+
+<!-- _class: lead -->
+<!-- _paginate: skip -->
 ## Key Takeaways
 
 - **Week 1:** Foundation tools (VSCode, Git/GitHub, Marp) and course philosophy
 - **Week 2:** Software processes (Waterfall → Agile → Scrum → DevOps)
 - **Week 3:** Python, OOP fundamentals, UML, and requirements
 - **Week 4:** APIEC framework, SOLID principles, design patterns, and testing
+- **Week 5:** High-level programming with JavaScript - productivity gains, async programming, DOM manipulation, and ecosystem
+- **Week 6:** TypeScript & React - type safety, component architecture, Virtual DOM, and declarative UI
 - **HW3:** High-level programming languages (JavaScript → TypeScript → React) demonstrate how abstraction, type safety, and framework support enable developers to build high-quality software more effectively
 
 **Remember:** High-quality software requires both technical excellence (SOLID, patterns) and process discipline (Agile, testing, CI/CD). Modern high-level languages and frameworks embody these principles, making quality software accessible to more developers.
