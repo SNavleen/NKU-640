@@ -1,28 +1,57 @@
-# HW4 Plan Stage 1 Documentation
+---
+marp: true
+---
 
-## Overview
+# HW4 Part 2 Plan
 
-This document outlines the plan for Stage 1 of the homework assignment. It includes the objectives, methodologies, and expected outcomes for the implementation of the project.
+**Submission Deadline:** [Write down the deadline]
 
-## Objectives
+---
 
-- Define the scope of the project.
-- Identify the technologies and frameworks to be used.
-- Establish a timeline for the completion of tasks.
+*Warning: ASAP is not a plan; you must set a date for your plan, and write down the actual date when you finish the plan*
 
-## Methodology
+---
 
-1. **Research**: Conduct thorough research on the chosen technologies.
-2. **Design**: Create a design document outlining the architecture of the application.
-3. **Implementation**: Develop the application according to the design specifications.
-4. **Testing**: Implement testing strategies to ensure the application meets the requirements.
+## Your HW4 Part 2 Submission Date
 
-## Expected Outcomes
+1. **When (Plan):** Create application in PHP: finish by 2025-11-07
+2. **When (Actual):** 2025-11-07
+3. **Comment:** This document will be used to create a plan for the REST API
 
-- A fully functional application that meets the project requirements.
-- Documentation that clearly outlines the implementation process.
-- A presentation summarizing the project and its outcomes.
+---
 
-## Conclusion
+## Project 1 Milestones
 
-This plan serves as a roadmap for the successful completion of Stage 1 of the homework assignment. It will be updated as necessary throughout the project lifecycle.
+### Milestone 1 Submission
+
+1. **What:**  Define API contract for REST API endpoint(s) and safety rules.
+2. **When (Plan):**  2025-11-03
+3. **When (Actual):** 2025-11-04
+4. **Comment:** Include endpoint path(s), HTTP method(s), request/response schema, auth/flags, and environment restrictions.
+
+---
+
+### Milestone 2 Submission
+
+1. **What:** Implement REST API endpoint and server-side handlers.
+2. **When (Plan):**  2025-11-05
+3. **When (Actual):** 2025-11-05  
+4. **Comment:** Keep function small where possible and add logging. Deliver a runnable PHP app (local dev).
+
+---
+
+### Milestone 3 Submission
+
+1. **What:** Add unit tests for REST API
+2. **When (Plan):**  2025-11-06
+3. **When (Actual):** 2025-11-06  
+4. **Comment:** Cover happy path, safety checks, and edge cases.
+
+---
+
+### Milestone 4 Submission
+
+1. **What:** Update `README.md` with REST API spec, usage, and safety notes.
+2. **When (Plan):**  2025-11-07
+3. **When (Actual):** 2025-11-07  
+4. **Comment:** Include example curl commands and environment flag instructions.

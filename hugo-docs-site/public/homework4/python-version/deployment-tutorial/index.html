@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+    <header>
+        <h1>NKU 640 Documentation</h1>
+        <nav>
+            <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/homework3/">Homework 3</a></li>
+                
+                    <li><a href="/homework4/">Homework 4</a></li>
+                
+                    <li><a href="/homework5/">Homework 5</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1></h1>
+<h1 id="docker-deployment-tutorial">Docker Deployment Tutorial</h1>
+<p><strong>Deploying Python FastAPI REST API with Docker</strong></p>
+<p>A Step-by-Step Guide with Commands and Screenshots</p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><strong>Prerequisites &amp; Setup</strong></li>
+<li><strong>Local Development</strong></li>
+<li><strong>Docker Configuration</strong></li>
+<li><strong>Production Deployment</strong></li>
+<li><strong>Testing &amp; Verification</strong></li>
+<li><strong>Troubleshooting</strong></li>
+</ol>
+<hr>
+<h1 id="1-prerequisites--setup">1. Prerequisites &amp; Setup</h1>
+<p>What You Need to Get Started</p>
+<hr>
+<h2 id="system-requirements">System Requirements</h2>
+<p><strong>Development Environment:</strong></p>
+<ul>
+<li>Python 3.11 or higher</li>
+<li>Docker Desktop (or Docker Engine)</li>
+<li>Docker Compose</li>
+<li>Git</li>
+<li>Terminal/Command Prompt</li>
+</ul>
+<p><strong>Production Server (Optional):</strong></p>
+<ul>
+<li>Ubuntu 20.04/22.04 LTS or similar Linux</li>
+<li>2GB RAM minimum</li>
+<li>10GB disk space</li>
+<li>Root or sudo access</li>
+</ul>
+<hr>
+<h2 id="required-software">Required Software</h2>
+<p><strong>Core Dependencies:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check Python version</span>
+</span></span><span style="display:flex;"><span>python --version  <span style="color:#75715e"># Should be 3.11+</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check Docker installation</span>
+</span></span><span style="display:flex;"><span>docker --version
+</span></span><span style="display:flex;"><span>docker-compose --version
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check Git</span>
+</span></span><span style="display:flex;"><span>git --version
+</span></span></code></pre></div><p><strong>Package Managers:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install uv (recommended)</span>
+</span></span><span style="display:flex;"><span>curl -LsSf https://astral.sh/uv/install.sh | sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or use pip</span>
+</span></span><span style="display:flex;"><span>pip install uv
+</span></span></code></pre></div><hr>
+<h2 id="project-setup">Project Setup</h2>
+<p><strong>1. Clone Repository:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~/Documents/NKU/640
+</span></span><span style="display:flex;"><span>git clone &lt;repository-url&gt; NKU-640
+</span></span><span style="display:flex;"><span>cd NKU-640/homework4/python-version
+</span></span></code></pre></div><p><strong>2. Verify Project Structure:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -la
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Should see: app/ tests/ docker/ pyproject.toml docker-compose.yml</span>
+</span></span></code></pre></div><p><strong>3. Copy Environment File:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp .env.example .env
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Edit .env with your settings</span>
+</span></span></code></pre></div><hr>
+<h1 id="2-local-development">2. Local Development</h1>
+<p>Running the API Locally</p>
+<hr>
+<h2 id="option-1-uv-recommended">Option 1: uv (Recommended)</h2>
+<p><strong>Install Dependencies:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Fast dependency management</span>
+</span></span><span style="display:flex;"><span>uv sync
+</span></span></code></pre></div><p><strong>Run Development Server:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Hot reload enabled</span>
+</span></span><span style="display:flex;"><span>uv run uvicorn app.main:app --reload
+</span></span></code></pre></div><p><strong>Access the API:</strong></p>
+<ul>
+<li>API: http://localhost:8000</li>
+<li>Docs: http://localhost:8000/docs</li>
+<li>Health: http://localhost:8000/api/v1/health</li>
+</ul>
+<hr>
+<h2 id="option-2-docker-development">Option 2: Docker Development</h2>
+<p><strong>Build and Run:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Build images</span>
+</span></span><span style="display:flex;"><span>docker-compose build
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Start services</span>
+</span></span><span style="display:flex;"><span>docker-compose up -d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># View logs</span>
+</span></span><span style="display:flex;"><span>docker-compose logs -f app
+</span></span></code></pre></div><p><strong>Verify Services:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check running containers</span>
+</span></span><span style="display:flex;"><span>docker-compose ps
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Should show: todo_api, todo_nginx</span>
+</span></span></code></pre></div><hr>
+<h2 id="local-testing">Local Testing</h2>
+<p><strong>Health Check:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://localhost:8000/api/v1/health
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Expected: {&#34;status&#34;: &#34;healthy&#34;, ...}</span>
+</span></span></code></pre></div><p><strong>API Documentation:</strong></p>
+<ul>
+<li>Open http://localhost:8000/docs</li>
+<li>Try the interactive endpoints</li>
+<li>Verify Swagger UI loads</li>
+</ul>
+<p><strong>Database:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check SQLite database</span>
+</span></span><span style="display:flex;"><span>ls -la data/todo.db
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Should exist and have recent modification time</span>
+</span></span></code></pre></div><hr>
+<h1 id="3-docker-configuration">3. Docker Configuration</h1>
+<p>Understanding the Container Setup</p>
+<hr>
+<h2 id="docker-architecture">Docker Architecture</h2>
+<pre tabindex="0"><code>┌─────────────────┐    ┌─────────────────┐
+│   NGINX         │    │   FastAPI        │
+│   (Port 80)     │◄──►│   (Port 8000)    │
+│                 │    │                 │
+│ • Reverse Proxy │    │ • REST API      │
+│ • Rate Limiting │    │ • SQLite DB     │
+│ • SSL Ready     │    │ • Health Checks │
+└─────────────────┘    └─────────────────┘
+         │                       │
+         └───────────────────────┘
+              Volume Mount
+              (./data/todo.db)
+</code></pre><hr>
+<h2 id="dockerfile-analysis">Dockerfile Analysis</h2>
+<p><strong>Python Application Container:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">python:3.11-slim</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Install system dependencies</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get install -y <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    gcc <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Install uv</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install uv<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Set work directory</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span> <span style="color:#e6db74">/app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Copy dependency files</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> pyproject.toml ./<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Install Python dependencies</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> uv sync --no-install-project<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Copy application code</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . .<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Expose port</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span> <span style="color:#e6db74">8000</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Run application</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;uv&#34;</span>, <span style="color:#e6db74">&#34;run&#34;</span>, <span style="color:#e6db74">&#34;uvicorn&#34;</span>, <span style="color:#e6db74">&#34;app.main:app&#34;</span>, <span style="color:#e6db74">&#34;--host&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>, <span style="color:#e6db74">&#34;--port&#34;</span>, <span style="color:#e6db74">&#34;8000&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><hr>
+<h2 id="docker-compose-configuration">Docker Compose Configuration</h2>
+<p><strong>docker-compose.yml:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;3.9&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">app</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">build</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">context</span>: <span style="color:#ae81ff">.</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">dockerfile</span>: <span style="color:#ae81ff">Dockerfile</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">todo_api</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">DATABASE_URL</span>: <span style="color:#ae81ff">sqlite:///./data/todo.db</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">JWT_SECRET</span>: <span style="color:#ae81ff">${JWT_SECRET:-change-this-secret}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">DEBUG_MODE</span>: <span style="color:#ae81ff">${DEBUG_MODE:-true}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;8000:8000&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./data:/app/data</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">healthcheck</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">test</span>: [<span style="color:#e6db74">&#34;CMD&#34;</span>, <span style="color:#e6db74">&#34;curl&#34;</span>, <span style="color:#e6db74">&#34;-f&#34;</span>, <span style="color:#e6db74">&#34;http://localhost:8000/api/v1/health&#34;</span>]
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">30s</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">timeout</span>: <span style="color:#ae81ff">10s</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">retries</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">nginx</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">nginx:alpine</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">todo_nginx</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;80:80&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./docker/nginx.conf:/etc/nginx/nginx.conf:ro</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">condition</span>: <span style="color:#ae81ff">service_healthy</span>
+</span></span></code></pre></div><hr>
+<h2 id="nginx-configuration">Nginx Configuration</h2>
+<p><strong>docker/nginx.conf:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#66d9ef">events</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">worker_connections</span> <span style="color:#ae81ff">1024</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">http</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Rate limiting
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">limit_req_zone</span> $binary_remote_addr <span style="color:#e6db74">zone=api:10m</span> <span style="color:#e6db74">rate=10r/s</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">limit_req_status</span> <span style="color:#ae81ff">429</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">upstream</span> <span style="color:#e6db74">fastapi</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">server</span> app:<span style="color:#ae81ff">8000</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">server_name</span> <span style="color:#e6db74">localhost</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># API endpoints
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/api/</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">limit_req</span> <span style="color:#e6db74">zone=api</span> <span style="color:#e6db74">burst=20</span> <span style="color:#e6db74">nodelay</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://fastapi</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $host;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Health check (no rate limiting)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/api/v1/health</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://fastapi</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Static files (if any)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/static/</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">alias</span> <span style="color:#e6db74">/app/static/</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="environment-variables">Environment Variables</h2>
+<p><strong>.env file:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Application</span>
+</span></span><span style="display:flex;"><span>APP_NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;TODO REST API&#34;</span>
+</span></span><span style="display:flex;"><span>APP_VERSION<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1.0.0&#34;</span>
+</span></span><span style="display:flex;"><span>DEBUG_MODE<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>LOG_LEVEL<span style="color:#f92672">=</span>debug
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Database</span>
+</span></span><span style="display:flex;"><span>DATABASE_URL<span style="color:#f92672">=</span>sqlite:///./data/todo.db
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># JWT Security</span>
+</span></span><span style="display:flex;"><span>JWT_SECRET<span style="color:#f92672">=</span>your-super-secret-key-change-in-production
+</span></span><span style="display:flex;"><span>JWT_ALGORITHM<span style="color:#f92672">=</span>HS256
+</span></span><span style="display:flex;"><span>JWT_EXPIRY<span style="color:#f92672">=</span><span style="color:#ae81ff">3600</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Password Security</span>
+</span></span><span style="display:flex;"><span>BCRYPT_ROUNDS<span style="color:#f92672">=</span><span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># API Settings</span>
+</span></span><span style="display:flex;"><span>API_V1_PREFIX<span style="color:#f92672">=</span>/api/v1
+</span></span></code></pre></div><hr>
+<h1 id="4-production-deployment">4. Production Deployment</h1>
+<p>Deploying to Production Server</p>
+<hr>
+<h2 id="server-preparation">Server Preparation</h2>
+<p><strong>1. Update System:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update <span style="color:#f92672">&amp;&amp;</span> sudo apt upgrade -y
+</span></span></code></pre></div><p><strong>2. Install Docker:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install Docker</span>
+</span></span><span style="display:flex;"><span>curl -fsSL https://get.docker.com -o get-docker.sh
+</span></span><span style="display:flex;"><span>sudo sh get-docker.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install Docker Compose</span>
+</span></span><span style="display:flex;"><span>sudo curl -L <span style="color:#e6db74">&#34;https://github.com/docker/compose/releases/latest/download/docker-compose-</span><span style="color:#66d9ef">$(</span>uname -s<span style="color:#66d9ef">)</span><span style="color:#e6db74">-</span><span style="color:#66d9ef">$(</span>uname -m<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> -o /usr/local/bin/docker-compose
+</span></span><span style="display:flex;"><span>sudo chmod +x /usr/local/bin/docker-compose
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add user to docker group</span>
+</span></span><span style="display:flex;"><span>sudo usermod -aG docker $USER
+</span></span></code></pre></div><p><strong>3. Install Git:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install git -y
+</span></span></code></pre></div><hr>
+<h2 id="application-deployment">Application Deployment</h2>
+<p><strong>1. Clone Repository:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /opt
+</span></span><span style="display:flex;"><span>sudo git clone &lt;repository-url&gt; todo-api
+</span></span><span style="display:flex;"><span>sudo chown -R $USER:$USER todo-api
+</span></span><span style="display:flex;"><span>cd todo-api/homework4/python-version
+</span></span></code></pre></div><p><strong>2. Configure Environment:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Copy and edit environment file</span>
+</span></span><span style="display:flex;"><span>cp .env.example .env
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generate secure JWT secret</span>
+</span></span><span style="display:flex;"><span>openssl rand -base64 <span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Edit .env with production values</span>
+</span></span><span style="display:flex;"><span>nano .env
+</span></span></code></pre></div><p><strong>3. Deploy Application:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Build and start services</span>
+</span></span><span style="display:flex;"><span>docker-compose up -d --build
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Wait for health checks</span>
+</span></span><span style="display:flex;"><span>sleep <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verify deployment</span>
+</span></span><span style="display:flex;"><span>docker-compose ps
+</span></span></code></pre></div><hr>
+<h2 id="ssl-configuration-optional">SSL Configuration (Optional)</h2>
+<p><strong>Using Let&rsquo;s Encrypt:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install certbot</span>
+</span></span><span style="display:flex;"><span>sudo apt install certbot python3-certbot-nginx -y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get SSL certificate</span>
+</span></span><span style="display:flex;"><span>sudo certbot --nginx -d yourdomain.com
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update nginx configuration for SSL</span>
+</span></span><span style="display:flex;"><span>sudo nano docker/nginx.conf
+</span></span></code></pre></div><p><strong>nginx.conf with SSL:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#66d9ef">server</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">yourdomain.com</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">return</span> <span style="color:#ae81ff">301</span> <span style="color:#e6db74">https://</span>$server_name$request_uri;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">server</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">443</span> <span style="color:#e6db74">ssl</span> <span style="color:#e6db74">http2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">yourdomain.com</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ssl_certificate</span> <span style="color:#e6db74">/etc/letsencrypt/live/yourdomain.com/fullchain.pem</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ssl_certificate_key</span> <span style="color:#e6db74">/etc/letsencrypt/live/yourdomain.com/privkey.pem</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># ... rest of configuration
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><hr>
+<h2 id="domain-configuration">Domain Configuration</h2>
+<p><strong>DNS Setup:</strong></p>
+<ol>
+<li>Point domain to server IP</li>
+<li>Wait for DNS propagation (can take 24-48 hours)</li>
+<li>Test domain resolution: <code>nslookup yourdomain.com</code></li>
+</ol>
+<p><strong>Firewall Configuration:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Allow HTTP and HTTPS</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>sudo ufw enable
+</span></span></code></pre></div><hr>
+<h1 id="5-testing--verification">5. Testing &amp; Verification</h1>
+<p>Ensuring Everything Works</p>
+<hr>
+<h2 id="health-check-testing">Health Check Testing</h2>
+<p><strong>API Health:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Test health endpoint</span>
+</span></span><span style="display:flex;"><span>curl https://yourdomain.com/api/v1/health
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Expected response</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;timestamp&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T...&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;service&#34;</span>: <span style="color:#e6db74">&#34;TODO REST API&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;1.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;checks&#34;</span>: <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;database&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span><span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;python&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span><span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;disk&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span><span style="color:#f92672">}</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;memory&#34;</span>: <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="end-to-end-testing">End-to-End Testing</h2>
+<p><strong>1. User Registration:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST https://yourdomain.com/api/v1/auth/signup <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;username&#34;: &#34;testuser&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;email&#34;: &#34;test@example.com&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;password&#34;: &#34;securepassword123&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  }&#39;</span>
+</span></span></code></pre></div><p><strong>2. Save Token:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Extract token from response</span>
+</span></span><span style="display:flex;"><span>TOKEN<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -s -X POST https://yourdomain.com/api/v1/auth/signup <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;username&#34;:&#34;testuser2&#34;,&#34;email&#34;:&#34;test2@example.com&#34;,&#34;password&#34;:&#34;pass123&#34;}&#39;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  | jq -r <span style="color:#e6db74">&#39;.token&#39;</span><span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p><strong>3. Test Protected Endpoints:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Get user profile</span>
+</span></span><span style="display:flex;"><span>curl -H <span style="color:#e6db74">&#34;Authorization: Bearer </span>$TOKEN<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>     https://yourdomain.com/api/v1/users/profile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create a list</span>
+</span></span><span style="display:flex;"><span>LIST_RESPONSE<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -s -X POST https://yourdomain.com/api/v1/lists <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;title&#34;:&#34;Test List&#34;}&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LIST_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo $LIST_RESPONSE | jq -r <span style="color:#e6db74">&#39;.id&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Create a task</span>
+</span></span><span style="display:flex;"><span>curl -X POST https://yourdomain.com/api/v1/lists/$LIST_ID/tasks <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;title&#34;:&#34;Test Task&#34;,&#34;priority&#34;:&#34;high&#34;}&#39;</span>
+</span></span></code></pre></div><hr>
+<h2 id="load-testing">Load Testing</h2>
+<p><strong>Basic Load Test:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install hey (load testing tool)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># go install github.com/rakyll/hey@latest</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Test API endpoints</span>
+</span></span><span style="display:flex;"><span>hey -n <span style="color:#ae81ff">100</span> -c <span style="color:#ae81ff">10</span> https://yourdomain.com/api/v1/health
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Test with authentication</span>
+</span></span><span style="display:flex;"><span>hey -n <span style="color:#ae81ff">50</span> -c <span style="color:#ae81ff">5</span> -H <span style="color:#e6db74">&#34;Authorization: Bearer </span>$TOKEN<span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    https://yourdomain.com/api/v1/users/profile
+</span></span></code></pre></div><p><strong>Rate Limiting Test:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Test rate limiting (should get 429 after limit)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i in <span style="color:#f92672">{</span>1..15<span style="color:#f92672">}</span>; <span style="color:#66d9ef">do</span>
+</span></span><span style="display:flex;"><span>  curl -s https://yourdomain.com/api/v1/health
+</span></span><span style="display:flex;"><span>  echo <span style="color:#e6db74">&#34;Request </span>$i<span style="color:#e6db74"> completed&#34;</span>
+</span></span><span style="display:flex;"><span>  sleep 0.1
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">done</span>
+</span></span></code></pre></div><hr>
+<h2 id="monitoring-setup">Monitoring Setup</h2>
+<p><strong>View Application Logs:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Application logs</span>
+</span></span><span style="display:flex;"><span>docker-compose logs -f app
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Nginx access logs</span>
+</span></span><span style="display:flex;"><span>docker-compose logs -f nginx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># System resource usage</span>
+</span></span><span style="display:flex;"><span>docker stats
+</span></span></code></pre></div><p><strong>Log Analysis:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Search for errors</span>
+</span></span><span style="display:flex;"><span>docker-compose logs app | grep ERROR
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check response times</span>
+</span></span><span style="display:flex;"><span>docker-compose logs app | grep <span style="color:#e6db74">&#34;Time:&#34;</span>
+</span></span></code></pre></div><hr>
+<h1 id="6-troubleshooting">6. Troubleshooting</h1>
+<p>Common Issues and Solutions</p>
+<hr>
+<h2 id="container-issues">Container Issues</h2>
+<p><strong>Containers Not Starting:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check container status</span>
+</span></span><span style="display:flex;"><span>docker-compose ps
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># View detailed logs</span>
+</span></span><span style="display:flex;"><span>docker-compose logs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Restart services</span>
+</span></span><span style="display:flex;"><span>docker-compose restart
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rebuild if needed</span>
+</span></span><span style="display:flex;"><span>docker-compose up -d --build
+</span></span></code></pre></div><p><strong>Health Check Failures:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check health endpoint manually</span>
+</span></span><span style="display:flex;"><span>curl http://localhost:8000/api/v1/health
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Debug health check</span>
+</span></span><span style="display:flex;"><span>docker-compose exec app curl -f http://localhost:8000/api/v1/health
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check application logs</span>
+</span></span><span style="display:flex;"><span>docker-compose logs app
+</span></span></code></pre></div><hr>
+<h2 id="database-issues">Database Issues</h2>
+<p><strong>Database Connection Failed:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check database file</span>
+</span></span><span style="display:flex;"><span>ls -la data/todo.db
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check file permissions</span>
+</span></span><span style="display:flex;"><span>ls -ld data/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Reset database if corrupted</span>
+</span></span><span style="display:flex;"><span>rm data/todo.db
+</span></span><span style="display:flex;"><span>docker-compose restart app
+</span></span></code></pre></div><p><strong>Migration Issues:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Access container</span>
+</span></span><span style="display:flex;"><span>docker-compose exec app bash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check database tables</span>
+</span></span><span style="display:flex;"><span>sqlite3 data/todo.db <span style="color:#e6db74">&#34;.tables&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check table schema</span>
+</span></span><span style="display:flex;"><span>sqlite3 data/todo.db <span style="color:#e6db74">&#34;.schema users&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="network-issues">Network Issues</h2>
+<p><strong>Port Conflicts:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check what&#39;s using ports</span>
+</span></span><span style="display:flex;"><span>sudo lsof -i :80
+</span></span><span style="display:flex;"><span>sudo lsof -i :8000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Change ports in docker-compose.yml</span>
+</span></span><span style="display:flex;"><span>ports:
+</span></span><span style="display:flex;"><span>  - <span style="color:#e6db74">&#34;8080:80&#34;</span>    <span style="color:#75715e"># Change from 80 to 8080</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#e6db74">&#34;8001:8000&#34;</span>  <span style="color:#75715e"># Change from 8000 to 8001</span>
+</span></span></code></pre></div><p><strong>Firewall Issues:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check firewall status</span>
+</span></span><span style="display:flex;"><span>sudo ufw status
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Allow required ports</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">443</span>
+</span></span><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">22</span>  <span style="color:#75715e"># SSH access</span>
+</span></span></code></pre></div><hr>
+<h2 id="sslhttps-issues">SSL/HTTPS Issues</h2>
+<p><strong>SSL Certificate Problems:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check certificate validity</span>
+</span></span><span style="display:flex;"><span>openssl s_client -connect yourdomain.com:443 -servername yourdomain.com
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Renew certificates</span>
+</span></span><span style="display:flex;"><span>sudo certbot renew
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check nginx configuration</span>
+</span></span><span style="display:flex;"><span>docker-compose exec nginx nginx -t
+</span></span></code></pre></div><p><strong>Mixed Content Issues:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Force HTTPS in nginx</span>
+</span></span><span style="display:flex;"><span>location / <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>$scheme !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">301</span> https://$host$request_uri;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><hr>
+<h2 id="performance-issues">Performance Issues</h2>
+<p><strong>High Memory Usage:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check container resources</span>
+</span></span><span style="display:flex;"><span>docker stats
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Limit container memory</span>
+</span></span><span style="display:flex;"><span>docker-compose.yml:
+</span></span><span style="display:flex;"><span>services:
+</span></span><span style="display:flex;"><span>  app:
+</span></span><span style="display:flex;"><span>    deploy:
+</span></span><span style="display:flex;"><span>      resources:
+</span></span><span style="display:flex;"><span>        limits:
+</span></span><span style="display:flex;"><span>          memory: 512M
+</span></span></code></pre></div><p><strong>Slow Response Times:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check database performance</span>
+</span></span><span style="display:flex;"><span>docker-compose exec app sqlite3 data/todo.db <span style="color:#e6db74">&#34;.timer on&#34;</span> <span style="color:#e6db74">&#34;SELECT COUNT(*) FROM tasks;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add database indexes if needed</span>
+</span></span><span style="display:flex;"><span>docker-compose exec app sqlite3 data/todo.db <span style="color:#e6db74">&#34;CREATE INDEX idx_task_list ON tasks(list_id);&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="backup-and-recovery">Backup and Recovery</h2>
+<p><strong>Database Backup:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Create backup script</span>
+</span></span><span style="display:flex;"><span>cat &gt; backup.sh <span style="color:#e6db74">&lt;&lt; &#39;EOF&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">BACKUP_DIR=&#34;/opt/backups&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">mkdir -p $BACKUP_DIR
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># Stop containers temporarily
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">docker-compose stop app
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># Copy database file
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">cp data/todo.db $BACKUP_DIR/todo_$TIMESTAMP.db
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># Restart containers
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">docker-compose start app
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"># Clean old backups (keep last 7 days)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">find $BACKUP_DIR -name &#34;todo_*.db&#34; -mtime +7 -delete
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">echo &#34;Backup completed: todo_$TIMESTAMP.db&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>chmod +x backup.sh
+</span></span></code></pre></div><p><strong>Automated Backups:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Add to crontab for daily backups</span>
+</span></span><span style="display:flex;"><span>crontab -e
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add: 0 2 * * * /opt/todo-api/backup.sh</span>
+</span></span></code></pre></div><hr>
+<h2 id="security-hardening">Security Hardening</h2>
+<p><strong>Update Docker Images:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Update all images</span>
+</span></span><span style="display:flex;"><span>docker-compose pull
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Rebuild with latest images</span>
+</span></span><span style="display:flex;"><span>docker-compose up -d --build
+</span></span></code></pre></div><p><strong>Secure Environment Variables:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Use Docker secrets or external key management</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;your-secure-jwt-secret&#34;</span> | docker secret create jwt_secret -
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or use .env file with restricted permissions</span>
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">600</span> .env
+</span></span></code></pre></div><p><strong>Monitor Security Logs:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check for suspicious activity</span>
+</span></span><span style="display:flex;"><span>docker-compose logs | grep -i <span style="color:#e6db74">&#34;unauthorized\|forbidden\|error&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Monitor failed login attempts</span>
+</span></span><span style="display:flex;"><span>docker-compose logs | grep <span style="color:#e6db74">&#34;POST /api/v1/auth/login&#34;</span> | grep <span style="color:#e6db74">&#34;401&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="getting-help">Getting Help</h2>
+<p><strong>Debug Commands:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Full system information</span>
+</span></span><span style="display:flex;"><span>docker system info
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Container resource usage</span>
+</span></span><span style="display:flex;"><span>docker stats --no-stream
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Network inspection</span>
+</span></span><span style="display:flex;"><span>docker network ls
+</span></span><span style="display:flex;"><span>docker network inspect todo-api_default
+</span></span></code></pre></div><p><strong>Log Locations:</strong></p>
+<ul>
+<li>Application logs: <code>docker-compose logs app</code></li>
+<li>Nginx logs: <code>docker-compose logs nginx</code></li>
+<li>System logs: <code>/var/log/syslog</code></li>
+<li>Docker logs: <code>/var/lib/docker/containers/*/logs</code></li>
+</ul>
+<p><strong>Community Resources:</strong></p>
+<ul>
+<li>FastAPI Documentation: <a href="https://fastapi.tiangolo.com/">https://fastapi.tiangolo.com/</a></li>
+<li>Docker Documentation: <a href="https://docs.docker.com/">https://docs.docker.com/</a></li>
+<li>SQLite Documentation: <a href="https://www.sqlite.org/docs.html">https://www.sqlite.org/docs.html</a></li>
+</ul>
+<hr>
+<h2 id="emergency-recovery">Emergency Recovery</h2>
+<p><strong>Complete Reset:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Stop everything</span>
+</span></span><span style="display:flex;"><span>docker-compose down -v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Remove all containers and volumes</span>
+</span></span><span style="display:flex;"><span>docker system prune -a --volumes
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Clean up networks</span>
+</span></span><span style="display:flex;"><span>docker network prune
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Restart fresh</span>
+</span></span><span style="display:flex;"><span>docker-compose up -d --build
+</span></span></code></pre></div><p><strong>Data Recovery:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Restore from backup</span>
+</span></span><span style="display:flex;"><span>cp /opt/backups/todo_20251201_020000.db data/todo.db
+</span></span><span style="display:flex;"><span>docker-compose restart app
+</span></span></code></pre></div><hr>
+<p><em>This deployment tutorial provides a comprehensive guide for deploying the Python FastAPI TODO API in both development and production environments. The Docker-based approach ensures consistent deployment across different platforms.</em></p>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 NKU 640 Documentation</p>
+    </footer>
+</body>
+</html>

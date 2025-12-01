@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+    <header>
+        <h1>NKU 640 Documentation</h1>
+        <nav>
+            <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/homework3/">Homework 3</a></li>
+                
+                    <li><a href="/homework4/">Homework 4</a></li>
+                
+                    <li><a href="/homework5/">Homework 5</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1></h1>
+<h1 id="week-1-course-introduction--tools-overview">Week 1: Course Introduction &amp; Tools Overview</h1>
+<hr>
+<h2 id="developer-tools-vscode--marp">Developer Tools: VSCode &amp; Marp</h2>
+<ul>
+<li><strong>Visual Studio Code (VSCode)</strong> – a lightweight <strong>IDE</strong> with rich features (file explorer, text editor, version control integration, terminal, etc.). It&rsquo;s extensible via plugins and serves as the primary coding environment.
+<ul>
+<li><strong>2025 Stats:</strong> Most popular IDE with 60,000+ extensions available</li>
+<li>Supports all major programming languages with IntelliSense</li>
+</ul>
+</li>
+<li><strong>Marp</strong> – a toolchain to create slides with Markdown. <em>Write</em> content in a Markdown file and Marp <strong>compiles it into presentation formats</strong> (PDF, PPT, HTML). Using the Marp VSCode extension, you can preview slides and export them easily.</li>
+<li>These tools streamline our workflow: VSCode for all-in-one development and Marp for documentation and presentations.</li>
+</ul>
+<hr>
+<h2 id="git--github-basics">Git &amp; GitHub Basics</h2>
+<ul>
+<li><strong>Git</strong> is a distributed version control system for tracking code changes. It runs locally and lets you save versions of your code over time.
+<ul>
+<li><strong>2025 Adoption:</strong> 93.87% of developers use Git (up from 87.1% in 2016)</li>
+</ul>
+</li>
+<li><strong>GitHub</strong> is an <strong>online platform for Git repositories</strong>, providing cloud storage for code and facilitating collaboration. It acts as a portfolio for projects and a central hub to share code with teammates.</li>
+<li>In this course, you&rsquo;ll use GitHub to access course materials and submit assignments. Common ASE course material is available in the public GitHub repo (e.g. the <code>nkuase/ASE</code> repo) for reference.</li>
+</ul>
+<hr>
+<h2 id="course-overview--policies">Course Overview &amp; Policies</h2>
+<ul>
+<li><strong>Course Introduction:</strong> The course covers <em>high-quality software engineering</em> practices, including development processes, design principles, and team collaboration. We will manage a project through all stages from requirements to testing.</li>
+<li><strong>Course Policies:</strong> Attendance and participation are crucial. Assignments must be submitted on time; late work may receive little or no credit. <strong>Academic integrity</strong> is emphasized – all code must be your own work (plagiarism or unauthorized collaboration is prohibited).</li>
+<li><strong>Tools &amp; Workflow:</strong> We will use VSCode, Git/GitHub for version control, and Marp for documentation. Use these consistently to document your progress and collaborate.</li>
+</ul>
+<hr>
+<h2 id="high-quality-software-storytelling--assignments">High-Quality Software: Storytelling &amp; Assignments</h2>
+<ul>
+<li><strong>Software as Storytelling:</strong> Writing code and documentation is akin to storytelling. Your code should be clear and well-structured so that other developers (and your future self) can follow the &ldquo;story&rdquo; easily. Good software design tells a coherent story about the problem and solution.</li>
+<li><strong>Communication:</strong> Throughout the course, you&rsquo;ll practice explaining your design decisions. This includes writing user stories, use cases, and documentation that communicate the purpose and usage of your software.</li>
+<li><strong>Assignments Overview:</strong> The course assignments are structured to apply concepts in practice. Early assignments focus on individual skills (tools setup, simple design tasks). Later assignments build toward a <strong>capstone project</strong>, where you&rsquo;ll work in teams to deliver a software product incrementally. Each assignment reinforces topics from lectures (e.g. version control, requirements, design, testing).</li>
+</ul>
+<hr>
+<h1 id="week-2-software-process-overview">Week 2: Software Process Overview</h1>
+<hr>
+<h2 id="from-waterfall-to-agile">From Waterfall to Agile</h2>
+<ul>
+<li><strong>Waterfall Model:</strong> A linear, phase-driven software process. Each phase (requirements → design → implementation → testing → maintenance) is completed before the next begins. Changes are costly once a phase is finished, and testing is done only after development is complete.</li>
+<li><strong>Agile Methods:</strong> An iterative, incremental approach that welcomes changing requirements even late in development. Work is done in short cycles (sprints) that produce working software frequently. Testing and integration happen continuously alongside development.
+<ul>
+<li><strong>2025 Stats:</strong> 61% of organizations have used Agile for 5+ years</li>
+</ul>
+</li>
+<li><strong>Comparison:</strong> <em>Waterfall</em> emphasizes upfront planning and heavy documentation, suitable when requirements are well-understood and unlikely to change. <em>Agile</em> emphasizes adaptability and customer feedback, delivering value faster and adjusting as needs evolve.</li>
+</ul>
+<hr>
+<h2 id="scrum-framework">Scrum Framework</h2>
+<ul>
+<li><strong>Scrum</strong> is an Agile framework for managing work in iterations (sprints). It breaks projects into small increments to be completed in fixed-length sprints (often 1–4 weeks). The focus is on continuous improvement and delivering potentially shippable software each sprint.
+<ul>
+<li><strong>2025 Stats:</strong> 87% of Agile organizations use Scrum as their preferred framework</li>
+</ul>
+</li>
+<li><strong>Roles:</strong> In Scrum, team members fill one of three roles – <strong>Product Owner</strong>, <strong>Scrum Master</strong>, or <strong>Development Team</strong>. The Product Owner manages the backlog and priorities (representing the customer&rsquo;s interests). The Scrum Master facilitates the process and removes impediments. The Development Team (Scrum Team) is self-organizing and builds the product increment.</li>
+<li><strong>Events &amp; Artifacts:</strong> Key Scrum events include <strong>Daily Stand-ups</strong> (15-min daily team sync), <strong>Sprint Planning</strong>, <strong>Sprint Review</strong> (demonstrate increment), and <strong>Sprint Retrospective</strong> (reflect and improve). Scrum artifacts include the <strong>Product Backlog</strong> (prioritized list of work), <strong>Sprint Backlog</strong> (tasks committed for the sprint), and the <strong>Increment</strong> of software delivered at the end of each sprint.</li>
+</ul>
+<hr>
+<h2 id="devops-culture">DevOps Culture</h2>
+<ul>
+<li><strong>DevOps</strong> combines software <strong>Dev</strong>elopment and IT <strong>Ops</strong> (operations) to streamline the path from code to deployment. It is a set of practices and a culture that emphasize close collaboration between developers and operations teams.</li>
+<li><strong>Continuous Integration &amp; Delivery:</strong> DevOps teams use automation for building, testing, and deploying code (CI/CD pipelines). This enables rapid, reliable releases – code changes can go live faster and with fewer errors.
+<ul>
+<li><strong>2025 Trend:</strong> 60% of businesses adopting GitOps for deployment automation (Forrester)</li>
+<li>AI/ML integration in DevOps workflows for predictive monitoring and anomaly detection</li>
+</ul>
+</li>
+<li><strong>Key Principles:</strong> DevOps focuses on shared responsibility for outcomes, automation of repetitive tasks, and continuous feedback. By breaking down silos between dev and ops, DevOps achieves faster delivery <strong>without sacrificing reliability</strong>. Teams monitor software in production and iterate quickly, leading to more stable and scalable systems.</li>
+</ul>
+<hr>
+<h1 id="week-3-python-oop-and-uml-fundamentals">Week 3: Python, OOP, and UML Fundamentals</h1>
+<hr>
+<h2 id="python-for-software-engineering">Python for Software Engineering</h2>
+<ul>
+<li><strong>Python</strong> – an interpreted, high-level, general-purpose programming language known for its readable syntax. Python&rsquo;s design philosophy emphasizes code clarity and a simple syntax that helps developers write clear, logical code.</li>
+<li>Python supports multiple paradigms (procedural, object-oriented, functional). In this course we use Python to illustrate object-oriented programming (OOP) concepts because of its simplicity and widespread use.</li>
+<li>Key Python features include dynamic typing (you don&rsquo;t declare variable types), a rich standard library, and cross-platform portability. This allows rapid prototyping and experimentation while learning design principles.</li>
+</ul>
+<hr>
+<h2 id="object-oriented-programming-basics">Object-Oriented Programming Basics</h2>
+<ul>
+<li><strong>Object-Oriented Programming (OOP)</strong> is a paradigm centered on <em>objects</em> (instances of classes) that encapsulate data and behavior. OOP promotes organizing software as a collection of interacting objects.</li>
+<li><strong>Four Pillars of OOP:</strong>
+<ul>
+<li><em>Abstraction</em> – modeling real-world entities by focusing on relevant features while ignoring unnecessary details.</li>
+<li><em>Encapsulation</em> – hiding internal state and implementation details of an object behind a public interface.</li>
+<li><em>Inheritance</em> – creating new classes by extending existing ones, enabling reuse of code and establishing hierarchies.</li>
+<li><em>Polymorphism</em> – treating objects of different subclasses through a common interface, and automatically calling the correct overridden behaviors at runtime.</li>
+</ul>
+</li>
+<li>These principles improve code <strong>modularity</strong> and <strong>maintainability</strong>. For example, abstraction and encapsulation manage complexity, and inheritance with polymorphism promotes code reuse and flexibility.</li>
+</ul>
+<hr>
+<h2 id="abstraction--inheritance-in-practice">Abstraction &amp; Inheritance in Practice</h2>
+<p><strong>Abstraction Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, name, email):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>email <span style="color:#f92672">=</span> email
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_notification</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Abstract the complex email sending logic</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div><p><strong>Inheritance Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, name, salary):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>salary <span style="color:#f92672">=</span> salary
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Manager</span>(Employee):  <span style="color:#75715e"># Inherits from Employee</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, name, salary, department):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span><span style="color:#a6e22e">__init__</span>(name, salary)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>department <span style="color:#f92672">=</span> department
+</span></span></code></pre></div><hr>
+<h2 id="abstraction--inheritance-concepts">Abstraction &amp; Inheritance Concepts</h2>
+<ul>
+<li><strong>Abstraction:</strong> In design, identify the essential attributes of an entity and model a class for it, omitting extraneous details. For instance, a &ldquo;User&rdquo; class might abstract common user properties (name, email) relevant to the system, leaving out personal details not needed. Abstraction allows focusing on <em>what</em> an object does instead of <em>how</em> it does it.</li>
+<li><strong>Inheritance:</strong> Establishes an &ldquo;is-a&rdquo; relationship between classes. A base (parent) class defines general attributes and methods, and a derived (child) class inherits those and extends or overrides behavior. Inheritance promotes code reuse – new classes reuse existing code instead of writing from scratch.</li>
+<li>Using inheritance wisely can reduce duplication, but be cautious: subclasses should truly satisfy the relationship (Liskov Substitution Principle). If a subclass violates expectations of the parent class, the design can break. Prefer composition over inheritance when appropriate to avoid rigid hierarchies.</li>
+</ul>
+<hr>
+<h2 id="uml-diagrams-for-design">UML Diagrams for Design</h2>
+<ul>
+<li><strong>Unified Modeling Language (UML)</strong> provides a standard way to visualize system design. UML diagrams are blueprints for understanding software structure and behavior without diving into code.</li>
+<li><strong>Structure Diagrams:</strong> e.g. <em>Class Diagrams</em> show classes, their attributes and methods, and relationships (associations, inheritance, composition). This helps in designing the static architecture of the system.</li>
+<li><strong>Behavior Diagrams:</strong> e.g. <em>Sequence Diagrams</em> illustrate interactions over time between objects (method call flows), and <em>State Diagrams</em> show state transitions of an object. <em>Use Case Diagrams</em> (covered next week) depict the functional requirements by showing actors and their interactions with the system.</li>
+<li>By using UML, we can communicate designs clearly. For instance, a class diagram can clarify how classes relate (a <strong>composition</strong> is depicted with a filled diamond, meaning a strong &ldquo;has-a&rdquo; relationship). UML is a common language for developers to collaborate on design before coding.</li>
+</ul>
+<hr>
+<h2 id="software-requirements-fundamentals">Software Requirements Fundamentals</h2>
+<ul>
+<li><strong>Requirements</strong> capture what the software should <em>do</em> (functional requirements) and how it should <em>be</em> (non-functional requirements). A functional requirement might be &ldquo;the system shall <strong>send a password reset email</strong> to the user upon request,&rdquo; whereas a non-functional requirement could be &ldquo;the email is sent <strong>within 5 seconds</strong> of request (performance)&rdquo;.</li>
+<li><em>Functional vs Non-Functional:</em> Broadly, functional requirements define <strong>what</strong> a system must accomplish (features and behaviors), and non-functional requirements define <strong>how</strong> the system performs or the constraints on it (quality attributes like reliability, usability, security). For example, functional requirements are expressed as specific actions or outputs (&ldquo;system shall do X&rdquo;), while non-functional are expressed as properties or criteria (&ldquo;system shall be Y&rdquo; in terms of speed, security, etc.).</li>
+<li>Gathering clear requirements is critical to project success. Techniques include stakeholder interviews, user stories, and use cases. A well-written requirement is unambiguous and testable. These requirements form the foundation for design and testing – if they are wrong or incomplete, the software will not meet user needs.</li>
+</ul>
+<hr>
+<h1 id="week-4-advanced-oop-design-principles-and-patterns">Week 4: Advanced OOP, Design Principles, and Patterns</h1>
+<hr>
+<h2 id="the-apiec-framework">The APIEC Framework</h2>
+<p>A unified framework for object-oriented design principles:</p>
+<ul>
+<li><strong>A</strong>bstraction – Focus on essential features, hide complexity</li>
+<li><strong>P</strong>olymorphism – Many forms, uniform interfaces</li>
+<li><strong>I</strong>nheritance – Code reuse through hierarchies</li>
+<li><strong>E</strong>ncapsulation – Hide internal state, expose interfaces</li>
+<li><strong>C</strong>omposition – Build complex objects from simpler ones</li>
+</ul>
+<p><strong>Key Principle:</strong> Favor composition over inheritance for flexibility and reduced coupling. APIEC principles work together to create maintainable, extensible software designs.</p>
+<hr>
+<h2 id="encapsulation--dependency-injection">Encapsulation &amp; Dependency Injection</h2>
+<p><strong>Encapsulation Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BankAccount</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, balance):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>__balance <span style="color:#f92672">=</span> balance  <span style="color:#75715e"># Private attribute</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">deposit</span>(self, amount):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> amount <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>__balance <span style="color:#f92672">+=</span> amount
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_balance</span>(self):  <span style="color:#75715e"># Controlled access</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>__balance
+</span></span></code></pre></div><p><strong>Dependency Injection Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EmailService</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send</span>(self, message):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserService</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, email_service):  <span style="color:#75715e"># DI via constructor</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>email_service <span style="color:#f92672">=</span> email_service
+</span></span></code></pre></div><hr>
+<h2 id="encapsulation--dependency-injection-concepts">Encapsulation &amp; Dependency Injection Concepts</h2>
+<ul>
+<li><strong>Encapsulation:</strong> Encapsulation means keeping an object&rsquo;s internal data private and exposing only what&rsquo;s necessary through methods or an interface. This protects the integrity of the object&rsquo;s state. For example, rather than allowing direct access to a class&rsquo;s fields, we provide getter/setter methods or use properties. Encapsulation promotes modularity and makes it easier to change implementation without affecting other parts of the code.</li>
+<li><strong>Dependency Injection (DI):</strong> DI is a design technique where an object&rsquo;s dependencies (other objects it needs to function) are provided from the outside rather than created internally. In practice, this often means <strong>passing required components via constructors or setters</strong>. DI supports the <em>Inversion of Control</em> principle – instead of a class controlling its dependencies, the control is inverted and handed to an external entity (like a framework or a factory). This leads to more testable and flexible code, since you can swap out implementations (e.g., inject a mock object in tests or a different logger implementation) without modifying the class code.</li>
+</ul>
+<hr>
+<h2 id="polymorphism--composition">Polymorphism &amp; Composition</h2>
+<p><strong>Polymorphism Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span>(Shape):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Drawing circle&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span>(Shape):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Drawing square&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>shapes <span style="color:#f92672">=</span> [Circle(), Square()]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> shape <span style="color:#f92672">in</span> shapes:
+</span></span><span style="display:flex;"><span>    shape<span style="color:#f92672">.</span>draw()  <span style="color:#75715e"># Polymorphic behavior</span>
+</span></span></code></pre></div><hr>
+<h2 id="composition-example">Composition Example</h2>
+<p><strong>Composition (favor over inheritance):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Engine</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Engine starting&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Wheels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rotate</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Wheels rotating&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span>:  <span style="color:#75715e"># Composition: Car HAS-A Engine and Wheels</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>engine <span style="color:#f92672">=</span> Engine()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>wheels <span style="color:#f92672">=</span> Wheels()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">drive</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>engine<span style="color:#f92672">.</span>start()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>wheels<span style="color:#f92672">.</span>rotate()
+</span></span></code></pre></div><hr>
+<h2 id="polymorphism--composition-concepts">Polymorphism &amp; Composition Concepts</h2>
+<ul>
+<li><strong>Polymorphism:</strong> Literally &ldquo;many forms,&rdquo; polymorphism in OOP allows treating objects of different classes through a uniform interface. For example, if <code>Shape</code> is a base class with a method <code>draw()</code>, polymorphism lets us call <code>draw()</code> on any subclass (<code>Circle</code>, <code>Square</code>, etc.) and get subclass-specific behavior. At runtime, the actual object&rsquo;s implementation is invoked. Polymorphism improves extensibility – new subclasses can be introduced without changing code that uses the base class interface.</li>
+<li><strong>Composition:</strong> Composition is a design technique where a class is composed of one or more other classes, implying a strong <em>has-a</em> relationship. Instead of using inheritance to reuse code, a class can have instances of other classes as members. For example, a <code>Car</code> class might <em>compose</em> a <code>Engine</code> class and <code>Wheel</code> classes, rather than inheriting from them, since a car is not a type of engine but has an engine. Composition is often favored over inheritance for flexibility – you can change composed parts without affecting a class&rsquo;s hierarchy. It also allows runtime assembly of behaviors by combining objects with different responsibilities.</li>
+</ul>
+<hr>
+<h2 id="use-case-diagrams">Use Case Diagrams</h2>
+<p><em>Example UML use case diagram (restaurant scenario):</em> Each <strong>actor</strong> (user role) is connected to the <strong>use cases</strong> (ovals) they participate in.</p>
+<ul>
+<li><strong>Use Case Diagram</strong> – a UML diagram to model <strong>functional requirements</strong> of the system. It shows <em>actors</em> (users or external systems) and <em>use cases</em> (services or functions the system provides to those actors).</li>
+<li>Use case diagrams provide a high-level overview of <strong>who</strong> uses the system and <strong>what</strong> they can do. For example, in an online shopping system, actors might be <em>Customer</em> and <em>Admin</em>, and use cases could include <em>Browse Products</em>, <em>Place Order</em>, <em>Manage Inventory</em>, etc.</li>
+<li>Each use case represents a distinct functionality or goal from the actor&rsquo;s perspective. Relationships in use case diagrams can include <strong>&laquo;extends&raquo;</strong> or <strong>&laquo;includes&raquo;</strong> (to show optional or common sub-flows). This diagram is a communication tool between stakeholders and developers to ensure the system&rsquo;s scope and interactions are well-understood.</li>
+</ul>
+<hr>
+<h2 id="software-testing">Software Testing</h2>
+<ul>
+<li><strong>Software Testing</strong> is the process of evaluating a software item to detect differences between <strong>expected output and actual output</strong> (i.e., finding defects). In practice, testing involves executing the software with sample inputs and verifying that outputs and behaviors match the requirements.
+<ul>
+<li><strong>2025 Market:</strong> Software testing market valued at $87.42B in 2024, projected to reach $512.3B by 2033 (CAGR 21.71%)</li>
+</ul>
+</li>
+<li><strong>Testing Levels:</strong>
+<ul>
+<li><em>Unit Testing</em> – testing individual components or functions in isolation for correct behavior.</li>
+<li><em>Integration Testing</em> – checking that different modules or services work together properly.</li>
+<li><em>System Testing</em> – validating the entire integrated system against the requirements.</li>
+<li><em>Acceptance Testing</em> – ensuring the system meets user needs and is ready for deployment.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="testing-example--tdd">Testing Example &amp; TDD</h2>
+<p><strong>Unit Test Example (pytest):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_total</span>(price, quantity):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> price <span style="color:#f92672">*</span> quantity
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_calculate_total</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> calculate_total(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">5</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">50</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> calculate_total(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span> calculate_total(<span style="color:#ae81ff">7.5</span>, <span style="color:#ae81ff">2</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">15.0</span>
+</span></span></code></pre></div><p><strong>Approach:</strong> We follow good testing practices like writing test cases for both normal and edge conditions. Automated tests (using frameworks like <code>unittest</code> or <code>pytest</code> in Python) help catch regressions quickly. A solid test suite gives confidence to refactor code since you can verify nothing broke. In fact, one of the Agile practices is <strong>Test-Driven Development (TDD)</strong> – writing tests before implementing code to drive correct behavior and design.</p>
+<hr>
+<h2 id="solid-principles">SOLID Principles</h2>
+<ul>
+<li><strong>SOLID Principles:</strong> Five foundational design principles for maintainable OOP code:
+<ol>
+<li><strong>S</strong>ingle Responsibility Principle – a class should have only one reason to change (one responsibility).</li>
+<li><strong>O</strong>pen/Closed Principle – software entities should be open for extension but closed for modification.</li>
+<li><strong>L</strong>iskov Substitution Principle – objects of a superclass should be replaceable with objects of subclasses without breaking the system.</li>
+<li><strong>I</strong>nterface Segregation Principle – no client should be forced to depend on methods it doesn&rsquo;t use (split large interfaces into smaller, specific ones).</li>
+<li><strong>D</strong>ependency Inversion Principle – high-level modules should not depend on low-level modules; both should depend on abstractions.</li>
+</ol>
+</li>
+<li>Applying SOLID leads to cleaner, more flexible designs. For instance, adhering to SRP (Single Responsibility) means each class addresses one concern, making it easier to debug and update.</li>
+</ul>
+<hr>
+<h2 id="solid-example-single-responsibility">SOLID Example: Single Responsibility</h2>
+<p><strong>Violation (Multiple Responsibilities):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">save_to_database</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Database logic here</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_email</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Email logic here</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div><p><strong>Following SRP (Single Responsibility):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, name, email):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> name
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>email <span style="color:#f92672">=</span> email
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserRepository</span>:  <span style="color:#75715e"># Handles DB operations</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">save</span>(self, user):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EmailService</span>:    <span style="color:#75715e"># Handles email operations</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send</span>(self, user):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div><hr>
+<h2 id="design-patterns">Design Patterns</h2>
+<ul>
+<li><strong>Design Patterns:</strong> A design pattern is a general, reusable solution to a commonly occurring problem in software design. It&rsquo;s a template for how to solve a problem that can be adapted to different situations, rather than a direct piece of code. Classic patterns (from the &ldquo;Gang of Four&rdquo; book) include creational patterns (e.g. Factory), structural patterns (e.g. Adapter), and behavioral patterns (e.g. Observer).
+<ul>
+<li><strong>2025 Reality:</strong> Many patterns now built into modern languages, but remain essential as conceptual tools</li>
+<li>23 Gang of Four patterns still relevant as shared vocabulary among developers</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="iterator-pattern-example">Iterator Pattern Example</h2>
+<p><strong>Iterator Pattern in Python:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BookCollection</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>books <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_book</span>(self, book):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>books<span style="color:#f92672">.</span>append(book)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__iter__</span>(self):  <span style="color:#75715e"># Iterator protocol</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> iter(self<span style="color:#f92672">.</span>books)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__next__</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Custom iteration logic if needed</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Usage</span>
+</span></span><span style="display:flex;"><span>collection <span style="color:#f92672">=</span> BookCollection()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> book <span style="color:#f92672">in</span> collection:  <span style="color:#75715e"># Clean, standard iteration</span>
+</span></span><span style="display:flex;"><span>    print(book)
+</span></span></code></pre></div><hr>
+<h2 id="iterator-pattern-concepts">Iterator Pattern Concepts</h2>
+<ul>
+<li><em>Iterator Pattern:</em> The Iterator is a behavioral pattern that <strong>provides a standard way to access elements of a collection sequentially without exposing the collection&rsquo;s internal structure</strong>. For example, Python&rsquo;s iterator protocol (<code>__iter__</code> and <code>__next__</code>) allows you to loop over objects like lists and custom collections in a uniform way. Design patterns like this improve interoperability and code clarity. Using known patterns can also make your design more communicative – other developers recognize the pattern and understand the solution approach more readily.</li>
+</ul>
+<hr>
+<h1 id="homework-3-high-level-programming-languages">Homework 3: High-Level Programming Languages</h1>
+<p>Building Todo Apps in JavaScript, TypeScript, and React</p>
+<hr>
+<h2 id="hw3-project-overview">HW3: Project Overview</h2>
+<p>Built three implementations of the same Todo application to demonstrate the evolution and benefits of high-level programming languages:</p>
+<ol>
+<li><strong>JavaScript Todo App</strong> – Vanilla JavaScript with DOM manipulation</li>
+<li><strong>TypeScript Todo App</strong> – Type-safe version with strict typing</li>
+<li><strong>React Todo App</strong> – Component-based architecture with hooks</li>
+</ol>
+<p><strong>Goal:</strong> Understand how high-level languages and frameworks help create high-quality software effectively.</p>
+<hr>
+<h2 id="application-structure-comparison">Application Structure Comparison</h2>
+<h3 id="javascript">JavaScript</h3>
+<pre tabindex="0"><code>javascript-todo/
+├── app.js              # Business logic and DOM manipulation
+└── index.html          # Structure and styles
+</code></pre><h3 id="typescript">TypeScript</h3>
+<pre tabindex="0"><code>typescript-todo/
+├── src/
+│   ├── app.ts          # Type-safe source code
+│   ├── index.html      # HTML structure
+│   └── tsconfig.json   # TypeScript configuration
+└── app.js              # Compiled JavaScript
+</code></pre><h3 id="react">React</h3>
+<pre tabindex="0"><code>react-todo/
+├── package.json        # Dependencies and build scripts
+├── src/
+│   ├── App.tsx         # React components with TypeScript
+│   └── index.html      # HTML with root div
+└── app.js              # Bundled output
+</code></pre><hr>
+<h2 id="how-high-level-languages-improve-software-quality">How High-Level Languages Improve Software Quality</h2>
+<h3 id="1-abstraction---focus-on-what-not-how">1. Abstraction - Focus on &ldquo;What&rdquo; Not &ldquo;How&rdquo;</h3>
+<p><strong>JavaScript (Low-Level DOM Manipulation):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">li</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;li&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">checkbox</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;input&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">checkbox</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;checkbox&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">li</span>.<span style="color:#a6e22e">appendChild</span>(<span style="color:#a6e22e">checkbox</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ... manual DOM construction
+</span></span></span></code></pre></div><p><strong>React (High-Level Declarative):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span>&lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">completed</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;completed&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>}&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span> <span style="color:#a6e22e">checked</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">completed</span>} /&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span></code></pre></div><p><strong>Benefit:</strong> React abstracts away DOM manipulation, letting developers focus on UI logic rather than implementation details.</p>
+<hr>
+<h2 id="2-type-safety---catching-errors-early">2. Type Safety - Catching Errors Early</h2>
+<p><strong>JavaScript (Runtime Errors):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">deleteTodo</span>(<span style="color:#a6e22e">id</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">todos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">t</span> =&gt; <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">id</span>);  <span style="color:#75715e">// No type checking
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p><strong>TypeScript (Compile-Time Safety):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#a6e22e">deleteTodo</span>(<span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">todo</span>: <span style="color:#66d9ef">Todo</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">find</span>(
+</span></span><span style="display:flex;"><span>    (<span style="color:#a6e22e">t</span>: <span style="color:#66d9ef">Todo</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">boolean</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">id</span>
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// TypeScript ensures type correctness
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p><strong>Benefit:</strong> TypeScript catches type errors during development, preventing runtime bugs and providing better IDE support.</p>
+<hr>
+<h2 id="3-component-reusability">3. Component Reusability</h2>
+<p><strong>JavaScript (Duplicate Code):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// Must repeat similar logic for each todo item
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">todo</span> =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">li</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;li&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">checkbox</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">createElement</span>(<span style="color:#e6db74">&#39;input&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// ... repeat for every todo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>});
+</span></span></code></pre></div><p><strong>React (Reusable Components):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TodoItem</span>: <span style="color:#66d9ef">React.FC</span>&lt;<span style="color:#f92672">TodoItemProps</span>&gt; <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">todo</span>, <span style="color:#a6e22e">onToggle</span>, <span style="color:#a6e22e">onDelete</span> }) <span style="color:#f92672">=&gt;</span> (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">completed</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;completed&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span> <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">onToggle</span>(<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>)} /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">onDelete</span>(<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>)}&gt;<span style="color:#a6e22e">Delete</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p><strong>Benefit:</strong> React components are self-contained, reusable units that eliminate code duplication.</p>
+<hr>
+<h2 id="4-state-management">4. State Management</h2>
+<p><strong>JavaScript (Manual State Tracking):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">todos</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">addTodo</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">newTodo</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">displayTodos</span>();  <span style="color:#75715e">// Manually update UI
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p><strong>React (Automatic UI Updates):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">todos</span>, <span style="color:#a6e22e">setTodos</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>&lt;<span style="color:#f92672">Todo</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt;([]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">addTodo</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">text</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">setTodos</span>([...<span style="color:#a6e22e">todos</span>, <span style="color:#a6e22e">newTodo</span>]);  <span style="color:#75715e">// UI updates automatically
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p><strong>Benefit:</strong> React automatically re-renders when state changes, eliminating manual DOM synchronization bugs.</p>
+<hr>
+<h2 id="5-maintainability--scalability">5. Maintainability &amp; Scalability</h2>
+<h3 id="code-organization-comparison">Code Organization Comparison</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Aspect</th>
+          <th>JavaScript</th>
+          <th>TypeScript</th>
+          <th>React</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Structure</strong></td>
+          <td>Functions</td>
+          <td>Classes</td>
+          <td>Components</td>
+      </tr>
+      <tr>
+          <td><strong>Type Safety</strong></td>
+          <td>None</td>
+          <td>Full</td>
+          <td>Full</td>
+      </tr>
+      <tr>
+          <td><strong>Reusability</strong></td>
+          <td>Limited</td>
+          <td>Medium</td>
+          <td>High</td>
+      </tr>
+      <tr>
+          <td><strong>Testing</strong></td>
+          <td>Difficult</td>
+          <td>Easier</td>
+          <td>Easiest</td>
+      </tr>
+      <tr>
+          <td><strong>Team Collaboration</strong></td>
+          <td>Hard</td>
+          <td>Better</td>
+          <td>Best</td>
+      </tr>
+      <tr>
+          <td><strong>Scalability</strong></td>
+          <td>Poor</td>
+          <td>Good</td>
+          <td>Excellent</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="real-world-impact-lines-of-code">Real-World Impact: Lines of Code</h2>
+<p><strong>Same functionality, different complexity:</strong></p>
+<ul>
+<li><strong>JavaScript:</strong> ~140 lines of imperative code</li>
+<li><strong>TypeScript:</strong> ~160 lines (extra type annotations pay off in safety)</li>
+<li><strong>React:</strong> ~180 lines split into 4 reusable components</li>
+</ul>
+<p><strong>But consider:</strong></p>
+<ul>
+<li>React code is more maintainable</li>
+<li>TypeScript prevents entire classes of bugs</li>
+<li>Components can be reused across projects</li>
+</ul>
+<hr>
+<h2 id="developer-experience-benefits">Developer Experience Benefits</h2>
+<h3 id="javascript-1">JavaScript</h3>
+<ul>
+<li>❌ No autocomplete for object properties</li>
+<li>❌ Runtime type errors</li>
+<li>❌ Manual DOM updates prone to bugs</li>
+<li>✅ Quick to start, no build step</li>
+</ul>
+<h3 id="typescript-1">TypeScript</h3>
+<ul>
+<li>✅ Full IDE autocomplete and IntelliSense</li>
+<li>✅ Compile-time error detection</li>
+<li>✅ Self-documenting interfaces</li>
+<li>⚠️ Requires build step</li>
+</ul>
+<h3 id="react-1">React</h3>
+<ul>
+<li>✅ Component-based thinking</li>
+<li>✅ Automatic UI updates</li>
+<li>✅ Rich ecosystem of libraries</li>
+<li>⚠️ Steeper learning curve</li>
+</ul>
+<hr>
+<h2 id="key-features-implemented">Key Features Implemented</h2>
+<p>All three apps implement identical functionality:</p>
+<ol>
+<li>✅ <strong>Add todos</strong> - Create new todo items</li>
+<li>✅ <strong>Toggle completion</strong> - Mark as complete/incomplete</li>
+<li>✅ <strong>Delete todos</strong> - Remove individual items (with confirmation for uncompleted)</li>
+<li>✅ <strong>Clear completed</strong> - Bulk remove finished tasks</li>
+<li>✅ <strong>Clear all</strong> - Delete all todos (with confirmation)</li>
+<li>✅ <strong>Persistent storage</strong> (React only) - Uses localStorage</li>
+</ol>
+<hr>
+<h2 id="lessons-learned-language-evolution">Lessons Learned: Language Evolution</h2>
+<h3 id="javascript-1995">JavaScript (1995)</h3>
+<ul>
+<li>Foundation of web interactivity</li>
+<li>Flexible but error-prone</li>
+<li>Manual everything</li>
+</ul>
+<h3 id="typescript-2012">TypeScript (2012)</h3>
+<ul>
+<li>JavaScript + Type Safety</li>
+<li>Better tooling and refactoring</li>
+<li>Catches bugs before runtime</li>
+</ul>
+<h3 id="react-2013">React (2013)</h3>
+<ul>
+<li>Declarative UI paradigm</li>
+<li>Component-based architecture</li>
+<li>Modern web development standard</li>
+</ul>
+<p><strong>Each evolution addresses pain points of the previous generation.</strong></p>
+<hr>
+<h2 id="how-high-level-languages-enable-quality-software">How High-Level Languages Enable Quality Software</h2>
+<h3 id="1-faster-development">1. <strong>Faster Development</strong></h3>
+<ul>
+<li>Less boilerplate code</li>
+<li>Built-in patterns and best practices</li>
+<li>Rich ecosystems and libraries</li>
+</ul>
+<h3 id="2-fewer-bugs">2. <strong>Fewer Bugs</strong></h3>
+<ul>
+<li>Type safety catches errors early</li>
+<li>Automatic state management</li>
+<li>Framework handles edge cases</li>
+</ul>
+<h3 id="3-better-collaboration">3. <strong>Better Collaboration</strong></h3>
+<ul>
+<li>Clear interfaces and contracts</li>
+<li>Self-documenting code</li>
+<li>Shared vocabulary (components, props, state)</li>
+</ul>
+<h3 id="4-easier-maintenance">4. <strong>Easier Maintenance</strong></h3>
+<ul>
+<li>Modular, isolated components</li>
+<li>Safe refactoring with types</li>
+<li>Clear separation of concerns</li>
+</ul>
+<hr>
+<h2 id="practical-application-to-course-principles">Practical Application to Course Principles</h2>
+<h3 id="apiec-framework-applied">APIEC Framework Applied:</h3>
+<ul>
+<li><strong>Abstraction:</strong> React abstracts DOM manipulation</li>
+<li><strong>Polymorphism:</strong> Components accept different data through props</li>
+<li><strong>Inheritance:</strong> TypeScript class hierarchy (TodoApp extends base functionality)</li>
+<li><strong>Encapsulation:</strong> Private class members, component state</li>
+<li><strong>Composition:</strong> React components composed of smaller components</li>
+</ul>
+<h3 id="solid-principles-1">SOLID Principles:</h3>
+<ul>
+<li><strong>Single Responsibility:</strong> Each React component has one job</li>
+<li><strong>Open/Closed:</strong> Components extensible via props</li>
+<li><strong>Dependency Inversion:</strong> React uses dependency injection via props</li>
+</ul>
+<hr>
+<h2 id="conclusion-why-high-level-languages-matter">Conclusion: Why High-Level Languages Matter</h2>
+<p><strong>The Evolution Path:</strong></p>
+<ol>
+<li>Machine Code → Assembly → C (increasing abstraction)</li>
+<li>C → JavaScript (high-level, garbage collected)</li>
+<li>JavaScript → TypeScript (type safety)</li>
+<li>TypeScript → React (framework abstractions)</li>
+</ol>
+<p><strong>Each step trades some control for:</strong></p>
+<ul>
+<li>✅ Productivity gains</li>
+<li>✅ Reduced bug rates</li>
+<li>✅ Better maintainability</li>
+<li>✅ Easier collaboration</li>
+</ul>
+<p><strong>Result:</strong> High-level languages and frameworks enable developers to build high-quality software more effectively by handling low-level concerns automatically, enforcing best practices, and providing powerful abstractions.</p>
+<hr>
+<h2 id="references">References</h2>
+<ol>
+<li>M. Fowler, <em>Refactoring: Improving the Design of Existing Code</em>, Addison-Wesley, 1999.</li>
+<li>E. Gamma, R. Helm, R. Johnson, J. Vlissides, <em>Design Patterns: Elements of Reusable Object-Oriented Software</em>, Addison-Wesley, 1994.</li>
+<li>Northern Kentucky University, CSC 640 Course Materials (Weeks 1–4 slides) (accessed 2025).</li>
+<li>Industry Statistics: Git (2025), Agile/Scrum Surveys (2025), DevOps Reports (Forrester 2025), Software Testing Market Analysis (2024-2025).</li>
+<li>HW3 Todo Applications - JavaScript, TypeScript, and React implementations (2025).</li>
+</ol>
+<hr>
+<h2 id="key-takeaways">Key Takeaways</h2>
+<ul>
+<li><strong>Week 1:</strong> Foundation tools (VSCode, Git/GitHub, Marp) and course philosophy</li>
+<li><strong>Week 2:</strong> Software processes (Waterfall → Agile → Scrum → DevOps)</li>
+<li><strong>Week 3:</strong> Python, OOP fundamentals, UML, and requirements</li>
+<li><strong>Week 4:</strong> APIEC framework, SOLID principles, design patterns, and testing</li>
+<li><strong>HW3:</strong> High-level programming languages (JavaScript → TypeScript → React) demonstrate how abstraction, type safety, and framework support enable developers to build high-quality software more effectively</li>
+</ul>
+<p><strong>Remember:</strong> High-quality software requires both technical excellence (SOLID, patterns) and process discipline (Agile, testing, CI/CD). Modern high-level languages and frameworks embody these principles, making quality software accessible to more developers.</p>
+<hr>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 NKU 640 Documentation</p>
+    </footer>
+</body>
+</html>

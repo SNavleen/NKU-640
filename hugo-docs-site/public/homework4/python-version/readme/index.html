@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+    <header>
+        <h1>NKU 640 Documentation</h1>
+        <nav>
+            <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/homework3/">Homework 3</a></li>
+                
+                    <li><a href="/homework4/">Homework 4</a></li>
+                
+                    <li><a href="/homework5/">Homework 5</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1></h1>
+<h1 id="todo-rest-api---python">TODO REST API - Python</h1>
+<p>A secure REST API for managing TODO lists and tasks with JWT authentication, built with FastAPI and SQLAlchemy.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#api-endpoints">API Endpoints</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#development">Development</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+<hr>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install Python 3.11+ and uv package manager</span>
+</span></span><span style="display:flex;"><span>brew install python@3.11 uv
+</span></span></code></pre></div><h3 id="installation">Installation</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ./docs/homework4/python-version
+</span></span><span style="display:flex;"><span>uv sync
+</span></span></code></pre></div><h3 id="configuration">Configuration</h3>
+<ol>
+<li>Generate a JWT secret:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl rand -base64 <span style="color:#ae81ff">32</span>
+</span></span></code></pre></div><ol start="2">
+<li>Update <code>.env</code>:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>JWT_SECRET<span style="color:#f92672">=</span>your-generated-secret-here
+</span></span><span style="display:flex;"><span>JWT_EXPIRY<span style="color:#f92672">=</span><span style="color:#ae81ff">3600</span>
+</span></span><span style="display:flex;"><span>DEBUG_MODE<span style="color:#f92672">=</span>true
+</span></span><span style="display:flex;"><span>DATABASE_URL<span style="color:#f92672">=</span>sqlite:///./todo.db
+</span></span></code></pre></div><h3 id="running-the-api">Running the API</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Development server</span>
+</span></span><span style="display:flex;"><span>uv run uvicorn app.main:app --reload --host 0.0.0.0 --port <span style="color:#ae81ff">8000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or using Docker</span>
+</span></span><span style="display:flex;"><span>docker-compose up
+</span></span></code></pre></div><p>The API will be available at <code>http://localhost:8000</code></p>
+<hr>
+<h2 id="installation-1">Installation</h2>
+<h3 id="local-development">Local Development</h3>
+<ol>
+<li>
+<p><strong>Clone and navigate:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd homework4/python-version
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Install dependencies:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uv sync
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Set up environment:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp .env.example .env
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Edit .env with your configuration</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Initialize database:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uv run python -m app.database
+</span></span></code></pre></div></li>
+</ol>
+<h3 id="docker-deployment">Docker Deployment</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker-compose up --build
+</span></span></code></pre></div><hr>
+<h2 id="configuration-1">Configuration</h2>
+<h3 id="environment-variables">Environment Variables</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Variable</th>
+          <th>Description</th>
+          <th>Default</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>JWT_SECRET</code></td>
+          <td>Secret key for JWT tokens</td>
+          <td>Required</td>
+      </tr>
+      <tr>
+          <td><code>JWT_EXPIRY</code></td>
+          <td>Token expiry in seconds</td>
+          <td>3600</td>
+      </tr>
+      <tr>
+          <td><code>DATABASE_URL</code></td>
+          <td>Database connection string</td>
+          <td><code>sqlite:///./todo.db</code></td>
+      </tr>
+      <tr>
+          <td><code>DEBUG_MODE</code></td>
+          <td>Enable debug logging</td>
+          <td><code>false</code></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="database">Database</h3>
+<p>The API uses SQLite by default. For production, update <code>DATABASE_URL</code> to your preferred database.</p>
+<hr>
+<h2 id="testing">Testing</h2>
+<h3 id="run-tests">Run Tests</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># All tests</span>
+</span></span><span style="display:flex;"><span>uv run pytest
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># With coverage</span>
+</span></span><span style="display:flex;"><span>uv run pytest --cov<span style="color:#f92672">=</span>app --cov-report<span style="color:#f92672">=</span>html
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Specific test file</span>
+</span></span><span style="display:flex;"><span>uv run pytest tests/test_auth.py
+</span></span></code></pre></div><h3 id="api-testing">API Testing</h3>
+<p>Use the provided Bruno collection (<code>bruno/</code>) for comprehensive API testing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Import the collection into Bruno and run tests</span>
+</span></span></code></pre></div><h3 id="manual-testing">Manual Testing</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Health check</span>
+</span></span><span style="display:flex;"><span>curl http://localhost:8000/api/v1/health
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># API documentation</span>
+</span></span><span style="display:flex;"><span>open http://localhost:8000/docs
+</span></span></code></pre></div><hr>
+<h2 id="api-endpoints">API Endpoints</h2>
+<h3 id="authentication">Authentication</h3>
+<ul>
+<li><code>POST /api/v1/auth/signup</code> - User registration</li>
+<li><code>POST /api/v1/auth/login</code> - User login</li>
+<li><code>POST /api/v1/auth/logout</code> - User logout</li>
+<li><code>GET /api/v1/auth/me</code> - Get current user</li>
+</ul>
+<h3 id="lists">Lists</h3>
+<ul>
+<li><code>GET /api/v1/lists</code> - Get all user lists</li>
+<li><code>POST /api/v1/lists</code> - Create new list</li>
+<li><code>GET /api/v1/lists/{id}</code> - Get specific list</li>
+<li><code>PATCH /api/v1/lists/{id}</code> - Update list</li>
+<li><code>DELETE /api/v1/lists/{id}</code> - Delete list</li>
+</ul>
+<h3 id="tasks">Tasks</h3>
+<ul>
+<li><code>GET /api/v1/lists/{list_id}/tasks</code> - Get tasks in list</li>
+<li><code>POST /api/v1/lists/{list_id}/tasks</code> - Create task</li>
+<li><code>GET /api/v1/tasks/{id}</code> - Get specific task</li>
+<li><code>PATCH /api/v1/tasks/{id}</code> - Update task</li>
+<li><code>DELETE /api/v1/tasks/{id}</code> - Delete task</li>
+</ul>
+<p>See <a href="API.md">API Reference</a> for complete documentation.</p>
+<hr>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>JWT Authentication</strong>: Secure token-based authentication with refresh tokens</li>
+<li><strong>Password Security</strong>: Argon2 password hashing (no length limits)</li>
+<li><strong>CRUD Operations</strong>: Full Create, Read, Update, Delete for lists and tasks</li>
+<li><strong>Data Validation</strong>: Pydantic schemas with comprehensive validation</li>
+<li><strong>Database ORM</strong>: SQLAlchemy with SQLite/PostgreSQL support</li>
+<li><strong>API Documentation</strong>: Auto-generated OpenAPI/Swagger docs</li>
+<li><strong>Error Handling</strong>: Comprehensive error responses with proper HTTP codes</li>
+<li><strong>Logging</strong>: Structured logging with request/response tracking</li>
+<li><strong>Testing</strong>: Full test suite with pytest</li>
+<li><strong>Docker Support</strong>: Containerized deployment with docker-compose</li>
+</ul>
+<hr>
+<h2 id="development">Development</h2>
+<h3 id="project-structure">Project Structure</h3>
+<pre tabindex="0"><code>app/
+├── main.py              # FastAPI application
+├── database.py          # Database connection and setup
+├── config.py            # Configuration management
+├── models/              # SQLAlchemy models
+│   ├── user.py
+│   ├── list.py
+│   ├── task.py
+│   └── token_blacklist.py
+├── schemas/             # Pydantic schemas
+│   ├── user.py
+│   ├── list.py
+│   └── task.py
+├── routers/             # API route handlers
+│   ├── auth.py
+│   ├── lists.py
+│   └── tasks.py
+└── utils/
+    └── security.py      # Password hashing and JWT utilities
+</code></pre><h3 id="code-quality">Code Quality</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Format code</span>
+</span></span><span style="display:flex;"><span>uv run black .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Lint code</span>
+</span></span><span style="display:flex;"><span>uv run flake8 .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Type checking</span>
+</span></span><span style="display:flex;"><span>uv run mypy .
+</span></span></code></pre></div><hr>
+<h2 id="deployment">Deployment</h2>
+<h3 id="docker-production">Docker Production</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Build and run</span>
+</span></span><span style="display:flex;"><span>docker-compose -f docker-compose.yml up --build
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Background</span>
+</span></span><span style="display:flex;"><span>docker-compose up -d
+</span></span></code></pre></div><h3 id="manual-production">Manual Production</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install production dependencies</span>
+</span></span><span style="display:flex;"><span>uv sync --only prod
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Run with gunicorn</span>
+</span></span><span style="display:flex;"><span>uv run gunicorn app.main:app -w <span style="color:#ae81ff">4</span> -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+</span></span></code></pre></div><p>See <a href="deployment-tutorial.md">Deployment Tutorial</a> for detailed instructions.</p>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<p><strong>Database Connection Failed</strong></p>
+<pre tabindex="0"><code>Error: (sqlite3.OperationalError) unable to open database file
+</code></pre><ul>
+<li>Ensure the database directory exists and has write permissions</li>
+<li>Check <code>DATABASE_URL</code> in environment variables</li>
+</ul>
+<p><strong>JWT Token Invalid</strong></p>
+<pre tabindex="0"><code>Error: Invalid token
+</code></pre><ul>
+<li>Verify <code>JWT_SECRET</code> is set correctly</li>
+<li>Check token expiry time</li>
+</ul>
+<p><strong>Import Errors</strong></p>
+<pre tabindex="0"><code>ModuleNotFoundError: No module named &#39;app&#39;
+</code></pre><ul>
+<li>Ensure you&rsquo;re running from the correct directory</li>
+<li>Check Python path: <code>uv run python -c &quot;import sys; print(sys.path)&quot;</code></li>
+</ul>
+<h3 id="debug-mode">Debug Mode</h3>
+<p>Enable debug logging:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>DEBUG_MODE<span style="color:#f92672">=</span>true uv run uvicorn app.main:app --reload
+</span></span></code></pre></div><h3 id="logs">Logs</h3>
+<p>Check application logs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Docker logs</span>
+</span></span><span style="display:flex;"><span>docker-compose logs -f app
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Direct logs</span>
+</span></span><span style="display:flex;"><span>tail -f logs/app.log
+</span></span></code></pre></div><h3 id="health-check">Health Check</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -v http://localhost:8000/api/v1/health
+</span></span></code></pre></div><hr>
+<h2 id="contributing">Contributing</h2>
+<ol>
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Make changes with tests</li>
+<li>Run the full test suite</li>
+<li>Submit a pull request</li>
+</ol>
+<hr>
+<h2 id="license">License</h2>
+<p>This project is part of NKU 640 coursework.</p>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 NKU 640 Documentation</p>
+    </footer>
+</body>
+</html>

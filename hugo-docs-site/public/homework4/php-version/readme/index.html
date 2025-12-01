@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+    <header>
+        <h1>NKU 640 Documentation</h1>
+        <nav>
+            <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/homework3/">Homework 3</a></li>
+                
+                    <li><a href="/homework4/">Homework 4</a></li>
+                
+                    <li><a href="/homework5/">Homework 5</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1></h1>
+<h1 id="todo-rest-api---php">TODO REST API - PHP</h1>
+<p>A secure REST API for managing TODO lists and tasks with JWT authentication.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#api-endpoints">API Endpoints</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#development">Development</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+<hr>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Install PHP 8.1+ and Composer</span>
+</span></span><span style="display:flex;"><span>brew install php composer
+</span></span></code></pre></div><h3 id="installation">Installation</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ./docs/homework4/php-version
+</span></span><span style="display:flex;"><span>composer install
+</span></span></code></pre></div><h3 id="configuration">Configuration</h3>
+<ol>
+<li>Generate a JWT secret:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl rand -base64 <span style="color:#ae81ff">32</span>
+</span></span></code></pre></div><ol start="2">
+<li>Update <code>.env</code>:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>JWT_SECRET<span style="color:#f92672">=</span>your-generated-secret-here
+</span></span><span style="display:flex;"><span>JWT_EXPIRY<span style="color:#f92672">=</span><span style="color:#ae81ff">3600</span>
+</span></span><span style="display:flex;"><span>DEBUG_MODE<span style="color:#f92672">=</span>true
+</span></span></code></pre></div><h3 id="run-server">Run Server</h3>
+<p><strong>Option 1: Using Composer (recommended)</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>composer serve
+</span></span></code></pre></div><p><strong>Option 2: Using PHP built-in server</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>php -S localhost:8000 -t public
+</span></span></code></pre></div><p>API available at: <code>http://localhost:8000</code></p>
+<h3 id="verify-server">Verify Server</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Test with a simple GET request</span>
+</span></span><span style="display:flex;"><span>curl http://localhost:8000/api/v1/lists
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Should return: []</span>
+</span></span></code></pre></div><hr>
+<h2 id="testing">Testing</h2>
+<h3 id="option-1-bruno-recommended">Option 1: Bruno (Recommended)</h3>
+<ol>
+<li>Download Bruno from <a href="https://www.usebruno.com/">https://www.usebruno.com/</a></li>
+<li>Open Bruno and import collection from <code>bruno/</code> folder</li>
+<li>Select &ldquo;local&rdquo; environment</li>
+<li>Run requests in order:
+<ul>
+<li>Auth &gt; Signup (copy the token)</li>
+<li>Auth &gt; Get Profile (paste token)</li>
+<li>Lists &gt; Create List (copy list ID)</li>
+<li>Tasks &gt; Create Task (use list ID)</li>
+</ul>
+</li>
+</ol>
+<h3 id="option-2-curl-examples">Option 2: curl Examples</h3>
+<h4 id="authentication-flow">Authentication Flow</h4>
+<p><strong>1. Create Account:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http://localhost:8000/api/v1/auth/signup <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;username&#34;: &#34;alice&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;email&#34;: &#34;alice@example.com&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;password&#34;: &#34;password123&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  }&#39;</span>
+</span></span></code></pre></div><p><strong>Expected Response (201):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;token&#34;</span>: <span style="color:#e6db74">&#34;eyJ0eXAiOiJKV1QiLCJhbGc...&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;user&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;a1b2c3d4-...&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;alice&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;alice@example.com&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-11-06T10:00:00Z&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Save the token for next steps!</strong></p>
+<p><strong>2. Login:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http://localhost:8000/api/v1/auth/login <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;username&#34;: &#34;alice&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;password&#34;: &#34;password123&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  }&#39;</span>
+</span></span></code></pre></div><p><strong>3. Get Profile (Protected):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>TOKEN<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;your-token-here&#34;</span>
+</span></span><span style="display:flex;"><span>curl -X GET http://localhost:8000/api/v1/users/profile <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Authorization: Bearer </span>$TOKEN<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p><strong>4. Logout (Blacklist Token):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http://localhost:8000/api/v1/auth/logout <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Authorization: Bearer </span>$TOKEN<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p>After logout, the token cannot be used again!</p>
+<h4 id="list-and-task-operations">List and Task Operations</h4>
+<p><strong>1. Create List:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X POST http://localhost:8000/api/v1/lists <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;Groceries&#34;,&#34;description&#34;:&#34;Weekly shopping&#34;}&#39;</span>
+</span></span></code></pre></div><p><strong>Save the returned list ID!</strong></p>
+<p><strong>2. Get All Lists:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://localhost:8000/api/v1/lists
+</span></span></code></pre></div><p><strong>3. Create Task:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Replace LIST_ID with actual ID</span>
+</span></span><span style="display:flex;"><span>curl -X POST http://localhost:8000/api/v1/lists/LIST_ID/tasks <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;title&#34;: &#34;Buy milk&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;priority&#34;: &#34;high&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;dueDate&#34;: &#34;2025-11-07T18:00:00Z&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  }&#39;</span>
+</span></span></code></pre></div><p><strong>4. Update Task:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Replace TASK_ID with actual ID</span>
+</span></span><span style="display:flex;"><span>curl -X PATCH http://localhost:8000/api/v1/tasks/TASK_ID <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;completed&#34;:true}&#39;</span>
+</span></span></code></pre></div><p><strong>5. Delete Task:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X DELETE http://localhost:8000/api/v1/tasks/TASK_ID
+</span></span></code></pre></div><p><strong>6. Delete List:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -X DELETE http://localhost:8000/api/v1/lists/LIST_ID
+</span></span></code></pre></div><h3 id="automated-test-script">Automated Test Script</h3>
+<p>Save as <code>test_api.sh</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;=== Testing TODO REST API ===&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 1. Sign up</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;1. Signing up...&#34;</span>
+</span></span><span style="display:flex;"><span>SIGNUP<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -s -X POST http://localhost:8000/api/v1/auth/signup <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;username&#34;:&#34;alice&#34;,&#34;email&#34;:&#34;alice@test.com&#34;,&#34;password&#34;:&#34;pass123456&#34;}&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TOKEN<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo $SIGNUP | grep -o <span style="color:#e6db74">&#39;&#34;token&#34;:&#34;[^&#34;]*&#34;&#39;</span> | cut -d<span style="color:#e6db74">&#39;&#34;&#39;</span> -f4<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Token: </span><span style="color:#e6db74">${</span>TOKEN:0:20<span style="color:#e6db74">}</span><span style="color:#e6db74">...&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 2. Create list</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;2. Creating list...&#34;</span>
+</span></span><span style="display:flex;"><span>LIST<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -s -X POST http://localhost:8000/api/v1/lists <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;name&#34;:&#34;Test List&#34;}&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LIST_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo $LIST | grep -o <span style="color:#e6db74">&#39;&#34;id&#34;:&#34;[^&#34;]*&#34;&#39;</span> | cut -d<span style="color:#e6db74">&#39;&#34;&#39;</span> -f4<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;List ID: </span>$LIST_ID<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 3. Create task</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;3. Creating task...&#34;</span>
+</span></span><span style="display:flex;"><span>TASK<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>curl -s -X POST http://localhost:8000/api/v1/lists/$LIST_ID/tasks <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;title&#34;:&#34;Test Task&#34;,&#34;priority&#34;:&#34;high&#34;}&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TASK_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>echo $TASK | grep -o <span style="color:#e6db74">&#39;&#34;id&#34;:&#34;[^&#34;]*&#34;&#39;</span> | cut -d<span style="color:#e6db74">&#39;&#34;&#39;</span> -f4<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;Task ID: </span>$TASK_ID<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 4. Update task</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;4. Updating task...&#34;</span>
+</span></span><span style="display:flex;"><span>curl -s -X PATCH http://localhost:8000/api/v1/tasks/$TASK_ID <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Content-Type: application/json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -d <span style="color:#e6db74">&#39;{&#34;completed&#34;:true}&#39;</span> | jq
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 5. Cleanup</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;5. Cleaning up...&#34;</span>
+</span></span><span style="display:flex;"><span>curl -s -X DELETE http://localhost:8000/api/v1/tasks/$TASK_ID
+</span></span><span style="display:flex;"><span>curl -s -X DELETE http://localhost:8000/api/v1/lists/$LIST_ID
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;=== Test Complete ===&#34;</span>
+</span></span></code></pre></div><p>Run with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod +x test_api.sh
+</span></span><span style="display:flex;"><span>./test_api.sh
+</span></span></code></pre></div><h3 id="run-unit-tests">Run Unit Tests</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>composer test
+</span></span></code></pre></div><p><strong>Expected:</strong> 39 tests should pass</p>
+<hr>
+<h2 id="api-endpoints">API Endpoints</h2>
+<p>See <a href="API.md">API.md</a> for complete endpoint documentation.</p>
+<h3 id="quick-reference">Quick Reference</h3>
+<table>
+  <thead>
+      <tr>
+          <th>Method</th>
+          <th>Endpoint</th>
+          <th>Protected</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Health</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td><code>/api/v1/health</code></td>
+          <td>No</td>
+          <td>System health check</td>
+      </tr>
+      <tr>
+          <td><strong>Authentication</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>POST</td>
+          <td><code>/api/v1/auth/signup</code></td>
+          <td>No</td>
+          <td>Create account</td>
+      </tr>
+      <tr>
+          <td>POST</td>
+          <td><code>/api/v1/auth/login</code></td>
+          <td>No</td>
+          <td>Login</td>
+      </tr>
+      <tr>
+          <td>POST</td>
+          <td><code>/api/v1/auth/logout</code></td>
+          <td>Yes</td>
+          <td>Logout (blacklist token)</td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td><code>/api/v1/users/profile</code></td>
+          <td>Yes</td>
+          <td>Get profile</td>
+      </tr>
+      <tr>
+          <td><strong>Lists</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td><code>/api/v1/lists</code></td>
+          <td>No</td>
+          <td>Get all lists</td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td><code>/api/v1/lists/:id</code></td>
+          <td>No</td>
+          <td>Get list by ID</td>
+      </tr>
+      <tr>
+          <td>POST</td>
+          <td><code>/api/v1/lists</code></td>
+          <td>No</td>
+          <td>Create list</td>
+      </tr>
+      <tr>
+          <td>PATCH</td>
+          <td><code>/api/v1/lists/:id</code></td>
+          <td>No</td>
+          <td>Update list</td>
+      </tr>
+      <tr>
+          <td>DELETE</td>
+          <td><code>/api/v1/lists/:id</code></td>
+          <td>No</td>
+          <td>Delete list</td>
+      </tr>
+      <tr>
+          <td><strong>Tasks</strong></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td><code>/api/v1/lists/:listId/tasks</code></td>
+          <td>No</td>
+          <td>Get tasks in list</td>
+      </tr>
+      <tr>
+          <td>GET</td>
+          <td><code>/api/v1/tasks/:id</code></td>
+          <td>No</td>
+          <td>Get task by ID</td>
+      </tr>
+      <tr>
+          <td>POST</td>
+          <td><code>/api/v1/lists/:listId/tasks</code></td>
+          <td>No</td>
+          <td>Create task</td>
+      </tr>
+      <tr>
+          <td>PATCH</td>
+          <td><code>/api/v1/tasks/:id</code></td>
+          <td>No</td>
+          <td>Update task</td>
+      </tr>
+      <tr>
+          <td>DELETE</td>
+          <td><code>/api/v1/tasks/:id</code></td>
+          <td>No</td>
+          <td>Delete task</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Protected endpoints require:</strong> <code>Authorization: Bearer &lt;token&gt;</code> header</p>
+<hr>
+<h2 id="features">Features</h2>
+<h3 id="security">Security</h3>
+<ul>
+<li>✅ <strong>Bcrypt password hashing</strong> (cost: 12)</li>
+<li>✅ <strong>JWT authentication</strong> with 1-hour expiry</li>
+<li>✅ <strong>Token blacklisting</strong> on logout</li>
+<li>✅ <strong>SQL injection prevention</strong> (prepared statements)</li>
+<li>✅ <strong>XSS protection</strong> (HTML escaping)</li>
+<li>✅ <strong>Input validation</strong> on all endpoints</li>
+</ul>
+<h3 id="database">Database</h3>
+<ul>
+<li>SQLite file-based database</li>
+<li>Foreign key constraints</li>
+<li>Cascade deletes</li>
+<li>Automatic timestamps</li>
+</ul>
+<h3 id="logging">Logging</h3>
+<ul>
+<li>Request/response logging</li>
+<li>Error tracking</li>
+<li>Debug mode toggle</li>
+</ul>
+<hr>
+<h2 id="project-structure">Project Structure</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>php-version/
+</span></span><span style="display:flex;"><span>├── public/index.php      # Entry point
+</span></span><span style="display:flex;"><span>├── src/
+</span></span><span style="display:flex;"><span>│   ├── Controllers/      # Request handlers
+</span></span><span style="display:flex;"><span>│   ├── Models/           # Database operations
+</span></span><span style="display:flex;"><span>│   └── Services/         # Business logic
+</span></span><span style="display:flex;"><span>├── bruno/                # API test collection (14 requests)
+</span></span><span style="display:flex;"><span>├── tests/                # Unit tests (39 tests)
+</span></span><span style="display:flex;"><span>├── data/                 # SQLite database
+</span></span><span style="display:flex;"><span>├── logs/                 # API logs
+</span></span><span style="display:flex;"><span>└── .env                  # Configuration
+</span></span></code></pre></div><hr>
+<h2 id="development">Development</h2>
+<h3 id="view-logs">View Logs</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Real-time monitoring</span>
+</span></span><span style="display:flex;"><span>tail -f logs/api.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># View last 50 lines</span>
+</span></span><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">50</span> logs/api.log
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Search for errors</span>
+</span></span><span style="display:flex;"><span>grep ERROR logs/api.log
+</span></span></code></pre></div><p><strong>Log Format:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[2025-11-06T10:00:00Z] INFO: GET /api/v1/lists - 200 OK - 15ms
+</span></span><span style="display:flex;"><span>[2025-11-06T10:01:00Z] ERROR: Failed to fetch list - Error details...
+</span></span></code></pre></div><h3 id="inspect-database">Inspect Database</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sqlite3 data/todo.db
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># View tables</span>
+</span></span><span style="display:flex;"><span>.tables
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># View lists</span>
+</span></span><span style="display:flex;"><span>SELECT * FROM lists;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># View tasks</span>
+</span></span><span style="display:flex;"><span>SELECT * FROM tasks;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># View users</span>
+</span></span><span style="display:flex;"><span>SELECT * FROM users;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># View blacklisted tokens</span>
+</span></span><span style="display:flex;"><span>SELECT * FROM token_blacklist;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Exit</span>
+</span></span><span style="display:flex;"><span>.quit
+</span></span></code></pre></div><h3 id="reset-database">Reset Database</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm data/todo.db
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Will be recreated on next request</span>
+</span></span></code></pre></div><hr>
+<h2 id="deployment">Deployment</h2>
+<h3 id="for-production">For Production</h3>
+<ol>
+<li><strong>Update <code>.env</code>:</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>DEBUG_MODE<span style="color:#f92672">=</span>false
+</span></span><span style="display:flex;"><span>LOG_LEVEL<span style="color:#f92672">=</span>error
+</span></span><span style="display:flex;"><span>JWT_SECRET<span style="color:#f92672">=</span>strong-random-secret-here
+</span></span></code></pre></div><ol start="2">
+<li><strong>Generate strong JWT secret:</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl rand -base64 <span style="color:#ae81ff">32</span>
+</span></span></code></pre></div><ol start="3">
+<li><strong>Configure Nginx:</strong></li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nginx" data-lang="nginx"><span style="display:flex;"><span><span style="color:#66d9ef">server</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">your-domain.com</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">root</span> <span style="color:#e6db74">/path/to/php-version/public</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">index</span> <span style="color:#e6db74">index.php</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">try_files</span> $uri $uri/ <span style="color:#e6db74">/index.php?</span>$query_string;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">\.php$</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fastcgi_pass</span> <span style="color:#e6db74">unix:/var/run/php/php8.1-fpm.sock</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fastcgi_index</span> <span style="color:#e6db74">index.php</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">include</span> <span style="color:#e6db74">fastcgi_params</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">fastcgi_param</span> <span style="color:#e6db74">SCRIPT_FILENAME</span> $document_root$fastcgi_script_name;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ol start="4">
+<li>
+<p><strong>Use HTTPS</strong> (required for production)</p>
+</li>
+<li>
+<p><strong>Set proper permissions:</strong></p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod <span style="color:#ae81ff">755</span> logs data
+</span></span><span style="display:flex;"><span>chmod <span style="color:#ae81ff">644</span> .env
+</span></span></code></pre></div><h3 id="aws-ec2-deployment">AWS EC2 Deployment</h3>
+<p>The project includes automated AWS EC2 deployment scripts in the <code>deployment/</code> directory.</p>
+<h4 id="prerequisites-1">Prerequisites</h4>
+<ul>
+<li>AWS CLI configured with credentials (<code>aws configure</code>)</li>
+<li>SSH access to create EC2 instances</li>
+</ul>
+<h4 id="launch-ec2-instance">Launch EC2 Instance</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd deployment
+</span></span><span style="display:flex;"><span>./launch-ec2.sh
+</span></span></code></pre></div><p>This script will:</p>
+<ul>
+<li>Create a Free Tier eligible t3.micro instance</li>
+<li>Set up security group (ports 22, 80, 443)</li>
+<li>Generate SSH key pair (<code>php-todo-api-key.pem</code>)</li>
+<li>Return the public IP address</li>
+</ul>
+<h4 id="deploy-application">Deploy Application</h4>
+<p>After the instance is running, SSH into it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -i php-todo-api-key.pem ubuntu@&lt;PUBLIC_IP&gt;
+</span></span></code></pre></div><p>Upload and run the deployment script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># From your local machine</span>
+</span></span><span style="display:flex;"><span>scp -i deployment/php-todo-api-key.pem deployment/deploy-ec2-setup.sh ubuntu@&lt;PUBLIC_IP&gt;:~/
+</span></span><span style="display:flex;"><span>scp -i deployment/php-todo-api-key.pem deployment/nginx-production.conf ubuntu@&lt;PUBLIC_IP&gt;:~/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># On the EC2 instance</span>
+</span></span><span style="display:flex;"><span>chmod +x deploy-ec2-setup.sh
+</span></span><span style="display:flex;"><span>./deploy-ec2-setup.sh
+</span></span></code></pre></div><p>The setup script installs:</p>
+<ul>
+<li>Nginx web server</li>
+<li>PHP 8.1 with required extensions</li>
+<li>Composer</li>
+<li>Git</li>
+</ul>
+<p>Then manually deploy your code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Clone or upload your code to /var/www/php-todo-api</span>
+</span></span><span style="display:flex;"><span>cd /var/www/php-todo-api
+</span></span><span style="display:flex;"><span>composer install --no-dev --optimize-autoloader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Configure nginx</span>
+</span></span><span style="display:flex;"><span>sudo cp ~/nginx-production.conf /etc/nginx/sites-available/php-todo-api
+</span></span><span style="display:flex;"><span>sudo ln -sf /etc/nginx/sites-available/php-todo-api /etc/nginx/sites-enabled/
+</span></span><span style="display:flex;"><span>sudo rm -f /etc/nginx/sites-enabled/default
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set permissions</span>
+</span></span><span style="display:flex;"><span>sudo chown -R www-data:www-data /var/www/php-todo-api
+</span></span><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">755</span> /var/www/php-todo-api
+</span></span><span style="display:flex;"><span>sudo chmod -R <span style="color:#ae81ff">775</span> /var/www/php-todo-api/data /var/www/php-todo-api/logs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Test and restart nginx</span>
+</span></span><span style="display:flex;"><span>sudo nginx -t
+</span></span><span style="display:flex;"><span>sudo systemctl restart nginx
+</span></span><span style="display:flex;"><span>sudo systemctl restart php8.1-fpm
+</span></span></code></pre></div><h4 id="test-deployment">Test Deployment</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check health endpoint</span>
+</span></span><span style="display:flex;"><span>curl http://&lt;PUBLIC_IP&gt;/api/v1/health
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Test API</span>
+</span></span><span style="display:flex;"><span>curl http://&lt;PUBLIC_IP&gt;/api/v1/lists
+</span></span></code></pre></div><h4 id="cleanup-aws-resources">Cleanup AWS Resources</h4>
+<p>To remove all AWS resources and avoid charges:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd deployment
+</span></span><span style="display:flex;"><span>./cleanup-aws.sh
+</span></span></code></pre></div><p>This will terminate the EC2 instance, delete the security group, and remove the key pair.</p>
+<p><strong>Important Notes:</strong></p>
+<ul>
+<li>Keep your <code>.pem</code> file secure (it&rsquo;s gitignored)</li>
+<li>Free Tier instances are free for 750 hours/month for 12 months</li>
+<li>Monitor your AWS billing dashboard</li>
+<li>The cleanup script will ask for confirmation before deletion</li>
+</ul>
+<hr>
+<h2 id="environment-variables">Environment Variables</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Variable</th>
+          <th>Default</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>DEBUG_MODE</code></td>
+          <td><code>true</code></td>
+          <td>Show detailed errors</td>
+      </tr>
+      <tr>
+          <td><code>LOG_LEVEL</code></td>
+          <td><code>debug</code></td>
+          <td>Logging level (debug/info/warning/error)</td>
+      </tr>
+      <tr>
+          <td><code>DATABASE_PATH</code></td>
+          <td><code>data/todo.db</code></td>
+          <td>SQLite database path</td>
+      </tr>
+      <tr>
+          <td><code>API_VERSION</code></td>
+          <td><code>v1</code></td>
+          <td>API version</td>
+      </tr>
+      <tr>
+          <td><code>JWT_SECRET</code></td>
+          <td>Required</td>
+          <td>Secret key for JWT signing</td>
+      </tr>
+      <tr>
+          <td><code>JWT_EXPIRY</code></td>
+          <td><code>3600</code></td>
+          <td>Token lifetime in seconds</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="installation-issues">Installation Issues</h3>
+<p><strong>Issue: Composer not found</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install composer
+</span></span></code></pre></div><p><strong>Issue: PHP not found</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>brew install php
+</span></span></code></pre></div><p><strong>Issue: SQLite extension not loaded</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Verify SQLite is available</span>
+</span></span><span style="display:flex;"><span>php -m | grep sqlite
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If missing, reinstall PHP</span>
+</span></span><span style="display:flex;"><span>brew reinstall php
+</span></span></code></pre></div><p><strong>Issue: Permission denied on logs/ or data/</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod <span style="color:#ae81ff">755</span> logs data
+</span></span></code></pre></div><h3 id="server-issues">Server Issues</h3>
+<p><strong>Issue: Port 8000 in use</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Use a different port</span>
+</span></span><span style="display:flex;"><span>php -S localhost:8080 -t public
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Update Bruno environment to http://localhost:8080</span>
+</span></span></code></pre></div><p><strong>Issue: Database locked</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Check for other processes using the database</span>
+</span></span><span style="display:flex;"><span>lsof data/todo.db
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If needed, restart the server</span>
+</span></span></code></pre></div><h3 id="authentication-issues">Authentication Issues</h3>
+<p><strong>Issue: Token validation fails</strong></p>
+<p>Causes and solutions:</p>
+<ol>
+<li>
+<p><strong>JWT_SECRET not set in <code>.env</code></strong></p>
+<ul>
+<li>Verify <code>.env</code> file exists</li>
+<li>Check <code>JWT_SECRET</code> is not empty</li>
+</ul>
+</li>
+<li>
+<p><strong>Token expired</strong></p>
+<ul>
+<li>Tokens expire after 1 hour</li>
+<li>Login again to get a new token</li>
+</ul>
+</li>
+<li>
+<p><strong>Token blacklisted</strong></p>
+<ul>
+<li>Tokens are blacklisted after logout</li>
+<li>Login again to get a new token</li>
+</ul>
+</li>
+<li>
+<p><strong>Wrong Authorization header format</strong></p>
+<ul>
+<li>Must be: <code>Authorization: Bearer TOKEN</code></li>
+<li>Not: <code>Authorization: TOKEN</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>Issue: 401 Unauthorized</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Ensure token is in Authorization header</span>
+</span></span><span style="display:flex;"><span>curl -H <span style="color:#e6db74">&#34;Authorization: Bearer YOUR_TOKEN&#34;</span> ...
+</span></span></code></pre></div><p><strong>Issue: 409 Conflict (duplicate username/email)</strong></p>
+<p>Use a different username or email</p>
+<h3 id="testing-issues">Testing Issues</h3>
+<p><strong>Issue: Unit tests fail</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Reset test database</span>
+</span></span><span style="display:flex;"><span>rm data/test_todo.db
+</span></span><span style="display:flex;"><span>composer test
+</span></span></code></pre></div><p><strong>Issue: curl commands don&rsquo;t work</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Verify server is running</span>
+</span></span><span style="display:flex;"><span>curl http://localhost:8000/api/v1/lists
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check for syntax errors in curl command</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Ensure proper escaping of quotes</span>
+</span></span></code></pre></div><hr>
+<h2 id="testing-checklist">Testing Checklist</h2>
+<h3 id="authentication">Authentication</h3>
+<ul>
+<li><input disabled="" type="checkbox"> Sign up with valid data</li>
+<li><input disabled="" type="checkbox"> Sign up with duplicate username (should fail)</li>
+<li><input disabled="" type="checkbox"> Sign up with invalid email (should fail)</li>
+<li><input disabled="" type="checkbox"> Sign up with short password (should fail)</li>
+<li><input disabled="" type="checkbox"> Login with correct credentials</li>
+<li><input disabled="" type="checkbox"> Login with wrong password (should fail)</li>
+<li><input disabled="" type="checkbox"> Access profile with valid token</li>
+<li><input disabled="" type="checkbox"> Access profile without token (should fail)</li>
+<li><input disabled="" type="checkbox"> Access profile with expired token (should fail)</li>
+<li><input disabled="" type="checkbox"> Logout and verify token is blacklisted</li>
+</ul>
+<h3 id="lists--tasks">Lists &amp; Tasks</h3>
+<ul>
+<li><input disabled="" type="checkbox"> Create a list</li>
+<li><input disabled="" type="checkbox"> Get all lists</li>
+<li><input disabled="" type="checkbox"> Update a list</li>
+<li><input disabled="" type="checkbox"> Create a task in the list</li>
+<li><input disabled="" type="checkbox"> Mark task as completed</li>
+<li><input disabled="" type="checkbox"> Delete task</li>
+<li><input disabled="" type="checkbox"> Delete list (should cascade delete tasks)</li>
+</ul>
+<h3 id="error-cases">Error Cases</h3>
+<ul>
+<li><input disabled="" type="checkbox"> Invalid UUID format (should return 400)</li>
+<li><input disabled="" type="checkbox"> Missing required field (should return 400)</li>
+<li><input disabled="" type="checkbox"> Invalid Content-Type (should return 415)</li>
+<li><input disabled="" type="checkbox"> Non-existent resource (should return 404)</li>
+<li><input disabled="" type="checkbox"> Invalid enum value (should return 400)</li>
+</ul>
+<hr>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li><strong>API.md</strong> - Complete API reference with all endpoints</li>
+<li><strong>TOKEN_BLACKLIST.md</strong> - Token blacklisting explanation and JWT_SECRET clarification</li>
+<li><strong>IMPLEMENTATION_SUMMARY.md</strong> - Project implementation summary</li>
+</ul>
+<hr>
+<h2 id="support">Support</h2>
+<ul>
+<li><strong>API Reference:</strong> <a href="API.md">API.md</a></li>
+<li><strong>Logs:</strong> <code>logs/api.log</code></li>
+<li><strong>Database:</strong> <code>data/todo.db</code></li>
+<li><strong>Unit Tests:</strong> <code>composer test</code></li>
+</ul>
+<hr>
+<h2 id="license">License</h2>
+<p>NKU-640 Coursework Project</p>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 NKU 640 Documentation</p>
+    </footer>
+</body>
+</html>

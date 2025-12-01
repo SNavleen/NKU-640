@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NKU 640 Documentation</title>
+    <link>http://example.com/homework3/</link>
+    <description>Recent content on NKU 640 Documentation</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="http://example.com/homework3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://example.com/homework3/presentation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://example.com/homework3/presentation/</guid>
+      <description>&lt;h1 id=&#34;homework-3-high-level-programming-languages&#34;&gt;Homework 3: High-Level Programming Languages&lt;/h1&gt;&#xA;&lt;p&gt;Building Todo Apps in JavaScript, TypeScript, and React&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;hw3-project-overview&#34;&gt;HW3: Project Overview&lt;/h2&gt;&#xA;&lt;p&gt;Built three implementations of the same Todo application to demonstrate the evolution and benefits of high-level programming languages:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;JavaScript Todo App&lt;/strong&gt; – Vanilla JavaScript with DOM manipulation&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;TypeScript Todo App&lt;/strong&gt; – Type-safe version with strict typing&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;React Todo App&lt;/strong&gt; – Component-based architecture with hooks&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;strong&gt;Goal:&lt;/strong&gt; Understand how high-level languages and frameworks help create high-quality software effectively.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://example.com/homework3/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://example.com/homework3/readme/</guid>
+      <description>&lt;h1 id=&#34;homework-3-high-level-programming-languages&#34;&gt;Homework 3: High-Level Programming Languages&lt;/h1&gt;&#xA;&lt;p&gt;Building Todo Apps in JavaScript, TypeScript, and React to demonstrate the evolution and benefits of high-level programming languages.&lt;/p&gt;&#xA;&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;&#xA;&lt;p&gt;This homework explores how high-level languages and frameworks help create high-quality software effectively by building three implementations of the same Todo application:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&lt;strong&gt;JavaScript Todo App&lt;/strong&gt; - Vanilla JavaScript with DOM manipulation&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;TypeScript Todo App&lt;/strong&gt; - Type-safe version with strict typing&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;React Todo App&lt;/strong&gt; - Component-based architecture with hooks&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h2 id=&#34;presentation&#34;&gt;Presentation&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;presentation.md&#34;&gt;View Presentation Slides&lt;/a&gt; - Complete presentation covering language comparisons and benefits&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;key-topics-covered&#34;&gt;Key Topics Covered&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Abstraction&lt;/strong&gt; - Focus on &amp;ldquo;what&amp;rdquo; not &amp;ldquo;how&amp;rdquo;&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Type Safety&lt;/strong&gt; - Catching errors at compile time vs runtime&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Component Reusability&lt;/strong&gt; - Self-contained, reusable units&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;State Management&lt;/strong&gt; - Manual vs automatic UI updates&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Maintainability &amp;amp; Scalability&lt;/strong&gt; - Code organization comparison&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;course-principles-applied&#34;&gt;Course Principles Applied&lt;/h2&gt;&#xA;&lt;h3 id=&#34;apiec-framework&#34;&gt;APIEC Framework&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Abstraction, Polymorphism, Inheritance, Encapsulation, Composition&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;solid-principles&#34;&gt;SOLID Principles&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Single Responsibility, Open/Closed, Dependency Inversion&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

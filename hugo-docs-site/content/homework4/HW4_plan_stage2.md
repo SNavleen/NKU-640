@@ -1,38 +1,84 @@
-# HW4 Plan Stage 2
+---
+marp: true
+---
 
-## Overview
+# HW4 - Stage 2 Plan
 
-This document outlines the plan for Stage 2 of the homework project. It includes the objectives, implementation strategies, and expected outcomes for the tasks to be completed in this stage.
+**Submission Deadline:** 2025-12-03
 
-## Objectives
+---
 
-1. **Implement the Python Version**: Develop the Python version of the project, ensuring it meets the same functionality as the PHP version.
-2. **Deployment Strategy**: Create a deployment strategy for the Python application, including the use of Docker for containerization.
-3. **Documentation**: Provide comprehensive documentation for the Python implementation, including API references and tutorials.
+*Warning: ASAP is not a plan; you must set a date for your plan, and write down the actual date when you finish the plan*
 
-## Implementation Strategy
+---
 
-### 1. Development
+## Your Project 2 Submission Date
 
-- Utilize a framework suitable for building REST APIs in Python (e.g., Flask or FastAPI).
-- Ensure that the API endpoints mirror those of the PHP version for consistency.
+1. **When (Plan):** 2025-12-03
+2. **When (Actual):** TBD
+3. **Comment:** Create application in Python with Docker and PostgreSQL
 
-### 2. Containerization
+---
 
-- Create a Dockerfile to containerize the Python application.
-- Use Docker Compose to manage multi-container applications if necessary.
+## Project 2 Milestones
 
-### 3. Testing
+### Milestone 1 Submission
 
-- Implement unit tests to ensure the functionality of the API endpoints.
-- Conduct integration tests to verify the interaction between components.
+1. **What:** Define API contract for REST API endpoint(s) and safety rules.
+2. **When (Plan):** 2025-11-10
+3. **When (Actual):** TBD
+4. **Comment:** Include endpoint path(s), HTTP method(s), request/response schema, auth/flags, and environment restrictions.
 
-## Expected Outcomes
+---
 
-- A fully functional Python version of the project that meets the specified requirements.
-- A deployment-ready application that can be easily launched using Docker.
-- Comprehensive documentation that aids users in understanding and utilizing the Python implementation.
+### Milestone 2 Submission
 
-## Conclusion
+1. **What:** Implement REST API endpoint and server-side handlers in Python (Flask/FastAPI).
+2. **When (Plan):** 2025-11-15
+3. **When (Actual):** TBD
+4. **Comment:** Keep function small where possible and add logging. Deliver a runnable Python app with PostgreSQL connection.
 
-This plan serves as a roadmap for the successful completion of Stage 2 of the homework project. By following the outlined objectives and strategies, we aim to deliver a robust and well-documented Python application.
+---
+
+### Milestone 3 Submission
+
+1. **What:** Set up Docker containers for Python application and PostgreSQL database.
+2. **When (Plan):** 2025-11-20
+3. **When (Actual):** TBD
+4. **Comment:** Create Dockerfile and docker-compose.yml for local development and deployment.
+
+---
+
+### Milestone 4 Submission
+
+1. **What:** Add unit tests for REST API.
+2. **When (Plan):** 2025-11-25
+3. **When (Actual):** TBD
+4. **Comment:** Cover happy path, safety checks, and edge cases using pytest or unittest.
+
+---
+
+### Milestone 5 Submission
+
+1. **What:** Update `README.md` with REST API spec, Docker setup instructions, and safety notes.
+2. **When (Plan):** 2025-11-28
+3. **When (Actual):** TBD
+4. **Comment:** Include example curl commands, Docker commands, and environment flag instructions.
+
+---
+
+### Milestone 6 Submission
+
+1. **What:** Deploy Docker containers to AWS (ECS/EC2 or similar service).
+2. **When (Plan):** 2025-12-01
+3. **When (Actual):** TBD
+4. **Comment:** Set up AWS infrastructure, configure security groups, deploy containers, and verify application is accessible. Update README with deployment instructions and production URL.
+
+---
+
+*This is for instruction: remove when you submit this file*
+
+- For the Plan part, write down your planned date.
+- For the Actual part, write down when you actually finished.
+
+---

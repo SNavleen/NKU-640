@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+    <header>
+        <h1>NKU 640 Documentation</h1>
+        <nav>
+            <ul>
+                
+                    <li><a href="/">Home</a></li>
+                
+                    <li><a href="/homework3/">Homework 3</a></li>
+                
+                    <li><a href="/homework4/">Homework 4</a></li>
+                
+                    <li><a href="/homework5/">Homework 5</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1></h1>
+<h1 id="todo-rest-api---complete-api-reference-python-fastapi">TODO REST API - Complete API Reference (Python FastAPI)</h1>
+<h2 id="overview">Overview</h2>
+<p>This document defines the complete API contract for the TODO REST API, including all endpoint specifications, authentication, request/response schemas, validation rules, and security guidelines.</p>
+<p><strong>Base URL:</strong> <code>http://localhost:8000/api/v1</code> (or your deployed server URL)</p>
+<p><strong>Content-Type:</strong> <code>application/json</code></p>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#data-models">Data Models</a></li>
+<li><a href="#health-check">Health Check</a></li>
+<li><a href="#authentication">Authentication</a></li>
+<li><a href="#list-endpoints">List Endpoints</a></li>
+<li><a href="#task-endpoints">Task Endpoints</a></li>
+<li><a href="#error-responses">Error Responses</a></li>
+<li><a href="#security-guidelines">Security Guidelines</a></li>
+</ul>
+<hr>
+<h2 id="data-models">Data Models</h2>
+<h3 id="user">User</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;string (UUID v4)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;string (3-50 chars, unique)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;string (valid email, unique)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;string (ISO 8601 datetime)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#e6db74">&#34;string (ISO 8601 datetime, optional)&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Note:</strong> Passwords are never returned in responses.</p>
+<h3 id="list">List</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;string (UUID v4)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;string (required, max 255 chars)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;string (optional, max 1000 chars)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;string (ISO 8601 datetime)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#e6db74">&#34;string (ISO 8601 datetime, optional)&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="task">Task</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;string (UUID v4)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;listId&#34;</span>: <span style="color:#e6db74">&#34;string (UUID v4)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;string (required, max 255 chars)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;string (optional, max 2000 chars)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;completed&#34;</span>: <span style="color:#e6db74">&#34;boolean (default: false)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;string (enum: &#39;low&#39;, &#39;medium&#39;, &#39;high&#39;)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;categories&#34;</span>: <span style="color:#e6db74">&#34;array of strings (max 10 items, each max 50 chars)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dueDate&#34;</span>: <span style="color:#e6db74">&#34;string (ISO 8601 datetime, optional)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;string (ISO 8601 datetime)&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#e6db74">&#34;string (ISO 8601 datetime, optional)&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="health-check">Health Check</h2>
+<h3 id="get-apiv1health">GET /api/v1/health</h3>
+<p>Check the health and status of the API and its dependencies.</p>
+<p><strong>Authentication:</strong> Not required</p>
+<p><strong>Success Response (200):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;timestamp&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T15:03:33.232819Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;service&#34;</span>: <span style="color:#e6db74">&#34;TODO REST API&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;1.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;checks&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;database&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Database connection successful&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;python&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;3.11&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;disk&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;free_space_mb&#34;</span>: <span style="color:#ae81ff">146645.1</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;used_percent&#34;</span>: <span style="color:#ae81ff">6.8</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;memory&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;healthy&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;memory_usage_mb&#34;</span>: <span style="color:#ae81ff">13352</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;memory_available_mb&#34;</span>: <span style="color:#ae81ff">3032</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Status Values:</strong></p>
+<ul>
+<li><code>healthy</code>: All systems operational</li>
+<li><code>warning</code>: System is operational but has warnings</li>
+<li><code>unhealthy</code>: Critical issue detected (returns 503 status code)</li>
+</ul>
+<hr>
+<h2 id="authentication">Authentication</h2>
+<p>The API uses <strong>JWT (JSON Web Token)</strong> for authentication:</p>
+<ul>
+<li>Passwords are hashed with <strong>Argon2</strong> (no length limits)</li>
+<li>Tokens expire after <strong>1 hour</strong> (configurable)</li>
+<li>Tokens are sent as <code>Authorization: Bearer &lt;token&gt;</code> header</li>
+<li>Tokens are blacklisted on logout to prevent reuse</li>
+</ul>
+<h3 id="post-apiv1authsignup">POST /api/v1/auth/signup</h3>
+<p>Create a new user account.</p>
+<p><strong>Request Body:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;alice&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;alice@example.com&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;password123&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Validation Rules:</strong></p>
+<ul>
+<li><code>username</code>: 3-50 characters, unique, alphanumeric (underscores/hyphens allowed)</li>
+<li><code>email</code>: Valid email format, unique</li>
+<li><code>password</code>: Minimum 8 characters</li>
+</ul>
+<p><strong>Success Response (201):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;token&#34;</span>: <span style="color:#e6db74">&#34;eyJ0eXAiOiJKV1QiLCJhbGc...&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;user&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;a1b2c3d4-...&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;alice&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;alice@example.com&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Error Responses:</strong></p>
+<ul>
+<li><code>400 Bad Request</code> - Validation error</li>
+<li><code>409 Conflict</code> - Username or email already exists</li>
+<li><code>422 Unprocessable Entity</code> - Invalid input format</li>
+<li><code>500 Internal Server Error</code> - Server error</li>
+</ul>
+<hr>
+<h3 id="post-apiv1authlogin">POST /api/v1/auth/login</h3>
+<p>Authenticate and receive a JWT token.</p>
+<p><strong>Request Body:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;alice&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;password&#34;</span>: <span style="color:#e6db74">&#34;password123&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Success Response (200):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;token&#34;</span>: <span style="color:#e6db74">&#34;eyJ0eXAiOiJKV1QiLCJhbGc...&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;user&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;a1b2c3d4-...&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;alice&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;alice@example.com&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Error Responses:</strong></p>
+<ul>
+<li><code>401 Unauthorized</code> - Invalid username or password</li>
+<li><code>422 Unprocessable Entity</code> - Invalid input format</li>
+<li><code>500 Internal Server Error</code> - Server error</li>
+</ul>
+<hr>
+<h3 id="get-apiv1usersprofile">GET /api/v1/users/profile</h3>
+<p>Get current user profile (requires authentication).</p>
+<p><strong>Headers Required:</strong></p>
+<pre tabindex="0"><code>Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGc...
+</code></pre><p><strong>Success Response (200):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;a1b2c3d4-...&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;alice&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;email&#34;</span>: <span style="color:#e6db74">&#34;alice@example.com&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Error Responses:</strong></p>
+<ul>
+<li><code>401 Unauthorized</code> - Missing, invalid, expired, or blacklisted token</li>
+<li><code>404 Not Found</code> - User not found</li>
+<li><code>500 Internal Server Error</code> - Server error</li>
+</ul>
+<hr>
+<h3 id="post-apiv1authlogout">POST /api/v1/auth/logout</h3>
+<p>Logout and blacklist the current token (requires authentication).</p>
+<p><strong>Headers Required:</strong></p>
+<pre tabindex="0"><code>Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGc...
+</code></pre><p><strong>Success Response (204):</strong></p>
+<ul>
+<li>No content</li>
+<li>Token is added to blacklist and can no longer be used</li>
+</ul>
+<hr>
+<h2 id="list-endpoints">List Endpoints</h2>
+<h3 id="get-apiv1lists">GET /api/v1/lists</h3>
+<p>Retrieve all lists.</p>
+<p><strong>Response (200 OK):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;550e8400-e29b-41d4-a716-446655440000&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Groceries&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Weekly shopping list&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><hr>
+<h3 id="get-apiv1listsid">GET /api/v1/lists/{id}</h3>
+<p>Retrieve a single list by ID.</p>
+<p><strong>URL Parameters:</strong> <code>id</code> (UUID v4)</p>
+<p><strong>Response (200 OK):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;550e8400-e29b-41d4-a716-446655440000&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Groceries&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Weekly shopping list&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Error Responses:</strong></p>
+<ul>
+<li><code>400 Bad Request</code> - Invalid UUID format</li>
+<li><code>404 Not Found</code> - List not found</li>
+</ul>
+<hr>
+<h3 id="post-apiv1lists">POST /api/v1/lists</h3>
+<p>Create a new list.</p>
+<p><strong>Request Body:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Groceries&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Weekly shopping list&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Validation Rules:</strong></p>
+<ul>
+<li><code>title</code>: Required, string, 1-255 characters, cannot be only whitespace</li>
+<li><code>description</code>: Optional, string, max 1000 characters</li>
+</ul>
+<p><strong>Response (201 Created):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;550e8400-e29b-41d4-a716-446655440000&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Groceries&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Weekly shopping list&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="patch-apiv1listsid">PATCH /api/v1/lists/{id}</h3>
+<p>Update an existing list.</p>
+<p><strong>URL Parameters:</strong> <code>id</code> (UUID v4)</p>
+<p><strong>Request Body (all fields optional):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Updated Groceries&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Updated description&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Response (200 OK):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;550e8400-e29b-41d4-a716-446655440000&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Updated Groceries&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Updated description&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T11:00:00Z&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="delete-apiv1listsid">DELETE /api/v1/lists/{id}</h3>
+<p>Delete a list and all associated tasks.</p>
+<p><strong>URL Parameters:</strong> <code>id</code> (UUID v4)</p>
+<p><strong>Response (204 No Content):</strong></p>
+<ul>
+<li>Empty body</li>
+</ul>
+<hr>
+<h2 id="task-endpoints">Task Endpoints</h2>
+<h3 id="get-apiv1listslistidtasks">GET /api/v1/lists/{listId}/tasks</h3>
+<p>Retrieve all tasks in a specific list.</p>
+<p><strong>URL Parameters:</strong> <code>listId</code> (UUID v4)</p>
+<p><strong>Response (200 OK):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>[
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;660e8400-e29b-41d4-a716-446655440001&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;listId&#34;</span>: <span style="color:#e6db74">&#34;550e8400-e29b-41d4-a716-446655440000&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Buy milk&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Get organic milk from the store&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;completed&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;high&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;categories&#34;</span>: [<span style="color:#e6db74">&#34;groceries&#34;</span>, <span style="color:#e6db74">&#34;dairy&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;dueDate&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T18:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><hr>
+<h3 id="get-apiv1tasksid">GET /api/v1/tasks/{id}</h3>
+<p>Retrieve a single task by ID.</p>
+<p><strong>URL Parameters:</strong> <code>id</code> (UUID v4)</p>
+<p><strong>Response (200 OK):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;660e8400-e29b-41d4-a716-446655440001&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;listId&#34;</span>: <span style="color:#e6db74">&#34;550e8400-e29b-41d4-a716-446655440000&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Buy milk&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Get organic milk from the store&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;completed&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;high&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;categories&#34;</span>: [<span style="color:#e6db74">&#34;groceries&#34;</span>, <span style="color:#e6db74">&#34;dairy&#34;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dueDate&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T18:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="post-apiv1listslistidtasks">POST /api/v1/lists/{listId}/tasks</h3>
+<p>Create a new task in a specific list.</p>
+<p><strong>URL Parameters:</strong> <code>listId</code> (UUID v4)</p>
+<p><strong>Request Body:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Buy milk&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Get organic milk from the store&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;high&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dueDate&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T18:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;categories&#34;</span>: [<span style="color:#e6db74">&#34;groceries&#34;</span>, <span style="color:#e6db74">&#34;dairy&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Validation Rules:</strong></p>
+<ul>
+<li><code>title</code>: Required, string, 1-255 characters, cannot be only whitespace</li>
+<li><code>description</code>: Optional, string, max 2000 characters</li>
+<li><code>completed</code>: Optional, boolean (default: false)</li>
+<li><code>dueDate</code>: Optional, valid ISO 8601 datetime string</li>
+<li><code>priority</code>: Optional, enum (&rsquo;low&rsquo;, &lsquo;medium&rsquo;, &lsquo;high&rsquo;)</li>
+<li><code>categories</code>: Optional, array of strings, max 10 items, each max 50 characters</li>
+</ul>
+<p><strong>Response (201 Created):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;660e8400-e29b-41d4-a716-446655440001&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;listId&#34;</span>: <span style="color:#e6db74">&#34;550e8400-e29b-41d4-a716-446655440000&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Buy milk&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Get organic milk from the store&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;completed&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;high&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;categories&#34;</span>: [<span style="color:#e6db74">&#34;groceries&#34;</span>, <span style="color:#e6db74">&#34;dairy&#34;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dueDate&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T18:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="patch-apiv1tasksid">PATCH /api/v1/tasks/{id}</h3>
+<p>Update an existing task.</p>
+<p><strong>URL Parameters:</strong> <code>id</code> (UUID v4)</p>
+<p><strong>Request Body (all fields optional):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Buy organic milk&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;completed&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;medium&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Response (200 OK):</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;660e8400-e29b-41d4-a716-446655440001&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;listId&#34;</span>: <span style="color:#e6db74">&#34;550e8400-e29b-41d4-a716-446655440000&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Buy organic milk&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;description&#34;</span>: <span style="color:#e6db74">&#34;Get organic milk from the store&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;completed&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;priority&#34;</span>: <span style="color:#e6db74">&#34;medium&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;categories&#34;</span>: [<span style="color:#e6db74">&#34;groceries&#34;</span>, <span style="color:#e6db74">&#34;dairy&#34;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;dueDate&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T18:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;createdAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T10:00:00Z&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;updatedAt&#34;</span>: <span style="color:#e6db74">&#34;2025-12-01T11:00:00Z&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h3 id="delete-apiv1tasksid">DELETE /api/v1/tasks/{id}</h3>
+<p>Delete a task.</p>
+<p><strong>URL Parameters:</strong> <code>id</code> (UUID v4)</p>
+<p><strong>Response (204 No Content):</strong></p>
+<ul>
+<li>Empty body</li>
+</ul>
+<hr>
+<h2 id="error-responses">Error Responses</h2>
+<p>All error responses follow this format:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Error type&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;ERROR_CODE&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;details&#34;</span>: <span style="color:#e6db74">&#34;Detailed error message or validation errors&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="common-http-status-codes">Common HTTP Status Codes</h3>
+<ul>
+<li><code>200 OK</code> - Success</li>
+<li><code>201 Created</code> - Resource created</li>
+<li><code>204 No Content</code> - Success with no response body</li>
+<li><code>400 Bad Request</code> - Invalid request data</li>
+<li><code>401 Unauthorized</code> - Authentication required</li>
+<li><code>404 Not Found</code> - Resource not found</li>
+<li><code>409 Conflict</code> - Resource conflict (duplicate)</li>
+<li><code>422 Unprocessable Entity</code> - Validation error</li>
+<li><code>500 Internal Server Error</code> - Server error</li>
+</ul>
+<h3 id="validation-error-format">Validation Error Format</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Validation error&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;code&#34;</span>: <span style="color:#e6db74">&#34;VALIDATION_ERROR&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;details&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;username&#34;</span>: [<span style="color:#e6db74">&#34;Username must be at least 3 characters&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;email&#34;</span>: [<span style="color:#e6db74">&#34;Invalid email format&#34;</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<h2 id="security-guidelines">Security Guidelines</h2>
+<h3 id="authentication-1">Authentication</h3>
+<ol>
+<li><strong>Use HTTPS</strong> in production</li>
+<li><strong>Store JWT tokens securely</strong> (not in localStorage)</li>
+<li><strong>Implement token refresh</strong> for long sessions</li>
+<li><strong>Validate tokens</strong> on every protected request</li>
+<li><strong>Logout properly</strong> to blacklist tokens</li>
+</ol>
+<h3 id="password-security">Password Security</h3>
+<ol>
+<li><strong>Minimum 8 characters</strong> required</li>
+<li><strong>Argon2 hashing</strong> with secure parameters</li>
+<li><strong>Never store plain text passwords</strong></li>
+<li><strong>Never log passwords</strong> in any form</li>
+</ol>
+<h3 id="input-validation">Input Validation</h3>
+<ol>
+<li><strong>Validate all inputs</strong> with Pydantic schemas</li>
+<li><strong>Sanitize user data</strong> before processing</li>
+<li><strong>Use parameterized queries</strong> (automatic with SQLAlchemy)</li>
+<li><strong>Validate UUIDs</strong> for all ID parameters</li>
+<li><strong>Enforce length limits</strong> to prevent buffer overflows</li>
+</ol>
+<h3 id="rate-limiting">Rate Limiting</h3>
+<ul>
+<li><strong>10 requests per second</strong> per IP (configurable)</li>
+<li>Implemented at Nginx level</li>
+<li>Protects against abuse and DoS attacks</li>
+</ul>
+<h3 id="data-protection">Data Protection</h3>
+<ol>
+<li><strong>No sensitive data</strong> in logs</li>
+<li><strong>Generic error messages</strong> in production</li>
+<li><strong>Input sanitization</strong> for all user data</li>
+<li><strong>SQL injection prevention</strong> via ORM</li>
+<li><strong>XSS protection</strong> via proper encoding</li>
+</ol>
+<hr>
+<p><em>This API contract ensures consistent, secure, and reliable communication between clients and the TODO REST API server.</em></p>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 NKU 640 Documentation</p>
+    </footer>
+</body>
+</html>

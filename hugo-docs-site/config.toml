@@ -1,39 +1,46 @@
 title = "NKU 640 Documentation"
-baseURL = "http://example.com/"
+baseURL = "https://snavleen.github.io/NKU-640/hugo/"
 languageCode = "en"
-theme = "material"
 
 [params]
-  description = "Documentation for NKU 640 course projects"
-  author = "Your Name"
-  favicon = "favicon.ico"
+description = "Documentation for NKU 640 course projects"
+author = "Your Name"
+favicon = "favicon.ico"
 
 [menu]
-  [[menu.main]]
-    name = "Home"
-    url = "/"
-    weight = 1
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
 
-  [[menu.main]]
-    name = "Homework 4"
-    url = "/homework4/"
-    weight = 2
+[[menu.main]]
+name = "Homework 3"
+url = "/homework3/"
+weight = 2
+
+[[menu.main]]
+name = "Homework 4"
+url = "/homework4/"
+weight = 3
+
+[[menu.main]]
+name = "Homework 5"
+url = "/homework5/"
+weight = 4
 
 [output]
-  [output.html]
-    minify = true
+[output.html]
+minify = true
 
 [build]
-  writeStats = true
-  renderToDisk = false
+writeStats = true
+renderToDisk = false
 
 [markup]
-  [markup.goldmark]
-    [markup.goldmark.extensions]
-      [markup.goldmark.extensions.table]
-        align = true
-      [markup.goldmark.extensions.strikethrough]
-        enabled = true
+[markup.goldmark]
+[markup.goldmark.extensions]
+strikethrough = true
+table = true
 
 [params.custom_css]
-  css = ["css/custom.css"]
+css = ["css/custom.css"]
