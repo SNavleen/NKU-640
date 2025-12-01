@@ -76,6 +76,6 @@ Software quality practices and presentations covering Weeks 1-4.
 
 - [View on GitHub](https://github.com/navi/NKU-640)
 - [MkDocs Documentation](https://www.mkdocs.org/)
-- [Hugo Documentation](https://snavleen.github.io/NKU-640-hugo/)
+- [Hugo Documentation](/hugo/)
 
 <footer style="text-align:center; color:#4B286D; font-size:1rem; margin-top:2rem;">&copy; 2025 NKU 640</footer>

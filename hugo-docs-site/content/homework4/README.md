@@ -2,7 +2,7 @@
 
 This project is a TODO list REST API intended as a personal task manager. The API supports creating, retrieving, updating, and deleting tasks and lists.
 
-##### Github Page: [NKU-640-todo-rest-api](https://snavleen.github.io/NKU-640/)
+##### Github Page: [NKU-640](https://snavleen.github.io/NKU-640/)
 
 ## Plan
 
