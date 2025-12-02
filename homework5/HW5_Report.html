@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>HW5_Report</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#hw5-report-quality-software-engineering-documentation"
+id="toc-hw5-report-quality-software-engineering-documentation">HW5
+Report: Quality Software Engineering Documentation</a>
+<ul>
+<li><a href="#executive-summary" id="toc-executive-summary">Executive
+Summary</a></li>
+<li><a href="#week-1-course-introduction-tools-overview"
+id="toc-week-1-course-introduction-tools-overview">Week 1: Course
+Introduction &amp; Tools Overview</a>
+<ul>
+<li><a href="#developer-tools-vscode-marp"
+id="toc-developer-tools-vscode-marp">Developer Tools: VSCode &amp;
+Marp</a></li>
+<li><a href="#git-github-basics" id="toc-git-github-basics">Git &amp;
+GitHub Basics</a></li>
+<li><a href="#course-overview-policies"
+id="toc-course-overview-policies">Course Overview &amp;
+Policies</a></li>
+<li><a href="#software-as-storytelling"
+id="toc-software-as-storytelling">Software as Storytelling</a></li>
+</ul></li>
+<li><a href="#week-2-software-process-overview"
+id="toc-week-2-software-process-overview">Week 2: Software Process
+Overview</a>
+<ul>
+<li><a href="#from-waterfall-to-agile"
+id="toc-from-waterfall-to-agile">From Waterfall to Agile</a></li>
+<li><a href="#scrum-framework" id="toc-scrum-framework">Scrum
+Framework</a></li>
+<li><a href="#devops-culture" id="toc-devops-culture">DevOps
+Culture</a></li>
+</ul></li>
+<li><a href="#week-3-python-oop-and-uml-fundamentals"
+id="toc-week-3-python-oop-and-uml-fundamentals">Week 3: Python, OOP, and
+UML Fundamentals</a>
+<ul>
+<li><a href="#python-for-software-engineering"
+id="toc-python-for-software-engineering">Python for Software
+Engineering</a></li>
+<li><a href="#object-oriented-programming-basics"
+id="toc-object-oriented-programming-basics">Object-Oriented Programming
+Basics</a></li>
+<li><a href="#abstraction-inheritance-in-practice"
+id="toc-abstraction-inheritance-in-practice">Abstraction &amp;
+Inheritance in Practice</a></li>
+<li><a href="#uml-diagrams-for-design"
+id="toc-uml-diagrams-for-design">UML Diagrams for Design</a></li>
+<li><a href="#software-requirements-fundamentals"
+id="toc-software-requirements-fundamentals">Software Requirements
+Fundamentals</a></li>
+</ul></li>
+<li><a href="#week-4-advanced-oop-design-principles-and-patterns"
+id="toc-week-4-advanced-oop-design-principles-and-patterns">Week 4:
+Advanced OOP, Design Principles, and Patterns</a>
+<ul>
+<li><a href="#the-apiec-framework" id="toc-the-apiec-framework">The
+APIEC Framework</a></li>
+<li><a href="#encapsulation"
+id="toc-encapsulation">Encapsulation</a></li>
+<li><a href="#dependency-injection"
+id="toc-dependency-injection">Dependency Injection</a></li>
+<li><a href="#polymorphism" id="toc-polymorphism">Polymorphism</a></li>
+<li><a href="#composition" id="toc-composition">Composition</a></li>
+<li><a href="#use-case-diagrams" id="toc-use-case-diagrams">Use Case
+Diagrams</a></li>
+<li><a href="#software-testing" id="toc-software-testing">Software
+Testing</a></li>
+<li><a href="#solid-principles" id="toc-solid-principles">SOLID
+Principles</a></li>
+<li><a href="#design-patterns" id="toc-design-patterns">Design
+Patterns</a></li>
+</ul></li>
+<li><a href="#week-5-high-level-programming-with-javascript"
+id="toc-week-5-high-level-programming-with-javascript">Week 5:
+High-Level Programming with JavaScript</a>
+<ul>
+<li><a href="#the-journey-from-low-level-to-high-level"
+id="toc-the-journey-from-low-level-to-high-level">The Journey from
+Low-Level to High-Level</a></li>
+<li><a href="#what-is-javascript" id="toc-what-is-javascript">What is
+JavaScript?</a></li>
+<li><a href="#javascripts-role-in-web-development"
+id="toc-javascripts-role-in-web-development">JavaScript’s Role in Web
+Development</a></li>
+<li><a href="#javascript-basics-variables-and-types"
+id="toc-javascript-basics-variables-and-types">JavaScript Basics:
+Variables and Types</a></li>
+<li><a href="#functions-in-javascript"
+id="toc-functions-in-javascript">Functions in JavaScript</a></li>
+<li><a href="#objects-and-prototypes"
+id="toc-objects-and-prototypes">Objects and Prototypes</a></li>
+<li><a href="#asynchronous-javascript"
+id="toc-asynchronous-javascript">Asynchronous JavaScript</a></li>
+<li><a href="#modern-javascript-es6"
+id="toc-modern-javascript-es6">Modern JavaScript (ES6+)</a></li>
+</ul></li>
+<li><a href="#week-6-typescript-react"
+id="toc-week-6-typescript-react">Week 6: TypeScript &amp; React</a>
+<ul>
+<li><a href="#from-javascript-to-typescript-the-type-safety-evolution"
+id="toc-from-javascript-to-typescript-the-type-safety-evolution">From
+JavaScript to TypeScript: The Type Safety Evolution</a></li>
+<li><a href="#what-is-typescript" id="toc-what-is-typescript">What is
+TypeScript?</a></li>
+<li><a href="#typescript-basics-type-annotations"
+id="toc-typescript-basics-type-annotations">TypeScript Basics: Type
+Annotations</a></li>
+<li><a href="#functions-with-types"
+id="toc-functions-with-types">Functions with Types</a></li>
+<li><a href="#interfaces-defining-object-shapes"
+id="toc-interfaces-defining-object-shapes">Interfaces: Defining Object
+Shapes</a></li>
+<li><a href="#interfaces-vs-type-aliases"
+id="toc-interfaces-vs-type-aliases">Interfaces vs Type Aliases</a></li>
+<li><a href="#what-is-react" id="toc-what-is-react">What is
+React?</a></li>
+<li><a href="#react-components" id="toc-react-components">React
+Components</a></li>
+<li><a href="#react-hooks-usestate" id="toc-react-hooks-usestate">React
+Hooks: useState</a></li>
+<li><a href="#react-hooks-useeffect"
+id="toc-react-hooks-useeffect">React Hooks: useEffect</a></li>
+<li><a href="#component-composition"
+id="toc-component-composition">Component Composition</a></li>
+</ul></li>
+<li><a href="#practical-application-hw4-todo-rest-api"
+id="toc-practical-application-hw4-todo-rest-api">Practical Application:
+HW4 TODO REST API</a>
+<ul>
+<li><a href="#project-overview" id="toc-project-overview">Project
+Overview</a></li>
+<li><a href="#application-of-software-engineering-principles"
+id="toc-application-of-software-engineering-principles">Application of
+Software Engineering Principles</a></li>
+<li><a href="#security-best-practices"
+id="toc-security-best-practices">Security Best Practices</a></li>
+<li><a href="#testing-quality-assurance"
+id="toc-testing-quality-assurance">Testing &amp; Quality
+Assurance</a></li>
+<li><a href="#documentation-quality"
+id="toc-documentation-quality">Documentation Quality</a></li>
+</ul></li>
+<li><a href="#key-takeaways-and-insights"
+id="toc-key-takeaways-and-insights">Key Takeaways and Insights</a>
+<ul>
+<li><a href="#software-quality-is-multi-dimensional"
+id="toc-software-quality-is-multi-dimensional">Software Quality is
+Multi-Dimensional</a></li>
+<li><a href="#the-evolution-of-programming-languages"
+id="toc-the-evolution-of-programming-languages">The Evolution of
+Programming Languages</a></li>
+<li><a href="#design-principles-are-universal"
+id="toc-design-principles-are-universal">Design Principles are
+Universal</a></li>
+<li><a href="#testing-is-not-optional"
+id="toc-testing-is-not-optional">Testing is Not Optional</a></li>
+<li><a href="#communication-is-critical"
+id="toc-communication-is-critical">Communication is Critical</a></li>
+<li><a href="#devops-culture-matters"
+id="toc-devops-culture-matters">DevOps Culture Matters</a></li>
+<li><a href="#security-must-be-proactive"
+id="toc-security-must-be-proactive">Security Must Be Proactive</a></li>
+</ul></li>
+<li><a href="#reflection-on-learning-outcomes"
+id="toc-reflection-on-learning-outcomes">Reflection on Learning
+Outcomes</a>
+<ul>
+<li><a href="#technical-skills-developed"
+id="toc-technical-skills-developed">Technical Skills Developed</a></li>
+<li><a href="#conceptual-understanding"
+id="toc-conceptual-understanding">Conceptual Understanding</a></li>
+<li><a href="#professional-development"
+id="toc-professional-development">Professional Development</a></li>
+</ul></li>
+<li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
+<li><a href="#appendices" id="toc-appendices">Appendices</a>
+<ul>
+<li><a href="#a.-project-links" id="toc-a.-project-links">A. Project
+Links</a></li>
+<li><a href="#b.-weekly-presentation-links"
+id="toc-b.-weekly-presentation-links">B. Weekly Presentation
+Links</a></li>
+<li><a href="#c.-technologies-used" id="toc-c.-technologies-used">C.
+Technologies Used</a></li>
+<li><a href="#d.-references-and-resources"
+id="toc-d.-references-and-resources">D. References and
+Resources</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="hw5-report-quality-software-engineering-documentation">HW5
+Report: Quality Software Engineering Documentation</h1>
+<p><strong>Student:</strong> Navleen Singh <strong>Email:</strong>
+singhn3@nku.edu <strong>Course:</strong> CSC 640 - Software Engineering
+<strong>Semester:</strong> Fall 2025</p>
+<hr />
+<h2 id="executive-summary">Executive Summary</h2>
+<p>This report documents my learning journey through six weeks of
+software engineering principles, practices, and technologies. The
+documentation demonstrates understanding of quality software development
+through comprehensive coverage of development tools, processes,
+programming paradigms, design principles, and modern web
+technologies.</p>
+<p><strong>Key Focus Areas:</strong> - Software development tools and
+version control - Agile methodologies and DevOps culture -
+Object-oriented programming and design principles - High-level
+programming languages evolution - Modern web development with TypeScript
+and React - Practical application through the TODO REST API project
+(HW4)</p>
+<hr />
+<h2 id="week-1-course-introduction-tools-overview">Week 1: Course
+Introduction &amp; Tools Overview</h2>
+<h3 id="developer-tools-vscode-marp">Developer Tools: VSCode &amp;
+Marp</h3>
+<p><strong>Visual Studio Code (VSCode)</strong> serves as our primary
+integrated development environment, offering: - Lightweight yet
+feature-rich IDE with file explorer, text editor, version control
+integration, and terminal - Over 60,000+ extensions available (2025
+stats) - Support for all major programming languages with IntelliSense -
+Most popular IDE among developers worldwide</p>
+<p><strong>Marp</strong> is our toolchain for creating presentations
+from Markdown: - Write content in Markdown format - Compile to
+presentation formats (PDF, PPT, HTML) - VSCode extension enables preview
+and easy export - Streamlines documentation workflow</p>
+<p>These tools create an efficient development environment where VSCode
+handles all coding needs and Marp manages documentation and
+presentations.</p>
+<h3 id="git-github-basics">Git &amp; GitHub Basics</h3>
+<p><strong>Git</strong> - Distributed version control system: - Tracks
+code changes locally over time - 93.87% developer adoption rate (2025,
+up from 87.1% in 2016) - Essential for managing code history and
+collaboration</p>
+<p><strong>GitHub</strong> - Cloud platform for Git repositories: -
+Provides remote storage and backup for code - Facilitates team
+collaboration and code sharing - Acts as a professional portfolio for
+projects - Central hub for accessing course materials and submitting
+assignments</p>
+<h3 id="course-overview-policies">Course Overview &amp; Policies</h3>
+<p>The course emphasizes <strong>high-quality software engineering
+practices</strong> including: - Development processes from requirements
+to testing - Design principles and architectural patterns - Team
+collaboration and communication - Project management throughout the
+software lifecycle</p>
+<p><strong>Key Policies:</strong> - Attendance and participation are
+crucial - Timely submission of assignments required - Academic integrity
+strictly enforced - All code must be original work</p>
+<h3 id="software-as-storytelling">Software as Storytelling</h3>
+<p>Writing code is analogous to storytelling: - Code should tell a
+clear, coherent story about the problem and solution - Well-structured
+code is readable by other developers and your future self -
+Documentation communicates design decisions and system purpose -
+Communication skills are as important as technical skills</p>
+<p><strong>Assignment Structure:</strong> - Early assignments focus on
+individual skills (tools, simple design) - Later assignments build
+toward team-based capstone projects - Incremental delivery reinforces
+lecture topics - Each assignment applies concepts in practice</p>
+<hr />
+<h2 id="week-2-software-process-overview">Week 2: Software Process
+Overview</h2>
+<h3 id="from-waterfall-to-agile">From Waterfall to Agile</h3>
+<p><strong>Waterfall Model</strong> - Linear, phase-driven approach: -
+Sequential phases: requirements → design → implementation → testing →
+maintenance - Each phase must complete before the next begins - Changes
+are costly once a phase is finished - Testing occurs only after
+development is complete - Best suited for well-understood requirements
+unlikely to change</p>
+<p><strong>Agile Methods</strong> - Iterative, incremental approach: -
+Welcomes changing requirements even late in development - Work done in
+short cycles (sprints) producing working software frequently -
+Continuous testing and integration alongside development - 61% of
+organizations have used Agile for 5+ years (2025 stats) - Emphasizes
+adaptability and customer feedback - Delivers value faster and adjusts
+as needs evolve</p>
+<p><strong>Key Difference:</strong> Waterfall emphasizes upfront
+planning and heavy documentation; Agile emphasizes adaptability and
+working software.</p>
+<h3 id="scrum-framework">Scrum Framework</h3>
+<p><strong>Scrum</strong> - An Agile framework for iterative
+development: - Breaks projects into small increments completed in
+fixed-length sprints (1-4 weeks) - 87% of Agile organizations use Scrum
+(2025 stats) - Focuses on continuous improvement - Delivers potentially
+shippable software each sprint</p>
+<p><strong>Scrum Roles:</strong> - <strong>Product Owner:</strong>
+Manages backlog and priorities, represents customer interests -
+<strong>Scrum Master:</strong> Facilitates process, removes impediments,
+coaches team - <strong>Development Team:</strong> Self-organizing team
+that builds product increment</p>
+<p><strong>Scrum Events:</strong> - <strong>Daily Stand-ups:</strong>
+15-minute daily team sync - <strong>Sprint Planning:</strong> Define
+sprint goals and tasks - <strong>Sprint Review:</strong> Demonstrate
+completed increment - <strong>Sprint Retrospective:</strong> Reflect and
+identify improvements</p>
+<p><strong>Scrum Artifacts:</strong> - <strong>Product Backlog:</strong>
+Prioritized list of all work items - <strong>Sprint Backlog:</strong>
+Tasks committed for current sprint - <strong>Increment:</strong>
+Deliverable software at sprint end</p>
+<h3 id="devops-culture">DevOps Culture</h3>
+<p><strong>DevOps</strong> - Combining Development and Operations: -
+Bridges gap between software development and IT operations - Emphasizes
+collaboration between traditionally siloed teams - Culture of shared
+responsibility for outcomes - Automation of repetitive tasks</p>
+<p><strong>Continuous Integration &amp; Delivery (CI/CD):</strong> -
+Automated building, testing, and deploying of code - Enables rapid,
+reliable releases - Code changes go live faster with fewer errors - 60%
+of businesses adopting GitOps for deployment automation (2025 Forrester)
+- AI/ML integration for predictive monitoring and anomaly detection</p>
+<p><strong>Key Principles:</strong> - Break down silos between
+development and operations - Automate manual and repetitive tasks -
+Continuous feedback loops - Monitor software in production - Iterate
+quickly without sacrificing reliability - Achieve faster delivery with
+improved stability and scalability</p>
+<hr />
+<h2 id="week-3-python-oop-and-uml-fundamentals">Week 3: Python, OOP, and
+UML Fundamentals</h2>
+<h3 id="python-for-software-engineering">Python for Software
+Engineering</h3>
+<p><strong>Python</strong> - High-level, interpreted, general-purpose
+programming language: - Known for readable syntax and code clarity -
+Design philosophy emphasizes simplicity - Supports multiple paradigms:
+procedural, object-oriented, functional - Dynamic typing (no variable
+type declarations) - Rich standard library - Cross-platform portability
+- Ideal for rapid prototyping and learning design principles</p>
+<h3 id="object-oriented-programming-basics">Object-Oriented Programming
+Basics</h3>
+<p><strong>OOP Paradigm</strong> - Centered on objects that encapsulate
+data and behavior: - Organizes software as interacting objects -
+Promotes modularity and maintainability</p>
+<p><strong>Four Pillars of OOP:</strong></p>
+<ol type="1">
+<li><strong>Abstraction</strong> - Modeling real-world entities by
+focusing on relevant features while ignoring unnecessary details</li>
+<li><strong>Encapsulation</strong> - Hiding internal state and
+implementation behind public interfaces</li>
+<li><strong>Inheritance</strong> - Creating new classes by extending
+existing ones, enabling code reuse</li>
+<li><strong>Polymorphism</strong> - Treating objects of different
+subclasses through common interface</li>
+</ol>
+<p><strong>Benefits:</strong> - Improved code modularity - Enhanced
+maintainability - Better code reuse through inheritance and polymorphism
+- Complexity management through abstraction and encapsulation</p>
+<h3 id="abstraction-inheritance-in-practice">Abstraction &amp;
+Inheritance in Practice</h3>
+<p><strong>Abstraction Example:</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> User:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, email):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.email <span class="op">=</span> email</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> send_notification(<span class="va">self</span>):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Abstract the complex email sending logic</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span></code></pre></div>
+<p><strong>Abstraction Concepts:</strong> - Identify essential
+attributes and model classes accordingly - Omit extraneous details not
+needed by the system - Focus on <em>what</em> an object does instead of
+<em>how</em> - Example: User class abstracts common properties (name,
+email) relevant to system</p>
+<p><strong>Inheritance Example:</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Employee:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, salary):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.salary <span class="op">=</span> salary</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Manager(Employee):  <span class="co"># Inherits from Employee</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, salary, department):</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name, salary)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.department <span class="op">=</span> department</span></code></pre></div>
+<p><strong>Inheritance Concepts:</strong> - Establishes “is-a”
+relationship between classes - Base class defines general attributes and
+methods - Derived class inherits and extends/overrides behavior -
+Promotes code reuse - <strong>Caution:</strong> Follow Liskov
+Substitution Principle - subclasses must truly satisfy parent
+relationship - Consider composition over inheritance when appropriate to
+avoid rigid hierarchies</p>
+<h3 id="uml-diagrams-for-design">UML Diagrams for Design</h3>
+<p><strong>Unified Modeling Language (UML)</strong> - Standard
+visualization for system design: - Blueprints for understanding software
+structure and behavior - Communication tool without diving into code</p>
+<p><strong>Structure Diagrams:</strong> - <strong>Class
+Diagrams:</strong> Show classes, attributes, methods, and relationships
+(associations, inheritance, composition) - Design static architecture -
+Composition shown with filled diamond (strong “has-a” relationship)</p>
+<p><strong>Behavior Diagrams:</strong> - <strong>Sequence
+Diagrams:</strong> Illustrate interactions over time between objects,
+method call flows - <strong>State Diagrams:</strong> Show state
+transitions of objects - <strong>Use Case Diagrams:</strong> Depict
+functional requirements showing actors and interactions</p>
+<p><strong>Benefits:</strong> - Clear communication of designs - Common
+language for developer collaboration - Design clarification before
+coding</p>
+<h3 id="software-requirements-fundamentals">Software Requirements
+Fundamentals</h3>
+<p><strong>Requirements</strong> - What software should do and how it
+should be:</p>
+<p><strong>Functional Requirements:</strong> - Define
+<strong>what</strong> system must accomplish - Features and behaviors -
+Example: “System shall send password reset email upon request”</p>
+<p><strong>Non-Functional Requirements:</strong> - Define
+<strong>how</strong> system performs - Quality attributes: reliability,
+usability, security, performance - Example: “Email sent within 5 seconds
+of request”</p>
+<p><strong>Importance:</strong> - Critical to project success -
+Foundation for design and testing - Wrong or incomplete requirements
+lead to software not meeting user needs</p>
+<p><strong>Gathering Techniques:</strong> - Stakeholder interviews -
+User stories - Use cases</p>
+<p><strong>Quality Criteria:</strong> - Unambiguous - Testable -
+Complete</p>
+<hr />
+<h2 id="week-4-advanced-oop-design-principles-and-patterns">Week 4:
+Advanced OOP, Design Principles, and Patterns</h2>
+<h3 id="the-apiec-framework">The APIEC Framework</h3>
+<p>Unified framework for object-oriented design principles:</p>
+<ul>
+<li><strong>A</strong>bstraction - Focus on essential features, hide
+complexity</li>
+<li><strong>P</strong>olymorphism - Many forms, uniform interfaces</li>
+<li><strong>I</strong>nheritance - Code reuse through hierarchies</li>
+<li><strong>E</strong>ncapsulation - Hide internal state, expose
+interfaces</li>
+<li><strong>C</strong>omposition - Build complex objects from simpler
+ones</li>
+</ul>
+<p><strong>Key Principle:</strong> Favor composition over inheritance
+for flexibility and reduced coupling. APIEC principles work together to
+create maintainable, extensible software.</p>
+<h3 id="encapsulation">Encapsulation</h3>
+<p><strong>Concept:</strong> - Keep object’s internal data private -
+Expose only what’s necessary through methods/interfaces - Protects
+integrity of object’s state - Use getter/setter methods or properties
+instead of direct field access - Promotes modularity - Easier to change
+implementation without affecting other code</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BankAccount:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, balance):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.__balance <span class="op">=</span> balance  <span class="co"># Private attribute</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> deposit(<span class="va">self</span>, amount):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> amount <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.__balance <span class="op">+=</span> amount</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> get_balance(<span class="va">self</span>):  <span class="co"># Controlled access</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.__balance</span></code></pre></div>
+<h3 id="dependency-injection">Dependency Injection</h3>
+<p><strong>Concept:</strong> - Object’s dependencies provided from
+outside rather than created internally - Pass required components via
+constructors or setters - Supports Inversion of Control principle -
+Control handed to external entity (framework, factory)</p>
+<p><strong>Benefits:</strong> - More testable code (can inject mocks in
+tests) - More flexible code (swap implementations without modifying
+class) - Reduced coupling</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> EmailService:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> send(<span class="va">self</span>, message):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserService:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, email_service):  <span class="co"># DI via constructor</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.email_service <span class="op">=</span> email_service</span></code></pre></div>
+<h3 id="polymorphism">Polymorphism</h3>
+<p><strong>Concept:</strong> - “Many forms” - treating objects of
+different classes through uniform interface - Runtime dispatch to actual
+object’s implementation - Improves extensibility - new subclasses
+introduced without changing base interface usage</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Shape:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> draw(<span class="va">self</span>):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Circle(Shape):</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> draw(<span class="va">self</span>):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Drawing circle&quot;</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Square(Shape):</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> draw(<span class="va">self</span>):</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Drawing square&quot;</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>shapes <span class="op">=</span> [Circle(), Square()]</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> shape <span class="kw">in</span> shapes:</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    shape.draw()  <span class="co"># Polymorphic behavior</span></span></code></pre></div>
+<h3 id="composition">Composition</h3>
+<p><strong>Concept:</strong> - Class composed of one or more other
+classes - Strong “has-a” relationship - Alternative to inheritance for
+code reuse - Can change composed parts without affecting hierarchy -
+Runtime assembly of behaviors</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Engine:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> start(<span class="va">self</span>):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Engine starting&quot;</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Wheels:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> rotate(<span class="va">self</span>):</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;Wheels rotating&quot;</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Car:  <span class="co"># Composition: Car HAS-A Engine and Wheels</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.engine <span class="op">=</span> Engine()</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.wheels <span class="op">=</span> Wheels()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> drive(<span class="va">self</span>):</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.engine.start()</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.wheels.rotate()</span></code></pre></div>
+<p><strong>Why Favor Composition:</strong> - More flexible than
+inheritance - Avoid rigid class hierarchies - Car is not a type of
+engine but has an engine - Combine objects with different
+responsibilities</p>
+<h3 id="use-case-diagrams">Use Case Diagrams</h3>
+<p><strong>Purpose:</strong> - UML diagram to model functional
+requirements - Shows actors (user roles) and use cases (system
+functions) - High-level overview of who uses system and what they can
+do</p>
+<p><strong>Components:</strong> - <strong>Actors:</strong> Users or
+external systems - <strong>Use Cases:</strong> Services/functions system
+provides (shown as ovals) - <strong>Relationships:</strong> Can include
+&lt;<extends>&gt; or &lt;<includes>&gt;</p>
+<p><strong>Example (Online Shopping):</strong> -
+<strong>Actors:</strong> Customer, Admin - <strong>Use Cases:</strong>
+Browse Products, Place Order, Manage Inventory</p>
+<p><strong>Benefits:</strong> - Communication tool between stakeholders
+and developers - Ensures system scope and interactions well-understood -
+Represents distinct functionality from actor’s perspective</p>
+<h3 id="software-testing">Software Testing</h3>
+<p><strong>Definition:</strong> Process of evaluating software to detect
+differences between expected and actual output (finding defects).</p>
+<p><strong>Market Reality:</strong> - Testing market valued at $87.42B
+in 2024 - Projected to reach $512.3B by 2033 (CAGR 21.71%)</p>
+<p><strong>Testing Levels:</strong></p>
+<ol type="1">
+<li><strong>Unit Testing</strong> - Testing individual
+components/functions in isolation</li>
+<li><strong>Integration Testing</strong> - Checking modules/services
+work together properly</li>
+<li><strong>System Testing</strong> - Validating entire integrated
+system against requirements</li>
+<li><strong>Acceptance Testing</strong> - Ensuring system meets user
+needs and ready for deployment</li>
+</ol>
+<p><strong>Example (pytest):</strong></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_total(price, quantity):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> price <span class="op">*</span> quantity</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_calculate_total():</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> calculate_total(<span class="dv">10</span>, <span class="dv">5</span>) <span class="op">==</span> <span class="dv">50</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> calculate_total(<span class="dv">0</span>, <span class="dv">10</span>) <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> calculate_total(<span class="fl">7.5</span>, <span class="dv">2</span>) <span class="op">==</span> <span class="fl">15.0</span></span></code></pre></div>
+<p><strong>Best Practices:</strong> - Write test cases for normal and
+edge conditions - Automated tests catch regressions quickly - Solid test
+suite enables confident refactoring - Test-Driven Development (TDD):
+Write tests before implementing code</p>
+<h3 id="solid-principles">SOLID Principles</h3>
+<p>Five foundational design principles for maintainable OOP code:</p>
+<ol type="1">
+<li><strong>Single Responsibility Principle (SRP)</strong>
+<ul>
+<li>A class should have only one reason to change</li>
+<li>Each class addresses one concern</li>
+<li>Easier to debug and update</li>
+</ul></li>
+<li><strong>Open/Closed Principle</strong>
+<ul>
+<li>Software entities open for extension but closed for
+modification</li>
+<li>Add new functionality without changing existing code</li>
+</ul></li>
+<li><strong>Liskov Substitution Principle</strong>
+<ul>
+<li>Objects of superclass replaceable with objects of subclasses</li>
+<li>System should not break when using subclasses</li>
+</ul></li>
+<li><strong>Interface Segregation Principle</strong>
+<ul>
+<li>No client forced to depend on methods it doesn’t use</li>
+<li>Split large interfaces into smaller, specific ones</li>
+</ul></li>
+<li><strong>Dependency Inversion Principle</strong>
+<ul>
+<li>High-level modules should not depend on low-level modules</li>
+<li>Both should depend on abstractions</li>
+</ul></li>
+</ol>
+<p><strong>SRP Example:</strong></p>
+<p><strong>Violation:</strong></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> User:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> save_to_database(<span class="va">self</span>):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Database logic</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> send_email(<span class="va">self</span>):</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Email logic</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span></code></pre></div>
+<p><strong>Following SRP:</strong></p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> User:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, email):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.name <span class="op">=</span> name</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.email <span class="op">=</span> email</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserRepository:  <span class="co"># Handles DB operations</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> save(<span class="va">self</span>, user):</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> EmailService:    <span class="co"># Handles email operations</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> send(<span class="va">self</span>, user):</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span></code></pre></div>
+<h3 id="design-patterns">Design Patterns</h3>
+<p><strong>Definition:</strong> - General, reusable solution to commonly
+occurring problem - Template for solving problems, adapted to different
+situations - Not direct code, but conceptual guidance</p>
+<p><strong>Categories (Gang of Four):</strong> -
+<strong>Creational:</strong> Factory, Singleton, Builder -
+<strong>Structural:</strong> Adapter, Decorator, Facade -
+<strong>Behavioral:</strong> Observer, Strategy, Iterator</p>
+<p><strong>2025 Reality:</strong> - Many patterns now built into modern
+languages - Remain essential as conceptual tools and shared vocabulary -
+23 Gang of Four patterns still relevant</p>
+<p><strong>Iterator Pattern Example:</strong></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BookCollection:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.books <span class="op">=</span> []</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> add_book(<span class="va">self</span>, book):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.books.append(book)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__iter__</span>(<span class="va">self</span>):  <span class="co"># Iterator protocol</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">iter</span>(<span class="va">self</span>.books)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Usage</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> BookCollection()</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> book <span class="kw">in</span> collection:  <span class="co"># Clean, standard iteration</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(book)</span></code></pre></div>
+<p><strong>Benefits:</strong> - Provides standard way to access
+collection elements sequentially - Doesn’t expose internal structure -
+Improves interoperability and code clarity - Recognizable patterns
+communicate solution approach</p>
+<hr />
+<h2 id="week-5-high-level-programming-with-javascript">Week 5:
+High-Level Programming with JavaScript</h2>
+<h3 id="the-journey-from-low-level-to-high-level">The Journey from
+Low-Level to High-Level</h3>
+<p><strong>The Problem with Low-Level Languages:</strong> - C requires
+500+ lines for simple web server - Manual memory management prone to
+errors - Complex string handling and buffer management - Takes weeks to
+build basic functionality</p>
+<p><strong>High-Level Languages Solution:</strong> - JavaScript: 20
+lines for same web server - Automatic memory management (garbage
+collection) - Built-in data structures and APIs - Hours instead of weeks
+for development</p>
+<p><strong>Key Insight:</strong> High-level languages manage complexity
+so developers focus on business logic, not implementation details.</p>
+<h3 id="what-is-javascript">What is JavaScript?</h3>
+<p><strong>JavaScript</strong> - High-level, interpreted programming
+language: - Created in 1995 by Brendan Eich at Netscape - Lingua franca
+of the web - Runs in browsers and on servers (Node.js)</p>
+<p><strong>Key Characteristics:</strong> - <strong>Interpreted:</strong>
+No compilation step required - <strong>Dynamic typing:</strong>
+Variables can hold any type - <strong>First-class functions:</strong>
+Functions are values - <strong>Prototype-based:</strong> Object
+inheritance through prototypes - <strong>Event-driven:</strong> Designed
+for asynchronous operations - <strong>Multi-paradigm:</strong> Supports
+procedural, OOP, and functional programming</p>
+<h3 id="javascripts-role-in-web-development">JavaScript’s Role in Web
+Development</h3>
+<p><strong>The Web Technology Stack:</strong> - <strong>HTML:</strong>
+Structure and content - <strong>CSS:</strong> Styling and layout -
+<strong>JavaScript:</strong> Behavior and interactivity</p>
+<p><strong>JavaScript’s Unique Position:</strong> - Only language
+running natively in all browsers - Both client-side (browser) and
+server-side (Node.js) - Powers interactive web applications - Enables
+Single Page Applications (SPAs)</p>
+<p><strong>Market Reality (2025):</strong> - 98% of websites use
+JavaScript - #1 most used programming language (GitHub) - Node.js powers
+millions of servers worldwide</p>
+<h3 id="javascript-basics-variables-and-types">JavaScript Basics:
+Variables and Types</h3>
+<p><strong>Dynamic Typing:</strong></p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> message <span class="op">=</span> <span class="st">&quot;Hello&quot;</span><span class="op">;</span>        <span class="co">// String</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> count <span class="op">=</span> <span class="dv">42</span><span class="op">;</span>               <span class="co">// Number</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> isActive <span class="op">=</span> <span class="kw">true</span><span class="op">;</span>          <span class="co">// Boolean</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> items <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">;</span>        <span class="co">// Array</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> user <span class="op">=</span> {<span class="dt">name</span><span class="op">:</span> <span class="st">&quot;Sarah&quot;</span>}<span class="op">;</span>   <span class="co">// Object</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> nothing <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>           <span class="co">// Null</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> notDefined<span class="op">;</span>               <span class="co">// Undefined</span></span></code></pre></div>
+<p><strong>Variable Declarations:</strong> - <code>var</code> -
+Function-scoped (old style, avoid) - <code>let</code> - Block-scoped,
+can be reassigned - <code>const</code> - Block-scoped, cannot be
+reassigned</p>
+<p><strong>Type Coercion:</strong></p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;5&quot;</span> <span class="op">+</span> <span class="dv">3</span>      <span class="co">// &quot;53&quot; (string concatenation)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;5&quot;</span> <span class="op">-</span> <span class="dv">3</span>      <span class="co">// 2 (numeric subtraction)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Boolean</span>(<span class="st">&quot;&quot;</span>)  <span class="co">// false</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">Boolean</span>(<span class="st">&quot;hello&quot;</span>) <span class="co">// true</span></span></code></pre></div>
+<h3 id="functions-in-javascript">Functions in JavaScript</h3>
+<p><strong>Function Declarations:</strong></p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name) {</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">&quot;Hello, &quot;</span> <span class="op">+</span> name<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Arrow function (ES6+)</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> greet <span class="op">=</span> (name) <span class="kw">=&gt;</span> <span class="st">&quot;Hello, &quot;</span> <span class="op">+</span> name<span class="op">;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">// First-class functions</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> operations <span class="op">=</span> {</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">add</span><span class="op">:</span> (a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">+</span> b<span class="op">,</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">multiply</span><span class="op">:</span> (a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">*</span> b</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<p><strong>Key Concepts:</strong> - Functions as first-class values -
+Can be passed as arguments - Can be returned from other functions -
+Enable functional programming patterns</p>
+<h3 id="objects-and-prototypes">Objects and Prototypes</h3>
+<p><strong>Object Literals:</strong></p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> user <span class="op">=</span> {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">name</span><span class="op">:</span> <span class="st">&quot;Sarah&quot;</span><span class="op">,</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">email</span><span class="op">:</span> <span class="st">&quot;sarah@example.com&quot;</span><span class="op">,</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">greet</span><span class="op">:</span> <span class="kw">function</span>() {</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="vs">`Hello, </span><span class="sc">${</span><span class="kw">this</span><span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<p><strong>Prototype-Based Inheritance:</strong></p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">User</span>(name<span class="op">,</span> email) {</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">name</span> <span class="op">=</span> name<span class="op">;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">email</span> <span class="op">=</span> email<span class="op">;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>User<span class="op">.</span><span class="at">prototype</span><span class="op">.</span><span class="at">greet</span> <span class="op">=</span> <span class="kw">function</span>() {</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`Hello, </span><span class="sc">${</span><span class="kw">this</span><span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> user <span class="op">=</span> <span class="kw">new</span> <span class="fu">User</span>(<span class="st">&quot;Sarah&quot;</span><span class="op">,</span> <span class="st">&quot;sarah@example.com&quot;</span>)<span class="op">;</span></span></code></pre></div>
+<h3 id="asynchronous-javascript">Asynchronous JavaScript</h3>
+<p><strong>The Problem:</strong> JavaScript is single-threaded, but
+needs to handle I/O operations without blocking.</p>
+<p><strong>Solutions:</strong> - <strong>Callbacks:</strong> Functions
+passed to be called later - <strong>Promises:</strong> Objects
+representing eventual completion - <strong>Async/Await:</strong>
+Syntactic sugar for promises</p>
+<p><strong>Promise Example:</strong></p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fetch</span>(<span class="st">&#39;/api/users&#39;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">then</span>(response <span class="kw">=&gt;</span> response<span class="op">.</span><span class="fu">json</span>())</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">then</span>(data <span class="kw">=&gt;</span> <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(data))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">catch</span>(error <span class="kw">=&gt;</span> <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(error))<span class="op">;</span></span></code></pre></div>
+<p><strong>Async/Await Example:</strong></p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">async</span> <span class="kw">function</span> <span class="fu">getUsers</span>() {</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> {</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="st">&#39;/api/users&#39;</span>)<span class="op">;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> response<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(data)<span class="op">;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">catch</span> (error) {</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(error)<span class="op">;</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="modern-javascript-es6">Modern JavaScript (ES6+)</h3>
+<p><strong>Key Features:</strong> - <strong>Arrow functions:</strong>
+Concise syntax - <strong>Template literals:</strong> String
+interpolation - <strong>Destructuring:</strong> Extract values from
+objects/arrays - <strong>Spread operator:</strong> Expand iterables -
+<strong>Classes:</strong> Syntactic sugar for prototypes -
+<strong>Modules:</strong> Import/export functionality</p>
+<p><strong>Example:</strong></p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Template literals</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> name <span class="op">=</span> <span class="st">&quot;Sarah&quot;</span><span class="op">;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Hello, </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">!`</span>)<span class="op">;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Destructuring</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> {name<span class="op">,</span> email} <span class="op">=</span> user<span class="op">;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Spread operator</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> newArray <span class="op">=</span> [<span class="op">...</span>oldArray<span class="op">,</span> newItem]<span class="op">;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Classes</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> User {</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">constructor</span>(name) {</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="at">name</span> <span class="op">=</span> name<span class="op">;</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<hr />
+<h2 id="week-6-typescript-react">Week 6: TypeScript &amp; React</h2>
+<h3 id="from-javascript-to-typescript-the-type-safety-evolution">From
+JavaScript to TypeScript: The Type Safety Evolution</h3>
+<p><strong>JavaScript’s Growing Pains:</strong> - Fast development but
+runtime errors - No compile-time type checking - Refactoring risky in
+large codebases - Hard to maintain 5000+ line projects - 90% of
+production bugs are type-related</p>
+<p><strong>TypeScript’s Solution:</strong> - Superset of JavaScript (all
+JS is valid TS) - Static type checking at compile time - Catches errors
+before code runs - Better IDE support (autocomplete, refactoring) -
+<strong>90% fewer bugs</strong> in production</p>
+<p><strong>Key Insight:</strong> TypeScript adds safety of
+statically-typed languages while keeping JavaScript’s productivity.</p>
+<h3 id="what-is-typescript">What is TypeScript?</h3>
+<p><strong>TypeScript</strong> - Strongly-typed language building on
+JavaScript: - Developed by Microsoft (2012) - Adds static type
+definitions to JavaScript</p>
+<p><strong>Key Characteristics:</strong> - <strong>Transpiles to
+JavaScript:</strong> TS code compiles to plain JS - <strong>Gradual
+typing:</strong> Adopt types incrementally - <strong>Type
+inference:</strong> Types often inferred automatically - <strong>Modern
+features:</strong> Includes latest ECMAScript features - <strong>Tooling
+support:</strong> Excellent IDE integration</p>
+<p><strong>Market Reality (2025):</strong> - Used by 78% of professional
+JavaScript developers - Powers major projects: VSCode, Slack, Airbnb -
+Default choice for new large-scale projects</p>
+<h3 id="typescript-basics-type-annotations">TypeScript Basics: Type
+Annotations</h3>
+<p><strong>Basic Types:</strong></p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> username<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="st">&quot;Sarah&quot;</span><span class="op">;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> age<span class="op">:</span> <span class="dt">number</span> <span class="op">=</span> <span class="dv">25</span><span class="op">;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> isActive<span class="op">:</span> <span class="dt">boolean</span> <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> values<span class="op">:</span> <span class="dt">number</span>[] <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>]<span class="op">;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> tuple<span class="op">:</span> [<span class="dt">string</span><span class="op">,</span> <span class="dt">number</span>] <span class="op">=</span> [<span class="st">&quot;Sarah&quot;</span><span class="op">,</span> <span class="dv">25</span>]<span class="op">;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Type inference</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> message <span class="op">=</span> <span class="st">&quot;Hello&quot;</span><span class="op">;</span>  <span class="co">// inferred as string</span></span></code></pre></div>
+<p><strong>Compare to JavaScript:</strong></p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">// JavaScript - no type safety</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> age <span class="op">=</span> <span class="dv">25</span><span class="op">;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="st">&quot;twenty-five&quot;</span><span class="op">;</span>  <span class="co">// No error, but likely a bug</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">// TypeScript - compile error</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> age<span class="op">:</span> number <span class="op">=</span> <span class="dv">25</span><span class="op">;</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="st">&quot;twenty-five&quot;</span><span class="op">;</span>  <span class="co">// ERROR: Type &#39;string&#39; not assignable to &#39;number&#39;</span></span></code></pre></div>
+<h3 id="functions-with-types">Functions with Types</h3>
+<p><strong>Function Signatures:</strong></p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">greet</span>(name<span class="op">:</span> <span class="dt">string</span>)<span class="op">:</span> <span class="dt">string</span> {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`Hello, </span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">`</span><span class="op">;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Arrow function</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> add <span class="op">=</span> (a<span class="op">:</span> <span class="dt">number</span><span class="op">,</span> b<span class="op">:</span> <span class="dt">number</span>)<span class="op">:</span> <span class="dt">number</span> <span class="kw">=&gt;</span> a <span class="op">+</span> b<span class="op">;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">// Optional parameters</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">log</span>(message<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> level<span class="op">?:</span> <span class="dt">string</span>)<span class="op">:</span> <span class="dt">void</span> {</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`[</span><span class="sc">${</span>level <span class="op">||</span> <span class="st">&quot;INFO&quot;</span><span class="sc">}</span><span class="vs">] </span><span class="sc">${</span>message<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">// Default parameters</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">createUser</span>(name<span class="op">:</span> <span class="dt">string</span><span class="op">,</span> role<span class="op">:</span> <span class="dt">string</span> <span class="op">=</span> <span class="st">&quot;user&quot;</span>) {</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {name<span class="op">,</span> role}<span class="op">;</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">// Rest parameters</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">sum</span>(<span class="op">...</span>numbers<span class="op">:</span> <span class="dt">number</span>[])<span class="op">:</span> <span class="dt">number</span> {</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> numbers<span class="op">.</span><span class="fu">reduce</span>((acc<span class="op">,</span> n) <span class="kw">=&gt;</span> acc <span class="op">+</span> n<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="interfaces-defining-object-shapes">Interfaces: Defining Object
+Shapes</h3>
+<p><strong>Interface Definition:</strong></p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> User {</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    email<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    age<span class="op">?:</span> <span class="dt">number</span><span class="op">;</span>          <span class="co">// Optional property</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">readonly</span> created<span class="op">:</span> <span class="bu">Date</span><span class="op">;</span> <span class="co">// Cannot be modified</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">createUser</span>(data<span class="op">:</span> User)<span class="op">:</span> <span class="dt">void</span> {</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="vs">`Creating user: </span><span class="sc">${</span>data<span class="op">.</span><span class="at">name</span><span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// data.created = new Date(); // ERROR: readonly property</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> newUser<span class="op">:</span> User <span class="op">=</span> {</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="st">&quot;Sarah&quot;</span><span class="op">,</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    email<span class="op">:</span> <span class="st">&quot;sarah@example.com&quot;</span><span class="op">,</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    created<span class="op">:</span> <span class="kw">new</span> <span class="bu">Date</span>()</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<h3 id="interfaces-vs-type-aliases">Interfaces vs Type Aliases</h3>
+<p><strong>Type Aliases:</strong></p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> ID <span class="op">=</span> <span class="dt">number</span> <span class="op">|</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Status <span class="op">=</span> <span class="st">&quot;pending&quot;</span> <span class="op">|</span> <span class="st">&quot;active&quot;</span> <span class="op">|</span> <span class="st">&quot;inactive&quot;</span><span class="op">;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> User <span class="op">=</span> {</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    id<span class="op">:</span> ID<span class="op">;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    status<span class="op">:</span> Status<span class="op">;</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+<p><strong>When to Use:</strong> - <strong>Interfaces:</strong> Object
+shapes, especially when extending - <strong>Type aliases:</strong>
+Unions, primitives, tuples</p>
+<p><strong>Extending Interfaces:</strong></p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> User {</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    email<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Admin <span class="kw">extends</span> User {</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    permissions<span class="op">:</span> <span class="dt">string</span>[]<span class="op">;</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="what-is-react">What is React?</h3>
+<p><strong>React</strong> - JavaScript library for building user
+interfaces: - Developed by Facebook (2013) - Component-based
+architecture - Virtual DOM for efficient updates - Declarative
+programming model</p>
+<p><strong>Market Reality (2025):</strong> - Most popular frontend
+framework - Used by Facebook, Instagram, Netflix, Airbnb - 220k+ stars
+on GitHub - Rich ecosystem of tools and libraries</p>
+<p><strong>Key Concepts:</strong> - <strong>Components:</strong>
+Reusable UI building blocks - <strong>Props:</strong> Data passed to
+components - <strong>State:</strong> Component’s internal data -
+<strong>Virtual DOM:</strong> Efficient rendering -
+<strong>JSX:</strong> JavaScript XML syntax</p>
+<h3 id="react-components">React Components</h3>
+<p><strong>Function Components:</strong></p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Props {</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">:</span> <span class="dt">string</span><span class="op">;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    age<span class="op">:</span> <span class="dt">number</span><span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">UserProfile</span>(props<span class="op">:</span> Props) {</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;</span>h1<span class="op">&gt;</span>{props<span class="op">.</span><span class="at">name</span>}<span class="op">&lt;/</span>h1<span class="op">&gt;</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;</span>p<span class="op">&gt;</span>Age<span class="op">:</span> {props<span class="op">.</span><span class="at">age</span>}<span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co">// Using destructuring</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">UserProfile</span>({name<span class="op">,</span> age}<span class="op">:</span> Props) {</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;</span>h1<span class="op">&gt;</span>{name}<span class="op">&lt;/</span>h1<span class="op">&gt;</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;</span>p<span class="op">&gt;</span>Age<span class="op">:</span> {age}<span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h3 id="react-hooks-usestate">React Hooks: useState</h3>
+<p><strong>State Management:</strong></p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {useState} <span class="im">from</span> <span class="st">&#39;react&#39;</span><span class="op">;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">Counter</span>() {</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> [count<span class="op">,</span> setCount] <span class="op">=</span> <span class="fu">useState</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;</span>p<span class="op">&gt;</span>Count<span class="op">:</span> {count}<span class="op">&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;</span>button onClick<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">setCount</span>(count <span class="op">+</span> <span class="dv">1</span>)}<span class="op">&gt;</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>                Increment</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong>Key Concepts:</strong> - <code>useState</code> hook for
+component state - Returns array: [value, setter function] - State
+changes trigger re-render - Functional updates for complex state</p>
+<h3 id="react-hooks-useeffect">React Hooks: useEffect</h3>
+<p><strong>Side Effects:</strong></p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {useEffect<span class="op">,</span> useState} <span class="im">from</span> <span class="st">&#39;react&#39;</span><span class="op">;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">UserData</span>() {</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> [users<span class="op">,</span> setUsers] <span class="op">=</span> <span class="fu">useState</span>([])<span class="op">;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">useEffect</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Runs after render</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fetch</span>(<span class="st">&#39;/api/users&#39;</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">then</span>(res <span class="kw">=&gt;</span> res<span class="op">.</span><span class="fu">json</span>())</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">then</span>(data <span class="kw">=&gt;</span> <span class="fu">setUsers</span>(data))<span class="op">;</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Cleanup function (optional)</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Cleanup code</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>        }<span class="op">;</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    }<span class="op">,</span> [])<span class="op">;</span> <span class="co">// Empty array = run once on mount</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="op">&lt;</span>div<span class="op">&gt;</span>{<span class="co">/* Render users */</span>}<span class="op">&lt;/</span>div<span class="op">&gt;;</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong>Dependency Array:</strong> - Empty <code>[]</code>: Run once
+on mount - <code>[dep]</code>: Run when dependency changes - No array:
+Run on every render</p>
+<h3 id="component-composition">Component Composition</h3>
+<p><strong>Building Complex UIs:</strong></p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">TodoItem</span>({todo<span class="op">,</span> onDelete}<span class="op">:</span> TodoItemProps) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;</span>span<span class="op">&gt;</span>{todo<span class="op">.</span><span class="at">title</span>}<span class="op">&lt;/</span>span<span class="op">&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">&lt;</span>button onClick<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">onDelete</span>(todo<span class="op">.</span><span class="at">id</span>)}<span class="op">&gt;</span>Delete<span class="op">&lt;/</span>button<span class="op">&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">TodoList</span>() {</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> [todos<span class="op">,</span> setTodos] <span class="op">=</span> <span class="fu">useState</span><span class="op">&lt;</span>Todo[]<span class="op">&gt;</span>([])<span class="op">;</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> handleDelete <span class="op">=</span> (id<span class="op">:</span> <span class="dt">number</span>) <span class="kw">=&gt;</span> {</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">setTodos</span>(todos<span class="op">.</span><span class="fu">filter</span>(t <span class="kw">=&gt;</span> t<span class="op">.</span><span class="at">id</span> <span class="op">!==</span> id))<span class="op">;</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>div<span class="op">&gt;</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>            {todos<span class="op">.</span><span class="fu">map</span>(todo <span class="kw">=&gt;</span> (</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>                <span class="op">&lt;</span>TodoItem</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>                    key<span class="op">=</span>{todo<span class="op">.</span><span class="at">id</span>}</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>                    todo<span class="op">=</span>{todo}</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>                    onDelete<span class="op">=</span>{handleDelete}</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>                <span class="op">/&gt;</span></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>            ))}</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;/</span>div<span class="op">&gt;</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><strong>Benefits:</strong> - Reusable components - Clear data flow
+(props down, events up) - Maintainable code structure - Separation of
+concerns</p>
+<hr />
+<h2 id="practical-application-hw4-todo-rest-api">Practical Application:
+HW4 TODO REST API</h2>
+<p>Throughout this course, I applied the principles learned to build a
+comprehensive TODO REST API project, demonstrating quality software
+engineering practices.</p>
+<h3 id="project-overview">Project Overview</h3>
+<p><strong>Dual Implementation:</strong> - PHP version with Nginx -
+Python version with FastAPI - Both implementations follow same API
+specification - Demonstrates language-agnostic design principles</p>
+<p><strong>Key Features:</strong> - 14 REST endpoints (Authentication,
+Lists, Tasks) - JWT authentication with secure password hashing - Token
+blacklisting for secure logout - SQL injection prevention (prepared
+statements/SQLAlchemy) - XSS protection (HTML escaping/Pydantic
+validation) - Comprehensive unit tests (39 PHP tests, Python pytest
+suite) - Bruno API collection for testing - Docker containerization</p>
+<h3 id="application-of-software-engineering-principles">Application of
+Software Engineering Principles</h3>
+<p><strong>Week 1 - Tools &amp; Version Control:</strong> - Used Git for
+version control throughout development - GitHub for code hosting and
+documentation - VSCode as primary IDE - Marp for creating tutorial
+presentations</p>
+<p><strong>Week 2 - Agile Process:</strong> - Iterative development in
+phases - Continuous testing alongside development - Regular commits
+showing incremental progress - DevOps practices with Docker
+containerization</p>
+<p><strong>Week 3 - OOP &amp; Design:</strong> - Object-oriented
+architecture in both implementations - Clear class responsibilities
+(User, TodoList, TodoItem) - UML diagrams documenting system structure -
+Requirements gathered and documented before coding</p>
+<p><strong>Week 4 - Design Principles:</strong> - <strong>SOLID
+Principles:</strong> - Single Responsibility: Separate classes for auth,
+lists, tasks - Dependency Injection: Database connections injected -
+Interface Segregation: Focused API endpoints -
+<strong>Encapsulation:</strong> Private methods and protected data -
+<strong>Composition over Inheritance:</strong> Services composed of
+focused components</p>
+<p><strong>Week 5 - High-Level Languages:</strong> - JavaScript for
+testing and Bruno collections - Demonstrated benefits of high-level
+languages - Rapid development with modern language features</p>
+<p><strong>Week 6 - TypeScript:</strong> - Type-safe API client
+interfaces defined - Documentation includes TypeScript examples -
+Demonstrates evolution from dynamic to static typing</p>
+<h3 id="security-best-practices">Security Best Practices</h3>
+<p><strong>Authentication &amp; Authorization:</strong> - JWT tokens for
+stateless authentication - Argon2 password hashing (Python) / bcrypt
+(PHP) - Token blacklisting prevents reuse after logout - Bearer token
+authentication on protected endpoints</p>
+<p><strong>Input Validation:</strong> - Pydantic models in Python
+validate input types - PHP input sanitization and validation - Email
+format validation - SQL injection prevention with prepared
+statements</p>
+<p><strong>XSS Protection:</strong> - HTML special character escaping -
+Content-Type headers properly set - Input validation on all user
+data</p>
+<h3 id="testing-quality-assurance">Testing &amp; Quality Assurance</h3>
+<p><strong>PHP Implementation:</strong> - 39 PHPUnit tests covering all
+endpoints - Separate test database configuration - Authentication flow
+testing - Error case validation</p>
+<p><strong>Python Implementation:</strong> - Pytest test suite with
+comprehensive coverage - Fixture-based test setup - Async test support -
+Integration testing</p>
+<p><strong>API Testing:</strong> - Bruno collection with all 14
+endpoints - Environment-based configuration - Authentication token
+management - Example requests and responses</p>
+<h3 id="documentation-quality">Documentation Quality</h3>
+<p><strong>Comprehensive README files:</strong> - Quick start guides -
+Setup instructions - Testing procedures - Troubleshooting tips</p>
+<p><strong>API Reference Documentation:</strong> - All endpoints
+documented - Request/response examples - Error codes and messages -
+Authentication requirements</p>
+<p><strong>Tutorial Presentations:</strong> - Marp slides explaining
+architecture - Code examples and best practices - Setup and deployment
+guides</p>
+<hr />
+<h2 id="key-takeaways-and-insights">Key Takeaways and Insights</h2>
+<h3 id="software-quality-is-multi-dimensional">Software Quality is
+Multi-Dimensional</h3>
+<p>Quality software requires attention to multiple aspects: -
+<strong>Code Quality:</strong> Following principles like SOLID, DRY,
+KISS - <strong>Process Quality:</strong> Using appropriate methodologies
+(Agile, Scrum) - <strong>Documentation Quality:</strong> Clear,
+comprehensive, up-to-date - <strong>Testing Quality:</strong>
+Comprehensive coverage, automated tests - <strong>Security
+Quality:</strong> Proactive threat mitigation</p>
+<h3 id="the-evolution-of-programming-languages">The Evolution of
+Programming Languages</h3>
+<p>High-level languages represent decades of accumulated wisdom: -
+Abstract away low-level complexity - Provide safer primitives (garbage
+collection, type safety) - Enable faster development - Trade-off:
+Performance for productivity (mostly worth it) - TypeScript shows
+evolution continues toward safer abstractions</p>
+<h3 id="design-principles-are-universal">Design Principles are
+Universal</h3>
+<p>Principles like SOLID, composition over inheritance, and dependency
+injection apply across languages and paradigms: - Same concepts in PHP,
+Python, JavaScript, TypeScript - Language syntax differs, but principles
+remain constant - Understanding principles &gt; memorizing syntax</p>
+<h3 id="testing-is-not-optional">Testing is Not Optional</h3>
+<p>Comprehensive testing provides: - Confidence to refactor -
+Documentation of expected behavior - Regression prevention - Quality
+assurance - Faster debugging</p>
+<h3 id="communication-is-critical">Communication is Critical</h3>
+<p>Software engineering is as much about communication as coding: -
+Clear documentation enables collaboration - UML diagrams communicate
+design - Code comments explain why, not what - User stories capture
+requirements - API documentation serves as contract</p>
+<h3 id="devops-culture-matters">DevOps Culture Matters</h3>
+<p>Breaking down silos between development and operations: - Faster,
+more reliable deployments - Shared responsibility for outcomes -
+Automation reduces errors - Continuous feedback improves quality -
+Infrastructure as code enables reproducibility</p>
+<h3 id="security-must-be-proactive">Security Must Be Proactive</h3>
+<p>Security cannot be an afterthought: - Built into design from the
+start - Defense in depth (multiple layers) - Input validation at all
+boundaries - Principle of least privilege - Regular security reviews</p>
+<hr />
+<h2 id="reflection-on-learning-outcomes">Reflection on Learning
+Outcomes</h2>
+<h3 id="technical-skills-developed">Technical Skills Developed</h3>
+<p><strong>Programming Languages:</strong> - Python for backend
+development - PHP for web services - JavaScript for frontend and tooling
+- TypeScript for type-safe development</p>
+<p><strong>Frameworks and Tools:</strong> - FastAPI (Python web
+framework) - React (UI library) - Docker (containerization) - Git/GitHub
+(version control) - Bruno (API testing) - pytest/PHPUnit (testing
+frameworks)</p>
+<p><strong>Software Engineering Practices:</strong> - Agile methodology
+- Test-driven development - Continuous integration - API design -
+Database design - Security best practices</p>
+<h3 id="conceptual-understanding">Conceptual Understanding</h3>
+<p><strong>Design Principles:</strong> - SOLID principles in practice -
+APIEC framework application - Design patterns recognition and use -
+Composition over inheritance - Dependency injection</p>
+<p><strong>Software Processes:</strong> - Waterfall vs Agile tradeoffs -
+Scrum framework implementation - DevOps culture and practices -
+Continuous delivery pipelines</p>
+<p><strong>Quality Assurance:</strong> - Testing at multiple levels -
+Security threat modeling - Code review practices - Documentation
+standards</p>
+<h3 id="professional-development">Professional Development</h3>
+<p><strong>Communication:</strong> - Technical writing for documentation
+- Presentation creation with Marp - Code comments and explanations - API
+documentation</p>
+<p><strong>Problem Solving:</strong> - Breaking complex problems into
+manageable pieces - Choosing appropriate tools and technologies -
+Debugging systematic approach - Research and learning new
+technologies</p>
+<p><strong>Project Management:</strong> - Iterative development -
+Version control best practices - Task prioritization - Time
+management</p>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>This six-week journey through software engineering principles has
+provided comprehensive understanding of what makes software “quality.”
+Quality is not just about working code—it encompasses design, testing,
+security, documentation, and maintainability.</p>
+<p>The practical application of these principles in the TODO REST API
+project (HW4) demonstrated that theoretical knowledge translates into
+real-world value. By following established principles and best
+practices, I created secure, tested, well-documented software that would
+be maintainable in a professional setting.</p>
+<p>Key insights from this experience:</p>
+<ol type="1">
+<li><strong>Quality is intentional</strong> - It requires conscious
+effort and planning, not luck</li>
+<li><strong>Principles are universal</strong> - They apply across
+languages and paradigms</li>
+<li><strong>Testing is investment</strong> - Upfront cost pays dividends
+in maintenance phase</li>
+<li><strong>Documentation is for humans</strong> - Code is written once,
+read many times</li>
+<li><strong>Security is foundational</strong> - Cannot be bolted on
+after the fact</li>
+<li><strong>Communication matters</strong> - Software engineering is
+team sport</li>
+<li><strong>Tools amplify skills</strong> - Right tools make good
+practices easier</li>
+<li><strong>Learning is continuous</strong> - Technology evolves,
+principles endure</li>
+</ol>
+<p>Moving forward, these principles will guide my approach to software
+development. Understanding not just <em>how</em> to code, but
+<em>why</em> certain practices matter, enables making better decisions
+and building better software.</p>
+<p>The discipline of software engineering is about managing complexity,
+mitigating risk, and delivering value. Quality software emerges from the
+application of proven principles, supported by appropriate tools and
+processes, executed by skilled developers who communicate
+effectively.</p>
+<hr />
+<h2 id="appendices">Appendices</h2>
+<h3 id="a.-project-links">A. Project Links</h3>
+<p><strong>GitHub Repository:</strong> - <a
+href="https://github.com/SNavleen/NKU-640">NKU-640 Course
+Repository</a></p>
+<p><strong>HW4 Project Documentation:</strong> - <a
+href="/homework4/README.md">Project Overview</a> - <a
+href="/homework4/php-version/README.md">PHP Implementation README</a> -
+<a href="/homework4/python-version/README.md">Python Implementation
+README</a> - <a href="/homework4/php-version/API.md">PHP API
+Reference</a> - <a href="/homework4/python-version/API.md">Python API
+Reference</a></p>
+<h3 id="b.-weekly-presentation-links">B. Weekly Presentation Links</h3>
+<ul>
+<li><a href="/homework5/week1/week1.md">Week 1: Course Introduction
+&amp; Tools Overview</a></li>
+<li><a href="/homework5/week2/week2.md">Week 2: Software Process
+Overview</a></li>
+<li><a href="/homework5/week3/week3.md">Week 3: Python, OOP, and UML
+Fundamentals</a></li>
+<li><a href="/homework5/week4/week4.md">Week 4: Advanced OOP, Design
+Principles, and Patterns</a></li>
+<li><a href="/homework5/week5/week5.md">Week 5: High-Level Programming
+with JavaScript</a></li>
+<li><a href="/homework5/week6/week6.md">Week 6: TypeScript &amp;
+React</a></li>
+</ul>
+<h3 id="c.-technologies-used">C. Technologies Used</h3>
+<p><strong>Development Tools:</strong> - Visual Studio Code - Git &amp;
+GitHub - Docker &amp; Docker Compose - Postman/Bruno for API testing</p>
+<p><strong>Backend Technologies:</strong> - PHP 8.x with Nginx - Python
+3.11+ with FastAPI - SQLite database - JWT for authentication -
+Argon2/bcrypt for password hashing</p>
+<p><strong>Frontend Technologies:</strong> - JavaScript (vanilla, for
+TODO app examples) - TypeScript (for type-safe React) - React 18+ with
+hooks - HTML5 &amp; CSS3</p>
+<p><strong>Testing Frameworks:</strong> - PHPUnit (PHP testing) - pytest
+(Python testing)</p>
+<p><strong>Documentation Tools:</strong> - Marp for presentations -
+Markdown for documentation - MkDocs for documentation site</p>
+<h3 id="d.-references-and-resources">D. References and Resources</h3>
+<p><strong>Books and Documentation:</strong> - Gang of Four: Design
+Patterns - Clean Code by Robert C. Martin - The Pragmatic Programmer -
+Python Official Documentation - TypeScript Official Documentation -
+React Official Documentation</p>
+<p><strong>Online Resources:</strong> - MDN Web Docs (JavaScript
+reference) - FastAPI Documentation - PHPUnit Documentation - Git
+Documentation</p>
+<p><strong>Course Materials:</strong> - NKU ASE GitHub Repository -
+Course lecture slides - Assignment specifications</p>
+<hr />
+<p><strong>Report Completed:</strong> December 2, 2025 <strong>Total
+Pages:</strong> Comprehensive documentation of 6 weeks of software
+engineering principles and practices</p>
+<p><strong>Signature:</strong> <em>Navleen Singh</em></p>
+</body>
+</html>

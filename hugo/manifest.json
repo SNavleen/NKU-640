@@ -1,0 +1,15 @@
+{
+  "name": "NKU 640 - Hugo Version",
+  "short_name": "NKU 640 - Hugo Version",
+  "start_url": "/NKU-640/hugo/",
+  "scope": "/NKU-640/hugo/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/NKU-640/hugo/favicon.svg",
+      "sizes": "512x512"
+    }
+  ]
+}
