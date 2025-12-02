@@ -12,3 +12,10 @@ docs/homework4/python-version/deployment-tutorial.md
 docs/homework4/python-version/deployment-tutorial.pdf
 docs/homework4/php-version/screenshots/
 docs/homework4/python-version/screenshots/
+
+# Hugo build artifacts
+hugo/public/
+hugo/resources/
+hugo/.hugo_build.lock
+
+DEPLOYMENT.md
