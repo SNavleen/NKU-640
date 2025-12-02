@@ -59,17 +59,27 @@ Software quality practices and presentations covering Weeks 1-6.
 **Documentation:**
 
 - [Overview](homework5/README.md) - Quality software homework overview
-- [HW5 Report](homework5/HW5_Report.md) - Comprehensive report covering all weekly topics and practical application
+
+**Reports:**
+
+- [HW5 Report (Markdown)](homework5/HW5_Report.md) - Comprehensive report covering all weekly topics and practical application
+- [HW5 Report (HTML)](homework5/HW5_Report.html) - HTML version
+- [HW5 Report (PDF)](homework5/HW5_Report.pdf) - PDF version for submission
 
 **Presentations:**
 
-- [Final Presentation](homework5/presentation.md) - Final Presentation for CSC 640
-- [Week 1](homework5/week1/week1.md) - Course Introduction & Tools Overview
-- [Week 2](homework5/week2/week2.md) - Software Process Overview
-- [Week 3](homework5/week3/week3.md) - Python, OOP, and UML Fundamentals
-- [Week 4](homework5/week4/week4.md) - Advanced OOP, Design Principles, and Patterns
-- [Week 5](homework5/week5/week5.md) - High-Level Programming with JavaScript
-- [Week 6](homework5/week6/week6.md) - TypeScript & React
+- [Final Presentation (Markdown)](homework5/presentation.md) - Final Presentation for CSC 640
+- [Final Presentation (HTML)](homework5/presentation.html) - HTML slides
+- [Final Presentation (PDF)](homework5/presentation.pdf) - PDF slides for submission
+
+**Weekly Content:**
+
+- [Week 1](homework5/week1/week1.md) ([PDF](homework5/week1/week1.pdf)) - Course Introduction & Tools Overview
+- [Week 2](homework5/week2/week2.md) ([PDF](homework5/week2/week2.pdf)) - Software Process Overview
+- [Week 3](homework5/week3/week3.md) ([PDF](homework5/week3/week3.pdf)) - Python, OOP, and UML Fundamentals
+- [Week 4](homework5/week4/week4.md) ([PDF](homework5/week4/week4.pdf)) - Advanced OOP, Design Principles, and Patterns
+- [Week 5](homework5/week5/week5.md) ([PDF](homework5/week5/week5.pdf)) - High-Level Programming with JavaScript
+- [Week 6](homework5/week6/week6.md) ([PDF](homework5/week6/week6.pdf)) - TypeScript & React
 
 ---
 

@@ -20,14 +20,27 @@ nav:
           # - Implementation Summary: homework4/python-version/IMPLEMENTATION_SUMMARY.md
   - Quality Software:
       - Overview: homework5/README.md
-      - HW5 Report: homework5/HW5_Report.md
-      - Final Presentation: homework5/presentation.md
-      - Week 1: homework5/week1/week1.md
-      - Week 2: homework5/week2/week2.md
-      - Week 3: homework5/week3/week3.md
-      - Week 4: homework5/week4/week4.md
-      - Week 5: homework5/week5/week5.md
-      - Week 6: homework5/week6/week6.md
+      - Reports:
+          - HW5 Report (Markdown): homework5/HW5_Report.md
+          - HW5 Report (HTML): homework5/HW5_Report.html
+          - HW5 Report (PDF): homework5/HW5_Report.pdf
+      - Presentations:
+          - Final Presentation (Markdown): homework5/presentation.md
+          - Final Presentation (HTML): homework5/presentation.html
+          - Final Presentation (PDF): homework5/presentation.pdf
+      - Weekly Content:
+          - Week 1 (Markdown): homework5/week1/week1.md
+          - Week 1 (PDF): homework5/week1/week1.pdf
+          - Week 2 (Markdown): homework5/week2/week2.md
+          - Week 2 (PDF): homework5/week2/week2.pdf
+          - Week 3 (Markdown): homework5/week3/week3.md
+          - Week 3 (PDF): homework5/week3/week3.pdf
+          - Week 4 (Markdown): homework5/week4/week4.md
+          - Week 4 (PDF): homework5/week4/week4.pdf
+          - Week 5 (Markdown): homework5/week5/week5.md
+          - Week 5 (PDF): homework5/week5/week5.pdf
+          - Week 6 (Markdown): homework5/week6/week6.md
+          - Week 6 (PDF): homework5/week6/week6.pdf
 theme:
   name: material
 extra_css:
