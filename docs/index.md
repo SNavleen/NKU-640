@@ -2,6 +2,8 @@
 
 Welcome to the NKU 640 course site!
 
+> **📘 Alternative View:** [View Hugo Version](https://snavleen.github.io/NKU-640/hugo/) - Faster, cleaner documentation theme
+
 ## Homework Assignments
 
 ### Homework 3: High-Level Programming Languages

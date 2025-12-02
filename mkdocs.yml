@@ -1,6 +1,7 @@
 site_name: NKU 640
 nav:
   - Home: index.md
+  - Hugo Version: https://snavleen.github.io/NKU-640/hugo/
   - High-Level Languages:
       - Overview: homework3/README.md
       - Presentation: homework3/presentation.md
@@ -43,7 +44,22 @@ nav:
           - Week 6 (PDF): homework5/week6/week6.pdf
 theme:
   name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+  icon:
+    logo: material/library
 extra_css:
   - style.css
 extra:
   favicon: favicon.svg
+  social:
+    - icon: fontawesome/solid/rocket
+      link: https://snavleen.github.io/NKU-640/hugo/
+      name: Hugo Version (Faster Alternative)
+    - icon: fontawesome/brands/github
+      link: https://github.com/SNavleen/NKU-640
+      name: View on GitHub
